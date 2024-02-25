@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/DEsimas/FaceAI/issues"
   },
-  "homepage": "https://github.com/DEsimas/FaceAI#readme"
+  "homepage": "https://github.com/DEsimas/FaceAI#readme",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  }
 }
