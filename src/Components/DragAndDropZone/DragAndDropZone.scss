@@ -1,0 +1,15 @@
+.DragAndDropZone {
+    border-radius: 30px;
+    border: 2px dotted black;
+    padding: 20px;
+
+    &-Idle {
+        width: 100%;
+        height: 100%;
+    }
+
+    &-Active {
+        width: 100%;
+        height: 100%;
+    }
+}
