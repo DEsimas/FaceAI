@@ -1,5 +1,13 @@
-.LoadFiles-DragAndDropZone {
-    width: 500px;
-    height: 500px;
-    margin: auto;
+.LoadFiles {
+    &-DragAndDropZone {
+        width: 80vw;
+        height: 500px;
+        margin: auto;
+    }
+
+    &-Button {
+        margin: auto;
+        display: block;
+        margin-top: 40px;
+    }
 }
