@@ -17,6 +17,7 @@ export function FilesTable(props: FilesTableProps) {
                         className={cnFilesTableItem}
                         src={url}
                         alt={file.name}
+                        key={file.name}
                     />
                 )
             })}

@@ -8,10 +8,9 @@ import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 import './DragAndDropZone.scss';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
-    const { className } = props;
+    const { className, files } = props;
 
     const [drag, setDrag] = useState(false);
-    const [files, setFiles] = useState<File[]>([]);
 
     const dragStartHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
