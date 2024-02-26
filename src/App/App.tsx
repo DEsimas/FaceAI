@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { CoordinatesResponse, LoadFiles } from '../Pages/LoadFiles';
-import type { AppState } from './App.typings';
+import type { AppState, Coordinates } from './App.typings';
 
 import './App.scss';
 import { SelectFaces } from '../Pages/SelectFaces';
@@ -8,7 +8,7 @@ import { SelectFaces } from '../Pages/SelectFaces';
 export function App() {
     const [state, setState] = useState<AppState>('Load');
     const [files, setFiles] = useState<File[]>([]);
-    const [coordinates, setCoordinates] = useState<Array<[number, number]>>([]);
+    const [coordinates, setCoordinates] = useState<Coordinates>([]);
 
     const toLoad = useCallback(() => {
         setState('Load');

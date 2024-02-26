@@ -1,5 +1,7 @@
+import { Coordinates } from "../../App";
+
 export type SelectFacesProps = {
     files: File[];
-    coordinates: Array<[number, number]>;
+    coordinates: Coordinates;
     previousStage: () => void;
 }

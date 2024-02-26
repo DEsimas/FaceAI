@@ -1,3 +1,5 @@
+import { Coordinates } from "../../App";
+
 export type LoadFilesProps = {
     files: File[];
     nextStage: (coordinates: CoordinatesResponse) => void;
@@ -5,5 +7,5 @@ export type LoadFilesProps = {
 
 export type CoordinatesResponse = {
     files: File[];
-    coordinates: Array<[number, number]>;
+    coordinates: Coordinates;
 }

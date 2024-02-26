@@ -18,6 +18,7 @@ export function SelectFaces(props: SelectFacesProps) {
             />
             <FilesList
                 files={files}
+                coordinates={coordinates}
             />
             <Button
                 text='Сравнить'
