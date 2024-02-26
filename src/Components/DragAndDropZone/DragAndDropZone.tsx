@@ -8,7 +8,7 @@ import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 import './DragAndDropZone.scss';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
-    const { className, files } = props;
+    const { className, files, removeFile, addFiles } = props;
 
     const [drag, setDrag] = useState(false);
 
@@ -24,7 +24,7 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
 
     const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        files.push(...e.dataTransfer.files);
+        addFiles(e.dataTransfer.files);
         setDrag(false);
     }, [setDrag]);
 
@@ -38,6 +38,7 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
                     onDragStart={dragStartHandler}
                     onDrop={dragDropHandler}
                     files={files}
+                    removeFile={removeFile}
                 /> :
                 <DragAndDropZoneIdle
                     className={cnDragAndDropZoneIdle}
@@ -45,6 +46,7 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
                     onDragOver={dragStartHandler}
                     onDragStart={dragStartHandler}
                     files={files}
+                    removeFile={removeFile}
                 />
             }
 

@@ -16,7 +16,21 @@ export function LoadFiles(props: LoadFilesProps) {
     const onClickHandler = useCallback(() => {
         fetchCoordinates(files)
             .then(response => nextStage(response));
-    }, [files])
+    }, [files]);
+
+    const addFiles = useCallback((filesList: FileList) => {
+        setFiles((prev: File[]) => {
+            for (const file of filesList) {
+                if (!prev.find(elem => elem.name === file.name))
+                    prev.push(file);
+            }
+            return prev;
+        });
+    }, [setFiles]);
+
+    const removeFile = useCallback((path: string) => {
+        setFiles((prev) => prev.filter(file => file.name !== path));
+    }, [setFiles]);
 
     return (
         <div>
@@ -26,6 +40,8 @@ export function LoadFiles(props: LoadFilesProps) {
             <DragAndDropZone
                 className={cnLoadFilesDADZone}
                 files={files}
+                removeFile={removeFile}
+                addFiles={addFiles}
             />
             <Button
                 className={cnLoadFilesButton}

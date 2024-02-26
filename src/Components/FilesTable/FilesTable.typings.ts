@@ -1,3 +1,6 @@
+import { FilesTableItemProps } from "../FilesTableItem";
+
 export type FilesTableProps = {
-    files: File[]
+    files: File[];
+    removeFile: (path: string) => void;
 }

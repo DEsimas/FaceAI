@@ -6,4 +6,5 @@ export type DragAndDropZoneIdleProps = {
     onDragLeave?: (e: DragEvent<HTMLDivElement>) => void;
     onDragOver?: (e: DragEvent<HTMLDivElement>) => void;
     className?: string;
+    removeFile: (path: string) => void
 }

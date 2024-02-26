@@ -5,7 +5,7 @@ import type { DragAndDropZoneIdleProps } from './DragAndDropZoneIdle.typings';
 import { classnames } from '@bem-react/classnames';
 
 export function DragAndDropZoneIdle(props: DragAndDropZoneIdleProps) {
-    const { files, onDragLeave, onDragOver, onDragStart, className } = props;
+    const { files, onDragLeave, onDragOver, onDragStart, className, removeFile } = props;
 
     return (
         <div
@@ -15,7 +15,10 @@ export function DragAndDropZoneIdle(props: DragAndDropZoneIdleProps) {
             onDragStart={onDragStart}
         >
             {files.length ?
-                <FilesTable files={files} /> :
+                <FilesTable
+                    removeFile={removeFile}
+                    files={files}
+                /> :
                 <span>Перетащите изображения...</span>
             }
         </div>

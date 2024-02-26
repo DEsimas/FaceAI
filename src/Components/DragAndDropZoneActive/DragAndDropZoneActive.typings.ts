@@ -7,4 +7,5 @@ export type DragAndDropZoneActiveProps = {
     onDragOver: (e: DragEvent<HTMLDivElement>) => void;
     onDrop: (e: DragEvent<HTMLDivElement>) => void;
     className?: string;
+    removeFile: (path: string) => void;
 }
