@@ -1,0 +1,14 @@
+.SelectFaces {
+    &-Back {
+        position: absolute;
+        left: 15px;
+    }
+
+    &-Select {
+        position: fixed;
+        bottom: 10px;
+        right: 0;
+        left: 0;
+        margin: auto;
+    }
+}

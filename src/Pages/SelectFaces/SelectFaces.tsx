@@ -1,15 +1,19 @@
 import React from 'react';
-import type { SelectFacesProps } from './SelectFaces.typings';
 import { Button } from '../../Components/Button';
 import { Header } from '../../Components/Header';
 import { FilesList } from '../../Components/FilesList';
+import { cnSelectFaces, cnSelectFacesBack, cnSelectFacesSelect } from './SelectFaces.classnames';
+import type { SelectFacesProps } from './SelectFaces.typings';
+
+import './SelectFaces.scss';
 
 export function SelectFaces(props: SelectFacesProps) {
     const { files, coordinates, previousStage } = props;
 
     return (
-        <div>
+        <div className={cnSelectFaces}>
             <Button
+                className={cnSelectFacesBack}
                 text='Назад'
                 onClick={previousStage}
             />
@@ -21,6 +25,7 @@ export function SelectFaces(props: SelectFacesProps) {
                 coordinates={coordinates}
             />
             <Button
+                className={cnSelectFacesSelect}
                 text='Сравнить'
             />
         </div>
