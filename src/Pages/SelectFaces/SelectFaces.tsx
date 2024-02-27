@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '../../Components/Button';
 import { Header } from '../../Components/Header';
 import { FilesList } from '../../Components/FilesList';
-import { cnSelectFaces, cnSelectFacesBack, cnSelectFacesSelect } from './SelectFaces.classnames';
+import { cnSelectFaces, cnSelectFacesBack, cnSelectFacesList, cnSelectFacesSelect } from './SelectFaces.classnames';
 import type { SelectFacesProps } from './SelectFaces.typings';
 
 import './SelectFaces.scss';
@@ -21,6 +21,7 @@ export function SelectFaces(props: SelectFacesProps) {
                 text='Выберите лица для сравнения'
             />
             <FilesList
+                className={cnSelectFacesList}
                 files={files}
                 coordinates={coordinates}
             />

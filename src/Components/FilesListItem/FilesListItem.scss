@@ -1,5 +1,4 @@
 .FilesListItem {
-    margin: 40px;
     position: relative;
 
     &-Image {
@@ -10,5 +9,9 @@
     &-Canvas {
         position: absolute;
         inset: 0;
+    }
+
+    &+.FilesListItem {
+        margin-top: 40px;
     }
 }

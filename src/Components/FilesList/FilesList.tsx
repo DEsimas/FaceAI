@@ -3,10 +3,10 @@ import type { FilesListProps } from './FilesList.typings';
 import { FilesListItem } from '../FilesListItem';
 
 export function FilesList(props: FilesListProps) {
-    const { files, coordinates } = props;
+    const { files, coordinates, className } = props;
 
     return (
-        <div>
+        <div className={className}>
             {
                 files.map(
                     (file, index) => <FilesListItem
