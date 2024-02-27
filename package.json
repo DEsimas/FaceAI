@@ -4,7 +4,8 @@
   "description": "Frontend for an application comparing fases using an AI",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx webpack",
+    "serve": "npm run build && npx webpack serve --open"
   },
   "repository": {
     "type": "git",
