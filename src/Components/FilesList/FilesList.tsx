@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { FilesListProps } from './FilesList.typings';
 import { FilesListItem } from '../FilesListItem';
 
 export function FilesList(props: FilesListProps) {
-    const { files, coordinates, className } = props;
+    const { files, coordinates, className, selections } = props;
 
     return (
         <div className={className}>
@@ -12,6 +12,7 @@ export function FilesList(props: FilesListProps) {
                     (file, index) => <FilesListItem
                         file={file}
                         imageCoordinates={coordinates[index]}
+                        selection={selections[index]}
                     />
                 )
             }

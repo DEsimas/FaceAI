@@ -6,7 +6,7 @@ import type { Image } from '../../App';
 import './FilesListItem.scss';
 
 export function FilesListItem(props: FilesListItemProps) {
-    const { file, imageCoordinates } = props;
+    const { file, imageCoordinates, selection } = props;
     const selectedInit = imageCoordinates.map(() => false);
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -90,8 +90,10 @@ export function FilesListItem(props: FilesListItemProps) {
             const p2 = rect[1];
             if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
                 setSelected(prev => {
-                    const n = [...prev];
-                    n[i] = !n[i];
+                    const n = prev.map(() => false);
+                    n[i] = !prev[i];
+                    for (let i = 0; i < n.length; i++)
+                        selection[i] = n[i];
                     return n;
                 });
                 break;

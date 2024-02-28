@@ -22,8 +22,14 @@
 }
 
 @media (hover: hover) {
-    .Button:hover {
-        background-color: lightgray;
-        transition: background-color .5s;
+    .Button {
+        &:hover {
+            background-color: lightgray;
+            transition: background-color .5s;
+        }
+
+        &_isLoading:hover {
+            background-color: white;
+        }
     }
 }
