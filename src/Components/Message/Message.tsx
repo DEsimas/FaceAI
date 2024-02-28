@@ -4,18 +4,18 @@ import { cnMessage, cnMessageCloseBtn } from './Message.classnames';
 import type { MessageProps } from './Message.typings';
 
 import './Message.scss';
+import { Button } from '../Button';
 
 export function Message(props: MessageProps) {
     const { text, className, onClose } = props;
 
     return (
         <div className={classnames(cnMessage, className)}>
-            <button
+            <Button
                 onClick={onClose}
                 className={cnMessageCloseBtn}
-            >
-                ❌
-            </button>
+                type='close'
+            />
             <span>
                 {text}
             </span>

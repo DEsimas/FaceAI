@@ -4,6 +4,7 @@ import { classnames } from '@bem-react/classnames';
 import type { FilesTableItemProps } from './FilesTableItem.typings';
 
 import './FilesTableItem.scss';
+import { Button } from '../Button';
 
 export function FilesTableItem(props: FilesTableItemProps) {
     const { file, className, removeFile } = props;
@@ -12,12 +13,11 @@ export function FilesTableItem(props: FilesTableItemProps) {
 
     return (
         <div className={classnames(cnFilesTableItem, className)}>
-            <button
+            <Button
                 className={cnFilesTableItemCross}
                 onClick={() => removeFile(file.name)}
-            >
-                ❌
-            </button>
+                type='close'
+            />
             <img
                 className={cnFilesTableItemImage}
                 src={url}

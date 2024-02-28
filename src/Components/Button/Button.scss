@@ -1,11 +1,24 @@
 .Button {
-    font-size: 24px;
-    border: solid black 2px;
-    border-radius: 10px;
-    padding: 5px 10px;
-    background-color: white;
     cursor: pointer;
     transition: background-color .5s;
+
+    &_type_default {
+        font-size: 24px;
+        border: solid black 2px;
+        border-radius: 10px;
+        padding: 5px 10px;
+        background-color: white;
+    }
+
+    &_type_close {
+        background-color: lightgray;
+        border-radius: 50%;
+        padding: 2px;
+    }
+
+    &_isLoading {
+        cursor: default;
+    }
 }
 
 @media (hover: hover) {

@@ -18,11 +18,16 @@ export function LoadFiles(props: LoadFilesProps) {
 
     const [files, setFiles] = useState<File[]>(initFiles);
     const [errors, setErrors] = useState<PageError[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const onClickHandler = useCallback(() => {
+        if (files.length === 0)
+            return addError('Изображения не выбраны');
+        setIsLoading(true);
         fetchCoordinates(files)
             .then(response => nextStage(response))
-            .catch(() => addError('У нас произодша ошибка, попробуйте позже'));
+            .catch(() => addError('У нас произодша ошибка, попробуйте позже'))
+            .finally(() => setIsLoading(false));
     }, [files]);
 
     const addFiles = useCallback((filesList: FileList) => {
@@ -84,6 +89,7 @@ export function LoadFiles(props: LoadFilesProps) {
                 className={cnLoadFilesButton}
                 text='Загрузить'
                 onClick={onClickHandler}
+                isLoading={isLoading}
             />
             <MessageWrapper>
                 {errors.map(error => <Message
