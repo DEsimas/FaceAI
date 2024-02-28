@@ -34,7 +34,7 @@ export function App() {
     const toResults = useCallback((result: ServerResponse) => {
         setState('Results');
         setTable(result.table);
-        setFinalImageIds(result.image_ids);
+        setFinalImageIds([...result.image_ids]);
     }, []);
 
     const backToSelect = useCallback(() => {

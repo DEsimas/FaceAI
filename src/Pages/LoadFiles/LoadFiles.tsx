@@ -40,6 +40,10 @@ export function LoadFiles(props: LoadFilesProps) {
                     addError(`${file.name}: Максимальный размер одного файла 64 мегабайта`);
                     continue;
                 }
+                if (n.find(elem => (elem.name === file.name))) {
+                    addError(`${file.name} уже выбран`);
+                    continue;
+                }
                 n.push(file);
             }
             return n;

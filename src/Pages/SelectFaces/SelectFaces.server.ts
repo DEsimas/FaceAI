@@ -6,8 +6,9 @@ export async function selectFaces(image_ids: string[], selections: boolean[][]) 
             data[image_ids[i]] = index;
     }
 
-    // const result = await fetch(`http://26.113.24.68:8000/select_faces`, {
+    // const result = await fetch(`http://26.113.24.68:8000/select_face`, {
     //     method: 'POST',
+    //     mode: 'no-cors',
     //     headers: {
     //         Accept: 'application/json',
     //         'Content-Type': 'application/json'
@@ -16,23 +17,32 @@ export async function selectFaces(image_ids: string[], selections: boolean[][]) 
     // });
 
     // if (!result.ok)
-    // throw new Error('Request error');
+    //     throw new Error('Request error');
 
     // const response = JSON.parse(await result.text());
     return {
         "image_ids": [
             "c47cf3c460df37eef4a2707353fb1e43",
-            "ca14bf635553611d63b694654f69ac73"
+            "ca14bf635553611d63b694654f69ac73",
+            "81504c1ab79fd8748d3a673afbba02fd"
         ],
         "table": [
             [
                 100.00000397215393,
-                50.706861622635046
+                49.78885085019141,
+                53.87080770172346
             ],
             [
-                50.706861622635046,
-                99.99999534243894
+                49.78885085019141,
+                99.99999760560712,
+                45.24026029064275
+            ],
+            [
+                53.87080770172346,
+                45.24026029064275,
+                99.99999678884679
             ]
         ]
     };
+
 }

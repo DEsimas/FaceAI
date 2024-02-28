@@ -1,0 +1,47 @@
+.Table {
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    background-color: white;
+    transition: background-color 0.5s ease;
+    table-layout: fixed;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+
+    th {
+        border-radius: 10px;
+        padding: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    tr:first-child {
+        font-size: 20px;
+
+        th {
+            background-color: white;
+        }
+
+        th:first-child:hover {
+            background-color: white;
+        }
+    }
+
+    th:first-child {
+        font-size: 20px;
+
+        &:hover {
+            background-color: white;
+        }
+    }
+
+    th:hover {
+        background-color: lightgray;
+        transition: background-color 0.5s ease;
+    }
+
+    &-Diagonal {
+        background-color: lightgray;
+    }
+}
