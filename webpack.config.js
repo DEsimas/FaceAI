@@ -31,7 +31,12 @@ module.exports = {
         maxEntrypointSize: 512000,
         maxAssetSize: 512000
     },
-    plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })],
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './src/index.html',
+            favicon: './src/Assets/favicon.ico'
+        })
+    ],
     module: {
         rules: [
             {
