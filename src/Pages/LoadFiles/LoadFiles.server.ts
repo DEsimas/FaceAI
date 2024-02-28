@@ -1,4 +1,5 @@
-import type { CoordinatesResponse } from "./LoadFiles.typings";
+import { Coordinates, Image } from "../../App";
+import type { CoordinatesResponse, ServerResponse } from "./LoadFiles.typings";
 
 const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -17,24 +18,35 @@ const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
 });
 
 export async function fetchCoordinates(files: File[]): Promise<CoordinatesResponse> {
-    const data = await files.map(async (file) => await toBase64(file));
-    // fetch(`http://26.113.24.68:8000/upload_images`, {
-    //     method: 'POST',
-    //     mode: 'no-cors',
-    //     headers: {
-    //         Accept: 'application/json',
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({ "data": data })
-    // }).then(console.log).catch(console.log);
+    const data: string[] = await Promise.all(files.map(file => toBase64(file)));
+    const result = await fetch(`http://26.113.24.68:8000/upload_images`, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "data": data })
+    });
+
+    if (!result.ok)
+        throw new Error('Request error');
+
+    const response: ServerResponse = JSON.parse(await result.text());
+    const image_ids = response.image_ids;
+    const bboxes = response.bboxes;
+    const coordinates: Coordinates = [];
+
+    for (const image of bboxes) {
+        const img: Image = [];
+        for (const box of image) {
+            img.push([[box[0], box[1]], [box[2], box[3]]]);
+        }
+        coordinates.push(img);
+    }
 
     return {
         files,
-        coordinates: [
-            [[[649, 153], [1180, 957]]],
-            [[[333, 201], [376, 255]], [[500, 331], [553, 369]], [[635, 180], [680, 240]]],
-            [],
-            [[[510, 172], [1126, 1104]]]
-        ]
+        coordinates: coordinates,
+        image_ids
     }
 }

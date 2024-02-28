@@ -8,4 +8,10 @@ export type LoadFilesProps = {
 export type CoordinatesResponse = {
     files: File[];
     coordinates: Coordinates;
+    image_ids: string[];
+}
+
+export type ServerResponse = {
+    image_ids: string[];
+    bboxes: [number, number, number, number][][];
 }
