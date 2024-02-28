@@ -10,6 +10,7 @@ export function FilesList(props: FilesListProps) {
             {
                 files.map(
                     (file, index) => <FilesListItem
+                        key={index}
                         file={file}
                         imageCoordinates={coordinates[index]}
                         selection={selections[index]}
