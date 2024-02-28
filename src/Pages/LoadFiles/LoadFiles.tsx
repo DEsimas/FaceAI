@@ -2,38 +2,74 @@ import React, { useCallback, useState, MouseEvent } from 'react';
 import { DragAndDropZone } from '../../Components/DragAndDropZone';
 import { Header } from '../../Components/Header';
 import { Button } from '../../Components/Button';
+import { Message } from '../../Components/Message';
+import { MessageWrapper } from '../../Components/MessageWrapper';
 import { fetchCoordinates } from './LoadFiles.server';
-import { cnLoadFilesButton, cnLoadFilesDADZone } from './LoadFiles.classnames';
-import type { LoadFilesProps } from './LoadFiles.typings';
+import { cnLoadFiles, cnLoadFilesButton, cnLoadFilesDADZone } from './LoadFiles.classnames';
+import type { LoadFilesProps, PageError } from './LoadFiles.typings';
 
 import './LoadFiles.scss';
+
+const MAXIMUM_AMOUNT_OF_FILES = 10;
+const MAXIMUM_FILE_SIZE_BYTES = 268435456;
 
 export function LoadFiles(props: LoadFilesProps) {
     const { nextStage, files: initFiles } = props;
 
     const [files, setFiles] = useState<File[]>(initFiles);
+    const [errors, setErrors] = useState<PageError[]>([]);
 
     const onClickHandler = useCallback(() => {
         fetchCoordinates(files)
-            .then(response => nextStage(response));
+            .then(response => nextStage(response))
+            .catch(() => addError('У нас произодша ошибка, попробуйте позже'));
     }, [files]);
 
     const addFiles = useCallback((filesList: FileList) => {
+        if (files.length + filesList.length > MAXIMUM_AMOUNT_OF_FILES)
+            return addError(`Максимальное количество изображений для загрузки ${MAXIMUM_AMOUNT_OF_FILES}`);
         setFiles((prev: File[]) => {
+            const n = [...prev]
             for (const file of filesList) {
-                if (!prev.find(elem => elem.name === file.name))
-                    prev.push(file);
+                if (file.size > MAXIMUM_FILE_SIZE_BYTES) {
+                    addError(`${file.name}: Максимальный размер одного файла 64 мегабайта`);
+                    continue;
+                }
+                n.push(file);
             }
-            return prev;
+            return n;
+        });
+    }, [setFiles, files]);
+
+    const removeFile = useCallback((path: string) => {
+        setFiles((prev) => {
+            const n = [...prev];
+            return n.filter(file => file.name !== path)
         });
     }, [setFiles]);
 
-    const removeFile = useCallback((path: string) => {
-        setFiles((prev) => prev.filter(file => file.name !== path));
-    }, [setFiles]);
+    const removeError = useCallback((id: string) => {
+        setErrors((prev) => {
+            const n = [...prev]
+            return n.filter((err) => err.id !== id);
+        });
+    }, [setErrors]);
+
+    const addError = useCallback((message: string) => {
+        setErrors(prev => {
+            const n = [...prev];
+            n.push({
+                id: Date.now().toString(),
+                text: message
+            });
+            return n;
+        });
+    }, [setErrors]);
 
     return (
-        <div>
+        <div
+            className={cnLoadFiles}
+        >
             <Header
                 text='Загрузите фотографии лиц для сравнения'
             />
@@ -42,12 +78,20 @@ export function LoadFiles(props: LoadFilesProps) {
                 files={files}
                 removeFile={removeFile}
                 addFiles={addFiles}
+                addError={addError}
             />
             <Button
                 className={cnLoadFilesButton}
                 text='Загрузить'
                 onClick={onClickHandler}
             />
+            <MessageWrapper>
+                {errors.map(error => <Message
+                    text={error.text}
+                    onClose={() => removeError(error.id)}
+                    key={error.id}
+                />)}
+            </MessageWrapper>
         </div>
     );
 }

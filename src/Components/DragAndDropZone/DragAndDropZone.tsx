@@ -8,7 +8,7 @@ import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 import './DragAndDropZone.scss';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
-    const { className, files, removeFile, addFiles } = props;
+    const { className, files, removeFile, addFiles, addError } = props;
 
     const [drag, setDrag] = useState(false);
 
@@ -26,7 +26,7 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
         e.preventDefault();
         addFiles(e.dataTransfer.files);
         setDrag(false);
-    }, [setDrag]);
+    }, [setDrag, addError]);
 
     return (
         <div className={classnames(cnDragAndDropZone, className)}>

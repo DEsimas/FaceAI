@@ -15,3 +15,8 @@ export type ServerResponse = {
     image_ids: string[];
     bboxes: [number, number, number, number][][];
 }
+
+export type PageError = {
+    id: string;
+    text: string;
+}

@@ -1,0 +1,10 @@
+.MessageWrapper {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 10px
+}

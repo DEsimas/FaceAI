@@ -1,0 +1,32 @@
+.Message {
+    width: 300px;
+    height: 50px;
+    padding: 30px;
+    background-color: rgba(255, 200, 200);
+    border: solid thick rgba(255, 100, 100);
+    border-radius: 20px;
+    font-size: 20px;
+    position: relative;
+    animation-name: Apperance;
+    animation-duration: 1s;
+
+    &-CloseBtn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: lightgray;
+        border-radius: 50%;
+        padding: 2px;
+        margin: 5px;
+    }
+}
+
+@keyframes Apperance {
+    from {
+        transform: translateX(400px);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}

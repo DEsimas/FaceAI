@@ -10,12 +10,12 @@ export function FilesTable(props: FilesTableProps) {
 
     return (
         <div className={cnFilesTable}>
-            {files.map((file: File) =>
+            {files.map((file: File, index) =>
                 <FilesTableItem
                     className={cnFilesTableItem}
                     file={file}
                     removeFile={removeFile}
-                    key={file.name}
+                    key={index}
                 />)}
         </div>
     )
