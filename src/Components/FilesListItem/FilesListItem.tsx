@@ -17,6 +17,11 @@ export function FilesListItem(props: FilesListItemProps) {
     const [selected, setSelected] = useState([...emptyArray]);
     const [hovered, setHovered] = useState([...emptyArray]);
     const [actualCoordinates, setActualCoordinates] = useState<Image>(imageCoordinates);
+    const [fileURL, setFileURL] = useState('');
+
+    useEffect(() => {
+        setFileURL(URL.createObjectURL(file));
+    }, [file, setFileURL]);
 
     useEffect(() => {
         const resizeObserver = new ResizeObserver(() => {
@@ -30,15 +35,13 @@ export function FilesListItem(props: FilesListItemProps) {
             setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
         }, 500);
 
-        const fileURL = URL.createObjectURL(file);
         const img = new Image;
         img.onload = function () {
             setFileSize({ width: img.width, height: img.height });
-            URL.revokeObjectURL(img.src);
         };
         img.src = fileURL;
         return () => resizeObserver.disconnect();
-    }, [wrapper])
+    }, [wrapper, fileURL])
 
     useEffect(() => {
         const actualCoordinates: Image = [];
@@ -136,7 +139,7 @@ export function FilesListItem(props: FilesListItemProps) {
             className={cnFilesListItem}
             ref={wrapper}
         >
-            <img className={cnFilesListItemImage} src={URL.createObjectURL(file)} />
+            <img className={cnFilesListItemImage} src={fileURL} />
             <canvas
                 onMouseMove={onMouseMoveHandler}
                 onMouseLeave={onMouseLeaveHandler}

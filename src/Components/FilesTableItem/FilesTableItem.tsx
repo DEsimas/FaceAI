@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { cnFilesTableItemImage, cnFilesTableItem, cnFilesTableItemCross } from './FilesTableItem.classnames';
 import { classnames } from '@bem-react/classnames';
 import { Button } from '../Button';
@@ -10,7 +10,11 @@ import './FilesTableItem.scss';
 export function FilesTableItem(props: FilesTableItemProps) {
     const { file, className, removeFile, isDisabled } = props;
 
-    const url = URL.createObjectURL(file);
+    const [url, setUrl] = useState('');
+
+    useEffect(() => {
+        setUrl(URL.createObjectURL(file));
+    }, [file]);
 
     return (
         <div className={classnames(cnFilesTableItem, className, filesTableCn({ isDisabled }))}>
