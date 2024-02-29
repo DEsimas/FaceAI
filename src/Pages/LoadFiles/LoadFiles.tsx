@@ -1,4 +1,5 @@
-import React, { useCallback, useState, MouseEvent } from 'react';
+import React, { useCallback, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { DragAndDropZone } from '../../Components/DragAndDropZone';
 import { Header } from '../../Components/Header';
 import { Button } from '../../Components/Button';
@@ -68,7 +69,7 @@ export function LoadFiles(props: LoadFilesProps) {
         setErrors(prev => {
             const n = [...prev];
             n.push({
-                id: Date.now().toString(),
+                id: uuidv4(),
                 text: message
             });
             return n;

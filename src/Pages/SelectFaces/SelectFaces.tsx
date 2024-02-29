@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { Button } from '../../Components/Button';
 import { Header } from '../../Components/Header';
 import { FilesList } from '../../Components/FilesList';
@@ -52,7 +53,7 @@ export function SelectFaces(props: SelectFacesProps) {
         setErrors(prev => {
             const n = [...prev];
             n.push({
-                id: Date.now().toString(),
+                id: uuidv4(),
                 text: message
             });
             return n;

@@ -7,7 +7,7 @@ import './FilesTable.scss';
 import { classnames } from '@bem-react/classnames';
 
 export function FilesTable(props: FilesTableProps) {
-    const { files, removeFile, className } = props;
+    const { files, removeFile, className, isDisabled } = props;
 
     return (
         <div className={classnames(cnFilesTable, className)}>
@@ -17,6 +17,7 @@ export function FilesTable(props: FilesTableProps) {
                     file={file}
                     removeFile={removeFile}
                     key={index}
+                    isDisabled={isDisabled}
                 />)}
         </div>
     )

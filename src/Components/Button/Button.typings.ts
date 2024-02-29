@@ -6,4 +6,5 @@ export type ButtonProps = {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     isLoading?: boolean;
     type?: 'default' | 'back' | 'close';
+    z_index?: number;
 }

@@ -14,19 +14,16 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
     const [drag, setDrag] = useState(false);
 
     const dragStartHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-        console.log('start');
         e.preventDefault();
         setDrag(true);
     }, [setDrag]);
 
     const dragLeaveHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-        console.log('leave')
         e.preventDefault();
         setDrag(false);
     }, [setDrag]);
 
     const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
-        console.log('drop')
         e.preventDefault();
         addFiles(e.dataTransfer.files);
         setDrag(false);
@@ -55,6 +52,7 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
                     className={cnDragAndDropZonePreview}
                     files={files}
                     removeFile={removeFile}
+                    isDisabled={drag}
                 /> : null}
         </div>
     )
