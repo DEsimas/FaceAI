@@ -24,22 +24,29 @@ export function FilesListItem(props: FilesListItemProps) {
     }, [file, setFileURL]);
 
     useEffect(() => {
+        const img = new Image;
+        img.onload = function () {
+            setFileSize({ width: img.width, height: img.height });
+        };
+        img.src = fileURL;
+
+        if (!wrapper.current)
+            return;
+
         const resizeObserver = new ResizeObserver(() => {
+            if (!wrapper.current)
+                return;
             setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
             setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
         });
         resizeObserver.observe(wrapper.current);
 
         setTimeout(() => {
+            if (!wrapper.current)
+                return;
             setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
             setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
         }, 500);
-
-        const img = new Image;
-        img.onload = function () {
-            setFileSize({ width: img.width, height: img.height });
-        };
-        img.src = fileURL;
         return () => resizeObserver.disconnect();
     }, [wrapper, fileURL])
 
