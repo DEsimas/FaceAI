@@ -4,8 +4,10 @@
   "description": "Frontend for an application comparing fases using an AI",
   "main": "index.js",
   "scripts": {
-    "build": "npx webpack",
-    "serve": "npm run build && npx webpack serve --open"
+    "build:dev": "npx webpack --env mode=development",
+    "build:prod": "npx webpack --env mode=production",
+    "serve:dev": "npm run build:dev && npx webpack serve --env mode=development --open",
+    "serve:prod": "npm run build:prod && npx webpack serve --env mode=production"
   },
   "repository": {
     "type": "git",
@@ -27,6 +29,7 @@
     "@types/react": "^18.2.58",
     "@types/react-dom": "^18.2.19",
     "css-loader": "^6.10.0",
+    "dotenv-webpack": "^8.0.1",
     "html-loader": "^5.0.0",
     "html-webpack-plugin": "^5.6.0",
     "sass": "^1.71.1",

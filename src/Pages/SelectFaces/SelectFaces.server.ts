@@ -6,7 +6,7 @@ export async function selectFaces(image_ids: string[], selections: boolean[][]) 
             data[image_ids[i]] = index;
     }
 
-    // const result = await fetch(`http://26.113.24.68:8000/select_face`, {
+    // const result = await fetch(`${process.env.URL}/select_face`, {
     //     method: 'POST',
     //     mode: 'no-cors',
     //     headers: {
