@@ -19,10 +19,10 @@ export function Table(props: TableProps) {
         <table className={classnames(cnTable, className)}>
             {table.map((row, i) => {
                 return (
-                    <tr>
+                    <tr key={i}>
                         {row.map((elem, j) => {
                             return (
-                                <th className={(i === j && i !== 0) ? cnTableDiagonal : ''}>{elem}</th>
+                                <th key={j} className={(i === j && i !== 0) ? cnTableDiagonal : ''}>{elem}</th>
                             );
                         })}
                     </tr>

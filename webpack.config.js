@@ -21,7 +21,14 @@ module.exports = (env) => {
             },
             compress: true,
             port: 9000,
-            hot: true
+            hot: true,
+            proxy: [
+                {
+                    context: ['/upload_images', '/select_face'],
+                    target: 'http://26.113.24.68:8000',
+                    changeOrigin: true
+                }
+            ]
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js'],

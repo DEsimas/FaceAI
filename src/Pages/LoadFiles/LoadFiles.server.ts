@@ -21,6 +21,8 @@ export async function fetchCoordinates(files: File[]): Promise<CoordinatesRespon
     const data: string[] = await Promise.all(files.map(file => toBase64(file)));
     const result = await fetch(`${process.env.URL}/upload_images`, {
         method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json'

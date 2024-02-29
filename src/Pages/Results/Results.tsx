@@ -21,7 +21,7 @@ export function Result(props: ResultProps) {
                 text='Таблица соответствия'
             />
             <Table
-                names={image_ids.map((id, index) => Object.values(files)[index].name)} // replace index with id
+                names={image_ids.map((id) => files[id].name)}
                 table={table}
                 className={cnResultsTable}
             />
