@@ -6,7 +6,7 @@
   "scripts": {
     "build:dev": "npx webpack --env mode=development",
     "build:prod": "npx webpack --env mode=production",
-    "serve:dev": "npm run build:dev && npx webpack serve --env mode=development --open",
+    "serve:dev": "npm run build:dev && npx webpack serve --env mode=development --env api=http://26.113.24.68:8000 --open",
     "serve:prod": "npm run build:prod && npx webpack serve --env mode=production"
   },
   "repository": {

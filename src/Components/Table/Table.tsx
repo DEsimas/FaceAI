@@ -12,7 +12,7 @@ export function Table(props: TableProps) {
 
     table.push(['', ...names]);
     for (let i = 0; i < names.length; i++) {
-        table.push([names[i], ...(values[i].map(v => (Math.round(v * 100) / 100).toString()))]);
+        table.push([names[i], ...(values[i].map(v => (Math.round(v * 100) / 100).toString() + '%'))]);
     }
 
     return (

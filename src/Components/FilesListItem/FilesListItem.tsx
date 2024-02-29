@@ -38,7 +38,7 @@ export function FilesListItem(props: FilesListItemProps) {
         };
         img.src = fileURL;
         return () => resizeObserver.disconnect();
-    }, [])
+    }, [wrapper])
 
     useEffect(() => {
         const actualCoordinates: Image = [];

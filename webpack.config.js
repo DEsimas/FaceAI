@@ -3,6 +3,7 @@ const Dotenv = require('dotenv-webpack');
 const path = require('path');
 
 module.exports = (env) => {
+    console.log(env)
     return {
         mode: env.mode,
         output: {
@@ -22,13 +23,13 @@ module.exports = (env) => {
             compress: true,
             port: 9000,
             hot: true,
-            proxy: [
+            proxy: env.mode === 'development' ? [
                 {
                     context: ['/upload_images', '/select_face'],
-                    target: 'http://26.113.24.68:8000',
+                    target: env.api,
                     changeOrigin: true
                 }
-            ]
+            ] : undefined
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js'],
