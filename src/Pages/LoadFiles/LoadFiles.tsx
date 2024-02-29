@@ -33,17 +33,24 @@ export function LoadFiles(props: LoadFilesProps) {
     }, [files]);
 
     const addFiles = useCallback((filesList: FileList) => {
-        if (files.length + filesList.length > MAXIMUM_AMOUNT_OF_FILES)
+        let size = filesList.length + files.length;
+        [...filesList].forEach(file1 => {
+            files.forEach(file2 => {
+                if (file1.name === file2.name)
+                    size--;
+            });
+        });
+        if (size > MAXIMUM_AMOUNT_OF_FILES)
             return addError(`Максимальное количество изображений для загрузки ${MAXIMUM_AMOUNT_OF_FILES}`);
         setFiles((prev: File[]) => {
             const n = [...prev]
             for (const file of filesList) {
-                if (file.size > MAXIMUM_FILE_SIZE_BYTES) {
-                    addError(`${file.name}: Максимальный размер одного файла 64 мегабайта`);
-                    continue;
-                }
                 if (n.find(elem => (elem.name === file.name))) {
                     addError(`${file.name} уже выбран`);
+                    continue;
+                }
+                if (file.size > MAXIMUM_FILE_SIZE_BYTES) {
+                    addError(`${file.name}: Максимальный размер одного файла 64 мегабайта`);
                     continue;
                 }
                 if (!ALLOWED_FILE_EXTENSIONS.includes(file.name.split('.').reverse()[0])) {
