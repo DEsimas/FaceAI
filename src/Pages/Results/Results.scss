@@ -7,4 +7,26 @@
     &-Table {
         margin: auto;
     }
+
+    &-Images {
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+
+        div {
+            margin-top: 30px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 26px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        img {
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 20px;
+            border: black 2px solid;
+        }
+    }
 }
