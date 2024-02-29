@@ -1,10 +1,12 @@
 import React from 'react';
-import { cnDragAndDropZoneActive } from './DragAndDropZoneActive.classnames';
+import { cnDragAndDropZoneActive, cnDragAndDropZoneActiveShadow, cnDragAndDropZoneActiveText } from './DragAndDropZoneActive.classnames';
 import { classnames } from '@bem-react/classnames';
 import type { DragAndDropZoneActiveProps } from './DragAndDropZoneActive.typings';
 
+import './DragAndDropZoneActive.scss'
+
 export function DragAndDropZoneActive(props: DragAndDropZoneActiveProps) {
-    const { files, onDragLeave, onDragOver, onDragStart, onDrop, className } = props;
+    const { onDragLeave, onDragOver, onDragStart, onDrop, className } = props;
 
     return (
         <div
@@ -14,7 +16,9 @@ export function DragAndDropZoneActive(props: DragAndDropZoneActiveProps) {
             onDragStart={onDragStart}
             onDrop={onDrop}
         >
-            Отпустите
+            <div className={cnDragAndDropZoneActiveShadow}>
+                <div className={cnDragAndDropZoneActiveText}>Можно отпускать</div>
+            </div>
         </div>
     )
 }

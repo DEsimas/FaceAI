@@ -1,11 +1,12 @@
 import React from 'react';
-import { FilesTable } from '../FilesTable/FilesTable';
-import { cnDragAndDropZoneIdle } from './DragAndDropZoneIdle.classnames';
+import { cnDragAndDropZoneIdle, cnDragAndDropZoneIdleText } from './DragAndDropZoneIdle.classnames';
 import type { DragAndDropZoneIdleProps } from './DragAndDropZoneIdle.typings';
 import { classnames } from '@bem-react/classnames';
 
+import './DragAndDropZoneIdle.scss';
+
 export function DragAndDropZoneIdle(props: DragAndDropZoneIdleProps) {
-    const { files, onDragLeave, onDragOver, onDragStart, className, removeFile } = props;
+    const { onDragLeave, onDragOver, onDragStart, className, showText } = props;
 
     return (
         <div
@@ -14,12 +15,8 @@ export function DragAndDropZoneIdle(props: DragAndDropZoneIdleProps) {
             onDragOver={onDragOver}
             onDragStart={onDragStart}
         >
-            {files.length ?
-                <FilesTable
-                    removeFile={removeFile}
-                    files={files}
-                /> :
-                <span>Перетащите изображения...</span>
+            {showText ?
+                <span className={cnDragAndDropZoneIdleText}>Перетащите изображения...</span> : null
             }
         </div>
     );

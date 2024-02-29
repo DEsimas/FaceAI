@@ -21,8 +21,8 @@ export function LoadFiles(props: LoadFilesProps) {
     const [isLoading, setIsLoading] = useState(false);
 
     const onClickHandler = useCallback(() => {
-        if (files.length === 0)
-            return addError('Изображения не выбраны');
+        if (files.length < 2)
+            return addError('Выберите хотя бы два изображения');
         setIsLoading(true);
         fetchCoordinates(files)
             .then(response => nextStage(response))

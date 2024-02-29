@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle } from './DragAndDropZone.classnames';
+import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle, cnDragAndDropZonePreview } from './DragAndDropZone.classnames';
 import { DragAndDropZoneIdle } from '../DragAndDropZoneIdle';
 import { DragAndDropZoneActive } from '../DragAndDropZoneActive';
 import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 
 import './DragAndDropZone.scss';
+import { FilesTable } from '../FilesTable';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
     const { className, files, removeFile, addFiles, addError } = props;
@@ -13,16 +14,19 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
     const [drag, setDrag] = useState(false);
 
     const dragStartHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+        console.log('start');
         e.preventDefault();
         setDrag(true);
     }, [setDrag]);
 
     const dragLeaveHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+        console.log('leave')
         e.preventDefault();
         setDrag(false);
     }, [setDrag]);
 
     const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+        console.log('drop')
         e.preventDefault();
         addFiles(e.dataTransfer.files);
         setDrag(false);
@@ -37,19 +41,21 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
                     onDragOver={dragStartHandler}
                     onDragStart={dragStartHandler}
                     onDrop={dragDropHandler}
-                    files={files}
-                    removeFile={removeFile}
                 /> :
                 <DragAndDropZoneIdle
                     className={cnDragAndDropZoneIdle}
                     onDragLeave={dragLeaveHandler}
                     onDragOver={dragStartHandler}
                     onDragStart={dragStartHandler}
-                    files={files}
-                    removeFile={removeFile}
+                    showText={files.length === 0}
                 />
             }
-
+            {files.length ?
+                <FilesTable
+                    className={cnDragAndDropZonePreview}
+                    files={files}
+                    removeFile={removeFile}
+                /> : null}
         </div>
     )
 }

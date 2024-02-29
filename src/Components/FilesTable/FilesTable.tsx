@@ -4,12 +4,13 @@ import { FilesTableItem } from '../FilesTableItem';
 import type { FilesTableProps } from './FilesTable.typings';
 
 import './FilesTable.scss';
+import { classnames } from '@bem-react/classnames';
 
 export function FilesTable(props: FilesTableProps) {
-    const { files, removeFile } = props;
+    const { files, removeFile, className } = props;
 
     return (
-        <div className={cnFilesTable}>
+        <div className={classnames(cnFilesTable, className)}>
             {files.map((file: File, index) =>
                 <FilesTableItem
                     className={cnFilesTableItem}
