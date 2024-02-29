@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { classnames } from '@bem-react/classnames';
 import { cnMessage, cnMessageCloseBtn } from './Message.classnames';
 import type { MessageProps } from './Message.typings';
@@ -8,6 +8,10 @@ import { Button } from '../Button';
 
 export function Message(props: MessageProps) {
     const { text, className, onClose } = props;
+
+    useEffect(() => {
+        setTimeout(onClose, 10000);
+    }, []);
 
     return (
         <div className={classnames(cnMessage, className)}>
