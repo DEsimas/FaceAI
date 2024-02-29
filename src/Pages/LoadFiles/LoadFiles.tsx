@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_FILES, MAXIMUM_FILE_SIZE_BYTES } from '../../Constants';
 import { DragAndDropZone } from '../../Components/DragAndDropZone';
 import { Header } from '../../Components/Header';
 import { Button } from '../../Components/Button';
@@ -10,10 +11,6 @@ import { cnLoadFiles, cnLoadFilesButton, cnLoadFilesDADZone } from './LoadFiles.
 import type { LoadFilesProps, PageError } from './LoadFiles.typings';
 
 import './LoadFiles.scss';
-
-const MAXIMUM_AMOUNT_OF_FILES = 10;
-const MAXIMUM_FILE_SIZE_BYTES = 268435456;
-const ALLOWED_FILE_EXTENSIONS = ['png', 'jpg', 'jpeg'];
 
 export function LoadFiles(props: LoadFilesProps) {
     const { nextStage, files: initFiles } = props;

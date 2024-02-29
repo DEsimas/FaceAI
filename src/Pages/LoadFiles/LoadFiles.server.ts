@@ -1,4 +1,5 @@
 import { Coordinates, Image } from "../../App";
+import { URL } from "../../Constants";
 import type { CoordinatesResponse, ServerResponse } from "./LoadFiles.typings";
 
 const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
@@ -19,7 +20,7 @@ const toBase64 = (file: File) => new Promise<string>((resolve, reject) => {
 
 export async function fetchCoordinates(files: File[]): Promise<CoordinatesResponse> {
     const data: string[] = await Promise.all(files.map(file => toBase64(file)));
-    const result = await fetch(`${process.env.URL}/upload_images`, {
+    const result = await fetch(`${URL}/upload_images`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',

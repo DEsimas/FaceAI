@@ -32,6 +32,10 @@ export function App() {
     }, [setState, setFiles, setCoordinates, setImage_ids]);
 
     const toResults = useCallback((result: ServerResponse) => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'auto',
+        });
         setState('Results');
         setTable(result.table);
         setFinalImageIds([...result.image_ids]);

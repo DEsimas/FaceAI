@@ -1,3 +1,5 @@
+import { URL } from "../../Constants";
+
 export async function selectFaces(image_ids: string[], selections: boolean[][]) {
     const data: Record<string, number> = {};
     for (let i = 0; i < image_ids.length; i++) {
@@ -6,7 +8,7 @@ export async function selectFaces(image_ids: string[], selections: boolean[][]) 
             data[image_ids[i]] = index;
     }
 
-    const result = await fetch(`${process.env.URL}/select_face`, {
+    const result = await fetch(`${URL}/select_face`, {
         method: 'POST',
         mode: 'cors',
         credentials: 'include',
