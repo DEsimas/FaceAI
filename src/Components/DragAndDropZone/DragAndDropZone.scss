@@ -16,4 +16,12 @@
         position: absolute;
         inset: 0;
     }
+
+    &-Input {
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-align: center;
+        bottom: 10px;
+    }
 }

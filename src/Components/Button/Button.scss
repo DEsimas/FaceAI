@@ -11,6 +11,14 @@
         background-color: white;
     }
 
+    &_type_accent {
+        font-size: 24px;
+        border: solid black 2px;
+        border-radius: 10px;
+        padding: 5px 10px;
+        background-color: royalblue;
+    }
+
     &_type_close {
         background-color: lightgray;
         border-radius: 50%;
@@ -37,6 +45,10 @@
 
         &_isLoading:hover {
             background-color: white;
+        }
+
+        &_type_accent:hover {
+            background-color: blue;
         }
     }
 }

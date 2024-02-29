@@ -1,12 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle, cnDragAndDropZonePreview } from './DragAndDropZone.classnames';
+import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle, cnDragAndDropZoneInput, cnDragAndDropZonePreview } from './DragAndDropZone.classnames';
 import { DragAndDropZoneIdle } from '../DragAndDropZoneIdle';
 import { DragAndDropZoneActive } from '../DragAndDropZoneActive';
 import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 
 import './DragAndDropZone.scss';
 import { FilesTable } from '../FilesTable';
+import { FileInput } from '../FileInput';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
     const { className, files, removeFile, addFiles, addError } = props;
@@ -54,6 +55,11 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
                     removeFile={removeFile}
                     isDisabled={drag}
                 /> : null}
+            <FileInput
+                addFiles={addFiles}
+                className={cnDragAndDropZoneInput}
+                z_index={drag ? 0 : 2}
+            />
         </div>
     )
 }

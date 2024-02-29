@@ -13,6 +13,7 @@ import './LoadFiles.scss';
 
 const MAXIMUM_AMOUNT_OF_FILES = 10;
 const MAXIMUM_FILE_SIZE_BYTES = 268435456;
+const ALLOWED_FILE_EXTENSIONS = ['png', 'jpg', 'jpeg'];
 
 export function LoadFiles(props: LoadFilesProps) {
     const { nextStage, files: initFiles } = props;
@@ -43,6 +44,10 @@ export function LoadFiles(props: LoadFilesProps) {
                 }
                 if (n.find(elem => (elem.name === file.name))) {
                     addError(`${file.name} уже выбран`);
+                    continue;
+                }
+                if (!ALLOWED_FILE_EXTENSIONS.includes(file.name.split('.').reverse()[0])) {
+                    addError(`Недопустимый формат файла`);
                     continue;
                 }
                 n.push(file);
