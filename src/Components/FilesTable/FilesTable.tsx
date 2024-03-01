@@ -16,7 +16,7 @@ export function FilesTable(props: FilesTableProps) {
                     className={cnFilesTableItem}
                     file={file}
                     removeFile={removeFile}
-                    key={index}
+                    key={file.name}
                     isDisabled={isDisabled}
                 />)}
         </div>
