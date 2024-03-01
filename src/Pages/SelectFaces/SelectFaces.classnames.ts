@@ -5,3 +5,4 @@ export const cnSelectFaces = selectFacesCn();
 export const cnSelectFacesBack = selectFacesCn('Back');
 export const cnSelectFacesList = selectFacesCn('List');
 export const cnSelectFacesSelect = selectFacesCn('Select');
+export const cnSelectFacesHeader = selectFacesCn('Header');

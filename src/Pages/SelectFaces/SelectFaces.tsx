@@ -6,7 +6,7 @@ import { FilesList } from '../../Components/FilesList';
 import { Message } from '../../Components/Message';
 import { MessageWrapper } from '../../Components/MessageWrapper';
 import { selectFaces } from './SelectFaces.server';
-import { cnSelectFaces, cnSelectFacesBack, cnSelectFacesList, cnSelectFacesSelect } from './SelectFaces.classnames';
+import { cnSelectFaces, cnSelectFacesBack, cnSelectFacesHeader, cnSelectFacesList, cnSelectFacesSelect } from './SelectFaces.classnames';
 import type { SelectFacesProps, PageError } from './SelectFaces.typings';
 
 import './SelectFaces.scss';
@@ -69,6 +69,7 @@ export function SelectFaces(props: SelectFacesProps) {
             />
             <Header
                 text='Выберите лица для сравнения'
+                className={cnSelectFacesHeader}
             />
             <FilesList
                 className={cnSelectFacesList}
