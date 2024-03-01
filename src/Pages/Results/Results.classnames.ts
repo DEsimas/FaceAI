@@ -5,3 +5,4 @@ export const cnResults = resultsCn();
 export const cnResultsBack = resultsCn('Back');
 export const cnResultsTable = resultsCn('Table');
 export const cnResultsImages = resultsCn('Images');
+export const cnResultsImage = resultsCn('Image');

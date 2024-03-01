@@ -23,5 +23,5 @@ export async function selectFaces(image_ids: string[], selections: boolean[][]) 
         throw new Error('Request error');
 
     const response = JSON.parse(await result.text());
-    return response;
+    return { ...response, selected: data };
 }

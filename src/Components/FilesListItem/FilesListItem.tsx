@@ -4,9 +4,10 @@ import { FilesListItemProps, Offset, Size } from './FilesListItem.typings';
 import type { Image } from '../../App';
 
 import './FilesListItem.scss';
+import { classnames } from '@bem-react/classnames';
 
 export function FilesListItem(props: FilesListItemProps) {
-    const { file, imageCoordinates, selection } = props;
+    const { file, imageCoordinates, selection, className, disabled } = props;
     const emptyArray = imageCoordinates.map(() => false);
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -65,11 +66,15 @@ export function FilesListItem(props: FilesListItemProps) {
         ctx.canvas.width = size.width;
         for (let i = 0; i < actualCoordinates.length; i++) {
             const rect = actualCoordinates[i];
-            const color = selected[i] ? 'green' : hovered[i] ? 'orange' : 'red';
-            const text = `${file.name} #${i + 1}`;
+            const color = disabled ? 'yellow' : selected[i] ? 'green' : hovered[i] ? 'orange' : 'red';
+            const text = `${file.name}${disabled ? '' : ` #${i + 1}`}`;
             ctx.beginPath();
             ctx.rect(rect[0][0], rect[0][1], rect[1][0] - rect[0][0], rect[1][1] - rect[0][1]);
+            ctx.strokeStyle = 'black';
+            ctx.lineWidth = 3;
+            ctx.stroke();
             ctx.strokeStyle = color;
+            ctx.lineWidth = 2;
             ctx.stroke();
             ctx.fillStyle = color;
             ctx.font = "bold 16px Arial";
@@ -121,12 +126,14 @@ export function FilesListItem(props: FilesListItemProps) {
         const x = e.pageX - offset.left;
         const y = e.pageY - offset.top;
 
+        document.documentElement.style.cursor = 'default';
         for (let i = 0; i < actualCoordinates.length; i++) {
             const rect = actualCoordinates[i];
             const p1 = rect[0];
             const p2 = rect[1];
             setHovered([...emptyArray]);
             if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
+                document.documentElement.style.cursor = 'pointer';
                 setHovered((prev) => {
                     const n = [...prev];
                     n[i] = true;
@@ -143,14 +150,14 @@ export function FilesListItem(props: FilesListItemProps) {
 
     return (
         <div
-            className={cnFilesListItem}
+            className={classnames(cnFilesListItem, className)}
             ref={wrapper}
         >
             <img className={cnFilesListItemImage} src={fileURL} />
             <canvas
-                onMouseMove={onMouseMoveHandler}
-                onMouseLeave={onMouseLeaveHandler}
-                onClick={onClickHandler}
+                onMouseMove={disabled ? null : onMouseMoveHandler}
+                onMouseLeave={disabled ? null : onMouseLeaveHandler}
+                onClick={disabled ? null : onClickHandler}
                 className={cnFilesListItemCanvas}
                 ref={canvas}
             />

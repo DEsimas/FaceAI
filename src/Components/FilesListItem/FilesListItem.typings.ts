@@ -3,7 +3,9 @@ import { Image } from "../../App";
 export type FilesListItemProps = {
     file: File;
     imageCoordinates: Image;
-    selection?: boolean[]
+    selection?: boolean[];
+    className?: string;
+    disabled?: boolean;
 }
 
 export type Size = {

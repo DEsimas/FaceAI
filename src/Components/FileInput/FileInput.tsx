@@ -28,7 +28,6 @@ export function FileInput(props: FileInputProps) {
         >
             <Button
                 className={cnFileInputButton}
-                type='accent'
                 onClick={onClickHandler}
                 text='Выбрать'
             />

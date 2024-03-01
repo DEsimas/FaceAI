@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '../../Components/Button';
-import { cnResults, cnResultsBack, cnResultsImages, cnResultsTable } from './Results.classnames';
+import { cnResults, cnResultsBack, cnResultsImage, cnResultsImages, cnResultsTable } from './Results.classnames';
 import { Header } from '../../Components/Header';
 import { Table } from '../../Components/Table';
 import type { ResultProps } from './Results.typings';
 
 import './Results.scss';
+import { FilesListItem } from '../../Components/FilesListItem';
 
 export function Result(props: ResultProps) {
-    const { files, image_ids, table, goBack } = props;
+    const { files, image_ids, table, goBack, coordinates } = props;
 
     const [urls, setUrls] = useState<Record<string, string>>({});
 
@@ -37,11 +38,19 @@ export function Result(props: ResultProps) {
                 {
                     image_ids.map(
                         (id) => {
-                            const file = files[id];
-                            return <div key={file.name}>
-                                <div>{file.name}</div>
-                                <img alt={file.name} src={urls[id]} />
-                            </div>
+                            return (
+                                <div
+                                    className={cnResultsImage}
+                                    key={id}
+                                >
+                                    <div>{files[id].name}</div>
+                                    <FilesListItem
+                                        file={files[id]}
+                                        imageCoordinates={coordinates[id]}
+                                        disabled={true}
+                                    />
+                                </div>
+                            );
                         }
                     )
                 }

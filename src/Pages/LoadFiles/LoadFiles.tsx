@@ -104,6 +104,7 @@ export function LoadFiles(props: LoadFilesProps) {
                 text='Загрузить'
                 onClick={onClickHandler}
                 isLoading={isLoading}
+                type='accent'
             />
             <MessageWrapper>
                 {errors.map(error => <Message

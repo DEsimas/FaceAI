@@ -16,4 +16,5 @@ export type PageError = {
 export type ServerResponse = {
     image_ids: string[];
     table: number[][];
+    selected: Record<string, number>;
 }

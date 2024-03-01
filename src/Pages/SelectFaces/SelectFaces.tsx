@@ -38,7 +38,7 @@ export function SelectFaces(props: SelectFacesProps) {
         setIsLoading(true);
         selectFaces(image_ids, selections)
             .then((result) => nextStage(result))
-            .catch(() => addError('У нас что-то пошло не так, попробуйте позже'))
+            .catch((e) => console.log(e)/*addError('У нас что-то пошло не так, попробуйте позже')*/)
             .finally(() => setIsLoading(false));
     }, []);
 

@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { CoordinatesResponse, LoadFiles } from '../Pages/LoadFiles';
 import { SelectFaces, ServerResponse } from '../Pages/SelectFaces';
 import { Result } from '../Pages/Results/Results';
-import { AppState, Coordinates, FilesDict } from './App.typings';
+import { AppState, Coordinates, FilesDict, Image } from './App.typings';
 
 import './App.scss';
 
@@ -14,6 +14,7 @@ export function App() {
     const [final_image_ids, setFinalImageIds] = useState<string[]>([]);
     const [filesDict, setFilesDict] = useState<FilesDict>({});
     const [table, setTable] = useState<number[][]>([]);
+    const [coordinatesDict, setCoordinatesDict] = useState<Record<string, Image>>({});
 
     const toLoad = useCallback(() => {
         setState('Load');
@@ -32,14 +33,22 @@ export function App() {
     }, [setState, setFiles, setCoordinates, setImage_ids]);
 
     const toResults = useCallback((result: ServerResponse) => {
+        const { table, image_ids, selected } = result;
         window.scrollTo({
             top: 0,
             behavior: 'auto',
         });
+        setTable(table);
+        setFinalImageIds([...image_ids]);
+        const dict: Record<string, Image> = {}
+        image_ids.forEach(id => {
+            const number = selected[id];
+            const image = coordinates[Object.keys(filesDict).indexOf(id)];
+            dict[id] = [image[number]];
+        });
+        setCoordinatesDict(dict);
         setState('Results');
-        setTable(result.table);
-        setFinalImageIds([...result.image_ids]);
-    }, []);
+    }, [setState, setTable, setFinalImageIds, setFinalImageIds, coordinates]);
 
     const backToSelect = useCallback(() => {
         setState('Select');
@@ -68,6 +77,7 @@ export function App() {
                 table={table}
                 image_ids={final_image_ids}
                 goBack={backToSelect}
+                coordinates={coordinatesDict}
             />;
             break;
     }
