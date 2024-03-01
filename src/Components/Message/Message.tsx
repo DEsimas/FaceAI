@@ -10,7 +10,7 @@ export function Message(props: MessageProps) {
     const { text, className, onClose } = props;
 
     useEffect(() => {
-        setTimeout(onClose, 10000);
+        setTimeout(onClose, 5000);
     }, []);
 
     return (
