@@ -25,7 +25,7 @@ export function LoadFiles(props: LoadFilesProps) {
         setIsLoading(true);
         fetchCoordinates(files)
             .then(response => nextStage(response))
-            .catch(() => addError('У нас произодша ошибка, попробуйте позже'))
+            .catch(() => addError('У нас произошла ошибка, попробуйте позже'))
             .finally(() => setIsLoading(false));
     }, [files]);
 
