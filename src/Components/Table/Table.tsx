@@ -17,17 +17,32 @@ export function Table(props: TableProps) {
 
     return (
         <table className={classnames(cnTable, className)}>
-            {table.map((row, i) => {
-                return (
-                    <tr key={i}>
-                        {row.map((elem, j) => {
+            <thead>
+                <tr>
+                    {
+                        table[0].map((row, i) => {
                             return (
-                                <th key={j} className={(i === j && i !== 0) ? cnTableDiagonal : ''}>{elem}</th>
+                                <th key={i}>{row}</th>
                             );
-                        })}
-                    </tr>
-                );
-            })}
+                        })
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                {table.map((row, i) => {
+                    if (i === 0)
+                        return null;
+                    return (
+                        <tr key={i}>
+                            {row.map((elem, j) => {
+                                return (
+                                    <th key={j} className={(i === j) ? cnTableDiagonal : ''}>{elem}</th>
+                                );
+                            })}
+                        </tr>
+                    );
+                })}
+            </tbody>
         </table>
     );
 }
