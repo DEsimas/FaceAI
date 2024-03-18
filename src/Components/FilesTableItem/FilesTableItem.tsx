@@ -1,33 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { cnFilesTableItemImage, cnFilesTableItem, cnFilesTableItemCross } from './FilesTableItem.classnames';
+import React from 'react';
 import { classnames } from '@bem-react/classnames';
 import { Button } from '../Button';
-import { filesTableCn } from '../FilesTable/FilesTable.classnames';
+import { cnFilesTableItemImage, cnFilesTableItem, cnFilesTableItemCross } from './FilesTableItem.classnames';
 import type { FilesTableItemProps } from './FilesTableItem.typings';
 
 import './FilesTableItem.scss';
 
 export function FilesTableItem(props: FilesTableItemProps) {
-    const { file, className, removeFile, isDisabled } = props;
-
-    const [url, setUrl] = useState('');
-
-    useEffect(() => {
-        setUrl(URL.createObjectURL(file));
-    }, [file]);
+    const { className, image, removeImage, isDisabled } = props;
 
     return (
-        <div className={classnames(cnFilesTableItem, className, filesTableCn({ isDisabled }))}>
+        <div className={classnames(cnFilesTableItem, className)}>
             <Button
                 className={cnFilesTableItemCross}
-                onClick={() => removeFile(file.name)}
+                onClick={removeImage}
                 type='close'
                 z_index={isDisabled ? 0 : 2}
             />
             <img
                 className={cnFilesTableItemImage}
-                src={url}
-                alt={file.name}
+                src={image.url}
+                alt={image.file.name}
             />
         </div>
     );

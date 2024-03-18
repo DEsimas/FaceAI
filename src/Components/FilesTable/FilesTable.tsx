@@ -1,24 +1,26 @@
 import React from 'react';
-import { cnFilesTable, cnFilesTableItem } from './FilesTable.classnames';
+import { classnames } from '@bem-react/classnames';
+import type { ImageFile } from '../../App';
 import { FilesTableItem } from '../FilesTableItem';
+import { cnFilesTable, cnFilesTableItem } from './FilesTable.classnames';
 import type { FilesTableProps } from './FilesTable.typings';
 
 import './FilesTable.scss';
-import { classnames } from '@bem-react/classnames';
 
 export function FilesTable(props: FilesTableProps) {
-    const { files, removeFile, className, isDisabled } = props;
+    const {className, images, removeImage, isDisabled } = props;
 
     return (
         <div className={classnames(cnFilesTable, className)}>
-            {files.map((file: File, index) =>
+            {images.map((image: ImageFile) =>
                 <FilesTableItem
                     className={cnFilesTableItem}
-                    file={file}
-                    removeFile={removeFile}
-                    key={file.name}
+                    image={image}
+                    removeImage={() => removeImage(image.localId)}
+                    key={image.localId}
                     isDisabled={isDisabled}
-                />)}
+                />)
+            }
         </div>
     )
 }

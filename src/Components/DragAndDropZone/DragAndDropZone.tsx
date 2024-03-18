@@ -1,16 +1,17 @@
 import React, { useCallback, useState } from 'react';
+import { v4 } from 'uuid';
 import { classnames } from '@bem-react/classnames';
-import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle, cnDragAndDropZoneInput, cnDragAndDropZonePreview } from './DragAndDropZone.classnames';
+import { ImageFiles } from '../../App';
 import { DragAndDropZoneIdle } from '../DragAndDropZoneIdle';
 import { DragAndDropZoneActive } from '../DragAndDropZoneActive';
+import { FilesTable } from '../FilesTable';
+import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle, cnDragAndDropZonePreview } from './DragAndDropZone.classnames';
 import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 
 import './DragAndDropZone.scss';
-import { FilesTable } from '../FilesTable';
-import { FileInput } from '../FileInput';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
-    const { className, files, removeFile, addFiles, addError } = props;
+    const { className, images, addImages, removeImage } = props;
 
     const [drag, setDrag] = useState(false);
 
@@ -26,9 +27,17 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
 
     const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        addFiles(e.dataTransfer.files);
         setDrag(false);
-    }, [setDrag, addError]);
+        const files: ImageFiles = [];
+        for(const file of e.dataTransfer.files) {
+            files.push({
+                file: file,
+                localId: v4(),
+                url: URL.createObjectURL(file)
+            });
+        }
+        addImages(files);
+    }, [setDrag, addImages]);
 
     return (
         <div className={classnames(cnDragAndDropZone, className)}>
@@ -45,21 +54,15 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
                     onDragLeave={dragLeaveHandler}
                     onDragOver={dragStartHandler}
                     onDragStart={dragStartHandler}
-                    showText={files.length === 0}
-                />
-            }
-            {files.length ?
+                    showText={images.length === 0}
+                />}
+            {images.length ?
                 <FilesTable
                     className={cnDragAndDropZonePreview}
-                    files={files}
-                    removeFile={removeFile}
+                    images={images}
+                    removeImage={removeImage}
                     isDisabled={drag}
                 /> : null}
-            <FileInput
-                addFiles={addFiles}
-                className={cnDragAndDropZoneInput}
-                z_index={drag ? 0 : 2}
-            />
         </div>
     )
 }

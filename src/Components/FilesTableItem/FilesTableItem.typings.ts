@@ -1,7 +1,8 @@
+import type { ImageFile } from '../../App';
+
 export type FilesTableItemProps = {
-    file: File;
-    files?: File[];
-    removeFile: (path: string) => void;
     className?: string;
+    image: ImageFile;
+    removeImage: () => void;
     isDisabled?: boolean;
 }

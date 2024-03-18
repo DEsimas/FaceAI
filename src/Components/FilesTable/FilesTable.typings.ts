@@ -1,8 +1,8 @@
-import { FilesTableItemProps } from "../FilesTableItem";
+import type { ImageFiles, RemoveImage } from '../../App';
 
 export type FilesTableProps = {
-    files: File[];
-    removeFile?: (path: string) => void;
     className?: string;
+    images: ImageFiles;
+    removeImage: RemoveImage;
     isDisabled?: boolean;
 }

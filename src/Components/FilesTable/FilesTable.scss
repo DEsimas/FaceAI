@@ -1,5 +1,6 @@
 .FilesTable {
     display: inline-block;
+    overflow: hidden;
 
     &-Item {
         width: 100px;
