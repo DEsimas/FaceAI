@@ -4,8 +4,15 @@ export type ImageFile = {
   file: File;
   url: string;
   localId: string;
+  resolution: Resolution;
   serverId?: string;
-  faces?: FacesCoordinates[]
+  faces?: FacesCoordinates;
+  selectedIndexes?: number[];
+};
+
+export type Resolution = {
+  height: number;
+  width: number;
 };
 
 export type AddImages = (newImages: ImageFile[]) => Promise<void>;
@@ -19,8 +26,6 @@ export type Rectangle = [Point, Point];
 export type Point = [number, number];
 
 // deprecated
-
-export type AppState = 'Load' | 'Select' | 'Results';
 
 export type Coordinates = Image[];
 

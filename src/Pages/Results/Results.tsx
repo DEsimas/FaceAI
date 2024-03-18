@@ -44,11 +44,11 @@ export function Result(props: ResultProps) {
                                     key={id}
                                 >
                                     <div>{files[id].name}</div>
-                                    <FilesListItem
+                                    {/* <FilesListItem
                                         file={files[id]}
                                         imageCoordinates={coordinates[id]}
                                         disabled={true}
-                                    />
+                                    /> */}
                                 </div>
                             );
                         }

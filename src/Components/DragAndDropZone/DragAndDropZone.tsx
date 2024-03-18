@@ -9,6 +9,7 @@ import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle, cnDr
 import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 
 import './DragAndDropZone.scss';
+import { getImageResolution } from '../../Utils/getImageResolution';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
     const { className, images, addImages, removeImage } = props;
@@ -25,15 +26,17 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
         setDrag(false);
     }, [setDrag]);
 
-    const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    const dragDropHandler = useCallback(async (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setDrag(false);
         const files: ImageFiles = [];
         for(const file of e.dataTransfer.files) {
+            const url = URL.createObjectURL(file);
             files.push({
                 file: file,
                 localId: v4(),
-                url: URL.createObjectURL(file)
+                url: url,
+                resolution: await getImageResolution(url)
             });
         }
         addImages(files);

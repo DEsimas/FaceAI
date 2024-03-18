@@ -1,8 +1,6 @@
-import { Coordinates } from "../../App";
+import { ImageFiles } from '../../App';
 
 export type FilesListProps = {
-    files: File[];
-    coordinates: Coordinates;
     className?: string;
-    selections?: boolean[][]
-}
+    images: ImageFiles;
+};

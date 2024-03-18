@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_FILES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { LoadSection } from '../Components/LoadSection';
+import { SelectSection } from '../Components/SelectSection';
 import type { ImageFiles } from './App.typings';
 
 import './App.scss';
@@ -61,6 +62,9 @@ export function App() {
                 images={images}
                 addImages={addImages}
                 removeImage={removeImage}
+            />
+            <SelectSection
+                images={images}
             />
         </div>
     );

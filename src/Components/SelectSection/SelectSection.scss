@@ -1,4 +1,4 @@
-.SelectFaces {
+.SelectSection {
     &-Back {
         position: fixed;
         left: 15px;
@@ -18,7 +18,7 @@
 }
 
 @media screen and (max-width: 500px) {
-    .SelectFaces {
+    .SelectSection {
         &-List {
             margin-left: 5px;
             margin-right: 5px;

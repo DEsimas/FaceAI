@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react';
-import type { FilesListProps } from './FilesList.typings';
+import React from 'react';
 import { FilesListItem } from '../FilesListItem';
+import type { FilesListProps } from './FilesList.typings';
 
 export function FilesList(props: FilesListProps) {
-    const { files, coordinates, className, selections } = props;
+    const { images, className } = props;
 
     return (
         <div className={className}>
             {
-                files.map(
-                    (file, index) => <FilesListItem
-                        key={index}
-                        file={file}
-                        imageCoordinates={coordinates[index]}
-                        selection={selections[index]}
+                images.map(
+                    image => <FilesListItem
+                        key={image.localId}
+                        image={image}
                     />
                 )
             }
