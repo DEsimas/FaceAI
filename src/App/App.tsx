@@ -33,7 +33,8 @@ export function App() {
     }, [setState, setFiles, setCoordinates, setImage_ids]);
 
     const toResults = useCallback((result: ServerResponse) => {
-        const { table, image_ids, selected } = result;
+        const { table, selected } = result;
+        const image_ids = Object.keys(selected);
         window.scrollTo({
             top: 0,
             behavior: 'auto',
