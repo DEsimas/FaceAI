@@ -7,7 +7,7 @@ import type { SelectFacesProps } from './SelectSection.typings';
 import './SelectSection.scss';
 
 export function SelectSection(props: SelectFacesProps) {
-    const { images } = props;
+    const { images, selectFace } = props;
 
     return (
         <div className={cnSelectSection}>
@@ -18,6 +18,7 @@ export function SelectSection(props: SelectFacesProps) {
             <FilesList
                 className={cnSelectSectionList}
                 images={images}
+                selectFace={selectFace}
             />
         </div>
     );

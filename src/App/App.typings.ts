@@ -7,7 +7,7 @@ export type ImageFile = {
   resolution: Resolution;
   serverId?: string;
   faces?: FacesCoordinates;
-  selectedIndexes?: number[];
+  selectedIndexes: number[];
 };
 
 export type Resolution = {
@@ -19,6 +19,8 @@ export type AddImages = (newImages: ImageFile[]) => Promise<void>;
 
 export type RemoveImage = (id: string) => void;
 
+export type SelectFace = (id: string, index: number) => void;
+
 export type FacesCoordinates = Rectangle[];
 
 export type Rectangle = [Point, Point];
@@ -28,7 +30,7 @@ export type Point = [number, number];
 export type UploadImagesResponse = {
   bboxes: ServerFacesCoordinates[];
   image_ids: string[];
-}
+};
 
 export type ServerFacesCoordinates = ServerRectangle[];
 

@@ -1,64 +1,74 @@
 import React, { useCallback, useEffect, MouseEvent, useRef, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
 import type { FacesCoordinates } from '../../App';
+import { getScaledCoordinates } from '../../Utils/getScaledCoordinates';
 import { cnFilesListItem, cnFilesListItemCanvas, cnFilesListItemImage } from './FilesListItem.classnames';
 import type { FilesListItemProps, Offset, Size } from './FilesListItem.typings';
 
 import './FilesListItem.scss';
 
 export function FilesListItem(props: FilesListItemProps) {
-    const { className, image, disabled } = props;
+    const { className, image, selectFace, disabled } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
 
-    const [size, setSize] = useState<Size>({width: 0, height: 0});
-    const [scaledCoordinates, setScaledCoordinates] = useState<FacesCoordinates>(image.faces);
-    const [offset, setOffset] = useState<Offset>({left: 0, top: 0});
+    const [offset, setOffset] = useState<Offset | undefined>(undefined);
+    const [size, setSize] = useState<Size | undefined>({ width: 0, height: 0 });
+    const [scaledCoordinates, setScaledCoordinates] = useState<FacesCoordinates | undefined>(undefined);
+    const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
     const [hoverIndex, setHoverIndex] = useState<number | undefined>(undefined);
 
+    if (!scaledCoordinates && image.faces) {
+        const scaledCoordinates: FacesCoordinates = [];
+        for (const face of image.faces)
+            scaledCoordinates.push(getScaledCoordinates(image.resolution, face, size));
+        setScaledCoordinates(scaledCoordinates);
+    }
+
     useEffect(() => {
-        if(!wrapper.current)
-            return;
+        setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
+        setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
+
         const resizeObserver = new ResizeObserver(() => {
-            if(!wrapper.current)
+            if (!wrapper.current)
                 return;
             setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
         });
         resizeObserver.observe(wrapper.current);
-        return () => resizeObserver.disconnect();
-    }, [wrapper, setSize]);
+
+        const intersectionObserver = new IntersectionObserver(() => {
+            if (!wrapper.current)
+                return;
+            setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
+        });
+        intersectionObserver.observe(wrapper.current);
+
+        return () => {
+            resizeObserver.disconnect();
+            intersectionObserver.disconnect();
+        };
+    }, []);
 
     useEffect(() => {
-        if(!wrapper.current)
-            return;
-        setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
-    }, [wrapper, setOffset]);
-
-    useEffect(() => {
-        if (!image.faces)
-            return;
+        const ctx = canvas.current.getContext('2d');
+        ctx.canvas.width = size.width;
+        ctx.canvas.height = size.height;
         const scaledCoordinates: FacesCoordinates = [];
-        for (const face of image.faces) {
-            const x = size.width / image.resolution.width;
-            const y = size.height / image.resolution.height;
-            scaledCoordinates.push(
-                [[face[0][0] * x, face[0][1] * y],
-                [face[1][0] * x, face[1][1] * y]]
-            );
+        if (image.faces) {
+            for (const face of image.faces)
+                scaledCoordinates.push(getScaledCoordinates(image.resolution, face, size));
+            setScaledCoordinates(scaledCoordinates);
         }
-        setScaledCoordinates([...scaledCoordinates]);
-    }, [size, image, setScaledCoordinates]);
+    }, [size]);
 
     useEffect(() => {
-        if(!scaledCoordinates)
+        if (!scaledCoordinates)
             return;
         const ctx = canvas.current.getContext('2d');
-        ctx.canvas.height = size.height;
-        ctx.canvas.width = size.width;
         for (let i = 0; i < scaledCoordinates.length; i++) {
             const face = scaledCoordinates[i];
-            const color = disabled ? 'yellow' : image.selectedIndexes.includes(i) ? 'green' : hoverIndex === i ? 'orange' : 'red';
+            const color = disabled ? 'yellow' : selectedIndexes.includes(i) ? 'green' : hoverIndex === i ? 'orange' : 'red';
             const text = ` #${i + 1}`;
             ctx.beginPath();
             ctx.rect(face[0][0], face[0][1], face[1][0] - face[0][0], face[1][1] - face[0][1]);
@@ -78,31 +88,36 @@ export function FilesListItem(props: FilesListItemProps) {
             ctx.fillText(text, face[0][0], face[0][1]);
             ctx.closePath();
         }
-    }, [scaledCoordinates, hoverIndex, canvas, image]);
+    }, [scaledCoordinates, hoverIndex, selectedIndexes]);
 
     const onClickHandler = useCallback((e: MouseEvent<HTMLElement>) => {
-        // const x = e.pageX - offset.left;
-        // const y = e.pageY - offset.top;
+        if (!scaledCoordinates || !selectFace)
+            return;
 
-        // for (let i = 0; i < actualCoordinates.length; i++) {
-        //     const rect = actualCoordinates[i];
-        //     const p1 = rect[0];
-        //     const p2 = rect[1];
-        //     if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
-        //         setSelected(prev => {
-        //             const n = prev.map(() => false);
-        //             n[i] = !prev[i];
-        //             for (let i = 0; i < n.length; i++)
-        //                 selection[i] = n[i];
-        //             return n;
-        //         });
-        //         break;
-        //     }
-        // }
-    }, [/**/]);
+        const x = e.pageX - offset.left;
+        const y = e.pageY - offset.top;
+
+        for (let i = 0; i < scaledCoordinates.length; i++) {
+            const rect = scaledCoordinates[i];
+            const p1 = rect[0];
+            const p2 = rect[1];
+            if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
+                setSelectedIndexes(selectedIndexes => {
+                    const indexOf = selectedIndexes.indexOf(i);
+                    if (indexOf === -1)
+                        selectedIndexes.push(i);
+                    else
+                        selectedIndexes.splice(indexOf, 1);
+                    return [...selectedIndexes];
+                });
+                selectFace(i);
+                break;
+            }
+        }
+    }, [scaledCoordinates, offset]);
 
     const onMouseMoveHandler = useCallback((e: MouseEvent<HTMLElement>) => {
-        if(!scaledCoordinates)
+        if (!scaledCoordinates)
             return;
 
         const x = e.pageX - offset.left;
@@ -120,7 +135,7 @@ export function FilesListItem(props: FilesListItemProps) {
                 break;
             }
         }
-    }, [offset, scaledCoordinates, setHoverIndex]);
+    }, [scaledCoordinates, offset]);
 
     const onMouseLeaveHandler = useCallback(() => {
         setHoverIndex(undefined);

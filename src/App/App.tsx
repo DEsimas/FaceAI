@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_FILES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { LoadSection } from '../Components/LoadSection';
 import { SelectSection } from '../Components/SelectSection';
+import { uploadImages } from './App.server';
 import type { ImageFiles } from './App.typings';
 
 import './App.scss';
-import { uploadImages } from './App.server';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
@@ -60,13 +60,25 @@ export function App() {
                     return [...images];
                 })
             });
-    }, [images, setImages]);
+    }, [images]);
 
     const removeImage = useCallback((id: string) => {
         setImages(images => {
             return images.filter(image => image.localId !== id);
         });
-    }, [setImages]);
+    }, []);
+
+    const selectFace = useCallback((id: string, index: number) => {
+        setImages(images => {
+            const image = images.find(image => image.localId === id);
+            const indexOf = image.selectedIndexes.indexOf(index);
+            if (indexOf === -1)
+                image.selectedIndexes.push(index);
+            else
+                image.selectedIndexes.splice(indexOf, 1);
+            return [...images];
+        });
+    }, []);
 
     return (
         <div>
@@ -77,6 +89,7 @@ export function App() {
             />
             <SelectSection
                 images={images}
+                selectFace={selectFace}
             />
         </div>
     );

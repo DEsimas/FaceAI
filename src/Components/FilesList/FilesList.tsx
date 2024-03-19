@@ -3,7 +3,7 @@ import { FilesListItem } from '../FilesListItem';
 import type { FilesListProps } from './FilesList.typings';
 
 export function FilesList(props: FilesListProps) {
-    const { images, className } = props;
+    const { images, selectFace, className } = props;
 
     return (
         <div className={className}>
@@ -12,6 +12,7 @@ export function FilesList(props: FilesListProps) {
                     image => <FilesListItem
                         key={image.localId}
                         image={image}
+                        selectFace={(index) => selectFace(image.localId, index)}
                     />
                 )
             }

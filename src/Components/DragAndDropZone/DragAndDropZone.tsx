@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import { v4 } from 'uuid';
 import { classnames } from '@bem-react/classnames';
-import { ImageFiles } from '../../App';
+import { v4 } from 'uuid';
+import { getImageResolution } from '../../Utils/getImageResolution';
+import type { ImageFiles } from '../../App';
 import { DragAndDropZoneIdle } from '../DragAndDropZoneIdle';
 import { DragAndDropZoneActive } from '../DragAndDropZoneActive';
 import { FilesTable } from '../FilesTable';
@@ -9,7 +10,6 @@ import { cnDragAndDropZone, cnDragAndDropZoneActive, cnDragAndDropZoneIdle, cnDr
 import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
 
 import './DragAndDropZone.scss';
-import { getImageResolution } from '../../Utils/getImageResolution';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
     const { className, images, addImages, removeImage } = props;
@@ -30,13 +30,14 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
         e.preventDefault();
         setDrag(false);
         const files: ImageFiles = [];
-        for(const file of e.dataTransfer.files) {
+        for (const file of e.dataTransfer.files) {
             const url = URL.createObjectURL(file);
             files.push({
                 file: file,
                 localId: v4(),
                 url: url,
-                resolution: await getImageResolution(url)
+                resolution: await getImageResolution(url),
+                selectedIndexes: []
             });
         }
         addImages(files);
