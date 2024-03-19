@@ -1,7 +1,39 @@
-import { Coordinates, Image } from "../App";
-import { URL } from "../Constants";
+import type { Coordinates, FacesCoordinatesWithId, Image, ImageFiles, ServerRectangle, UploadImagesResponse } from '../App';
+import { URL } from '../Constants';
 import { fileToBase64 } from '../Utils/fileToBase64';
-import type { CoordinatesResponse, ServerResponse } from "../Components/LoadSection";
+import type { CoordinatesResponse, ServerResponse } from '../Components/LoadSection';
+
+export async function uploadImages(images: ImageFiles): Promise<FacesCoordinatesWithId[]> {
+    const body = {
+        data: await Promise.all(images.map(image => fileToBase64(image.file)))
+    };
+    const response = await fetch(`${URL}/upload_images`, {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+    if (!response.ok) {
+        // todo обработка падения
+        throw new Error('Запрос не прошел');
+    }
+    const payload: UploadImagesResponse = JSON.parse(await response.text());
+    const result: FacesCoordinatesWithId[] = [];
+    for (let i = 0; i < payload.image_ids.length; i++) {
+        result.push({
+            localId: images[i].localId,
+            serverId: payload.image_ids[i],
+            faces: payload.bboxes[i].map((face: ServerRectangle) => [[face[0], face[1]], [face[2], face[3]]])
+        });
+    }
+    return result;
+}
+
+// dprecated
 
 export async function fetchCoordinates(files: File[]): Promise<CoordinatesResponse> {
     const data: string[] = await Promise.all(files.map(file => fileToBase64(file)));
@@ -13,7 +45,7 @@ export async function fetchCoordinates(files: File[]): Promise<CoordinatesRespon
             Accept: 'application/json',
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ "data": data })
+        body: JSON.stringify({ 'data': data })
     });
 
     if (!result.ok)
@@ -62,6 +94,7 @@ export async function selectFaces(image_ids: string[], selections: boolean[][]):
         throw new Error('Request error');
 
     const response = JSON.parse(await result.text());
-    console.log({ ...response, selected: data })
     return { ...response, selected: data };
 }
+
+// deprecated

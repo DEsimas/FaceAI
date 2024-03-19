@@ -25,6 +25,21 @@ export type Rectangle = [Point, Point];
 
 export type Point = [number, number];
 
+export type UploadImagesResponse = {
+  bboxes: ServerFacesCoordinates[];
+  image_ids: string[];
+}
+
+export type ServerFacesCoordinates = ServerRectangle[];
+
+export type ServerRectangle = [number, number, number, number];
+
+export type FacesCoordinatesWithId = {
+  localId: string;
+  serverId: string;
+  faces: FacesCoordinates;
+};
+
 // deprecated
 
 export type Coordinates = Image[];
