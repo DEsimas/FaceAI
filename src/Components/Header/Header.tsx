@@ -9,8 +9,8 @@ export function Header(props: HeaderProps) {
     const { text, className } = props;
 
     return (
-        <h1 className={classnames(cnHeader, className)}>
+        <h2 className={classnames(cnHeader, className)}>
             {text}
-        </h1>
+        </h2>
     );
 }

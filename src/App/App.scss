@@ -1,9 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Bona+Nova&family=Roboto+Slab&display=swap');
-
-#root {
-    font-family: 'Roboto Slab', serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Infant:ital,wght@0,1..1000;1,1..1000&display=swap');
 
 body {
     margin: 0;
+}
+
+.App {
+    font-family: "Ysabeau Infant", sans-serif;
+
+    &-Header {
+        margin: 0;
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    &-Load {
+        margin-top: 40px;
+    }
+
+    &-Select {
+        margin-top: 40px;
+    }
+
+    &-Table {
+        margin-top: 40px;
+    }
 }

@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_FILES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
+import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { LoadSection } from '../Components/LoadSection';
 import { SelectSection } from '../Components/SelectSection';
 import { TableSection } from '../Components/TableSection/TableSection';
 import { selectFaces, uploadImages } from './App.server';
-import { Table, type ImageFiles } from './App.typings';
+import { cnApp, cnAppHeader, cnAppLoad, cnAppSelect, cnAppTable } from './App.classnames';
+import type { Table, ImageFiles } from './App.typings';
 
 import './App.scss';
 
@@ -36,10 +37,6 @@ export function App() {
                     i--;
                 }
             }
-        }
-        if (images.length + newImages.length > MAXIMUM_AMOUNT_OF_FILES) {
-            alert('превышен максимум файлов');
-            return;
         }
         if (duplicatesNames.length !== 0) {
             alert(duplicatesNames.join(', ') + ' уже загружены');
@@ -87,18 +84,25 @@ export function App() {
 
 
     return (
-        <div>
+        <div className={cnApp}>
+            <h1 className={cnAppHeader}>
+                FaceAI
+            </h1>
             <LoadSection
+                className={cnAppLoad}
                 images={images}
                 addImages={addImages}
                 removeImage={removeImage}
             />
-            <SelectSection
-                images={images}
-                selectFace={selectFace}
-            />
+            {images.length !== 0 ?
+                < SelectSection
+                    className={cnAppSelect}
+                    images={images}
+                    selectFace={selectFace}
+                /> : null}
             {table?.names.length > 1 ?
                 <TableSection
+                    className={cnAppTable}
                     table={table}
                 /> : null}
         </div>

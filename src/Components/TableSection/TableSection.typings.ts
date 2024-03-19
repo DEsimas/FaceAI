@@ -1,5 +1,6 @@
-import type { ImageFiles, Table } from '../../App';
+import type { Table } from '../../App';
 
 export type TableSectionProps = {
+    className?: string
     table: Table;
 };
