@@ -24,7 +24,7 @@ module.exports = (env) => {
             hot: true,
             proxy: env.mode === 'development' ? [
                 {
-                    context: ['/upload_images', '/select_face', '/select_faces'],
+                    context: ['/upload_images', '/select_faces'],
                     target: env.api,
                     changeOrigin: true
                 }

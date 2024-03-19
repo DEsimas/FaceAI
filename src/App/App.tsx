@@ -3,13 +3,14 @@ import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_FILES, MAXIMUM_FILE_SIZE_BYT
 import { isEqualFiles } from '../Utils/compareFiles';
 import { LoadSection } from '../Components/LoadSection';
 import { SelectSection } from '../Components/SelectSection';
-import { uploadImages } from './App.server';
-import type { ImageFiles } from './App.typings';
+import { selectFaces, uploadImages } from './App.server';
+import { Table, type ImageFiles } from './App.typings';
 
 import './App.scss';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
+    const [table, setTable] = useState<Table | undefined>(undefined);
 
     const addImages = useCallback(async (newImages: ImageFiles) => {
         const duplicatesNames: string[] = [];
@@ -76,6 +77,8 @@ export function App() {
                 image.selectedIndexes.push(index);
             else
                 image.selectedIndexes.splice(indexOf, 1);
+            selectFaces(images)
+                .then(table => setTable(table));
             return [...images];
         });
     }, []);

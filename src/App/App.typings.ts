@@ -42,6 +42,12 @@ export type FacesCoordinatesWithId = {
   faces: FacesCoordinates;
 };
 
+export type SelectFacesRquestBody = {
+  id: Record<string, number[]>;
+};
+
+export type Table = number[][];
+
 // deprecated
 
 export type Coordinates = Image[];
