@@ -51,6 +51,10 @@ export async function selectFaces(images: ImageFiles): Promise<Table> {
         // todo обработка падения
         throw new Error('Запрос не прошел');
     }
-    const payload: { table: Table } = JSON.parse(await response.text());
-    return payload.table;
+    const payload: { table: number[][] } = JSON.parse(await response.text());
+    const table: Table = {
+        names: images.filter(image => image.selectedIndexes.length !== 0).map(image => image.file.name),
+        values: payload.table
+    };
+    return table;
 }

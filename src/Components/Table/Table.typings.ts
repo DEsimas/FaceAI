@@ -1,5 +1,6 @@
+import type { Table } from '../../App';
+
 export type TableProps = {
-    names: string[];
-    table: number[][];
+    table: Table;
     className?: string;
 }

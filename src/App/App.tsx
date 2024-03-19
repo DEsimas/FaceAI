@@ -3,6 +3,7 @@ import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_FILES, MAXIMUM_FILE_SIZE_BYT
 import { isEqualFiles } from '../Utils/compareFiles';
 import { LoadSection } from '../Components/LoadSection';
 import { SelectSection } from '../Components/SelectSection';
+import { TableSection } from '../Components/TableSection/TableSection';
 import { selectFaces, uploadImages } from './App.server';
 import { Table, type ImageFiles } from './App.typings';
 
@@ -77,11 +78,13 @@ export function App() {
                 image.selectedIndexes.push(index);
             else
                 image.selectedIndexes.splice(indexOf, 1);
-            selectFaces(images)
+            const selectedImages = images.filter(image => image.selectedIndexes.length !== 0);
+            selectFaces(selectedImages)
                 .then(table => setTable(table));
             return [...images];
         });
     }, []);
+
 
     return (
         <div>
@@ -94,6 +97,10 @@ export function App() {
                 images={images}
                 selectFace={selectFace}
             />
+            {table?.names.length > 1 ?
+                <TableSection
+                    table={table}
+                /> : null}
         </div>
     );
 }
