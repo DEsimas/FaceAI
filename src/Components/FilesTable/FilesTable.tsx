@@ -22,5 +22,5 @@ export function FilesTable(props: FilesTableProps) {
                 />)
             }
         </div>
-    )
+    );
 }

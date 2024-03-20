@@ -18,5 +18,5 @@ export function FilesList(props: FilesListProps) {
                 )
             }
         </div>
-    )
+    );
 }

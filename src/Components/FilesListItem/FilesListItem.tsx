@@ -79,12 +79,12 @@ export function FilesListItem(props: FilesListItemProps) {
             ctx.lineWidth = 2;
             ctx.stroke();
             ctx.fillStyle = color;
-            ctx.font = "bold 16px Arial";
+            ctx.font = 'bold 16px Arial';
             ctx.textAlign = 'left';
             ctx.textBaseline = 'bottom';
             ctx.lineWidth = 2;
             ctx.strokeStyle = 'black';
-            ctx.strokeText(text, face[0][0], face[0][1])
+            ctx.strokeText(text, face[0][0], face[0][1]);
             ctx.fillText(text, face[0][0], face[0][1]);
             ctx.closePath();
         }
@@ -104,14 +104,14 @@ export function FilesListItem(props: FilesListItemProps) {
             if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
                 setSelectedIndexes(selectedIndexes => {
                     const indexOf = selectedIndexes.indexOf(i);
-                    console.log(disabled)
+                    console.log(disabled);
                     if (indexOf === -1 && !disabled) {
                         selectedIndexes.push(i);
                         selectFace(i);
                     }
                     if (indexOf !== - 1) {
                         selectedIndexes.splice(indexOf, 1);
-                        selectFace(i)
+                        selectFace(i);
                     }
                     return [...selectedIndexes];
                 });
@@ -143,7 +143,7 @@ export function FilesListItem(props: FilesListItemProps) {
 
     const onMouseLeaveHandler = useCallback(() => {
         setHoverIndex(undefined);
-    }, [setHoverIndex])
+    }, [setHoverIndex]);
 
     return (
         <div
@@ -159,5 +159,5 @@ export function FilesListItem(props: FilesListItemProps) {
                 ref={canvas}
             />
         </div >
-    )
+    );
 }

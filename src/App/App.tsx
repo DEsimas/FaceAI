@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
 import { Counter } from '../Components/Counter';
@@ -56,13 +56,13 @@ export function App() {
             }
         }
         if (duplicatesNames.length !== 0) {
-            addError(`${singularOrPlural(duplicatesNames.length > 1, ['Файл', 'Файлы'])} ${duplicatesNames.join(', ')} уже ${singularOrPlural(duplicatesNames.length > 1, ['загружен', 'загружены'])}`)
+            addError(`${singularOrPlural(duplicatesNames.length > 1, ['Файл', 'Файлы'])} ${duplicatesNames.join(', ')} уже ${singularOrPlural(duplicatesNames.length > 1, ['загружен', 'загружены'])}`);
         }
         if (tooLargeNames.length !== 0) {
-            addError(`${singularOrPlural(tooLargeNames.length > 1, ['Файл', 'Файлы'])} ${tooLargeNames.join(', ')} слишком ${singularOrPlural(tooLargeNames.length > 1, ['большой', 'большие'])}`)
+            addError(`${singularOrPlural(tooLargeNames.length > 1, ['Файл', 'Файлы'])} ${tooLargeNames.join(', ')} слишком ${singularOrPlural(tooLargeNames.length > 1, ['большой', 'большие'])}`);
         }
         if (wrongExtensionNames.length !== 0) {
-            addError(`${singularOrPlural(wrongExtensionNames.length > 1, ['Файл', 'Файлы'])} ${wrongExtensionNames.join(', ')} в неподдерживаемом формате`)
+            addError(`${singularOrPlural(wrongExtensionNames.length > 1, ['Файл', 'Файлы'])} ${wrongExtensionNames.join(', ')} в неподдерживаемом формате`);
         }
         setImages([...images, ...newImages]);
         uploadImages(newImages)
@@ -74,7 +74,7 @@ export function App() {
                         image.faces = facesData.faces;
                     }
                     return [...images];
-                })
+                });
             })
             .catch(() => addError('Ошибка сервера. Попробуйте позже'));
     }, [images]);
@@ -117,8 +117,8 @@ export function App() {
                 id: v4(),
                 text
             });
-            return [...errors]
-        })
+            return [...errors];
+        });
     }, []);
 
     const removeError = useCallback((id: string) => {

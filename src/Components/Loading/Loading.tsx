@@ -1,7 +1,7 @@
 import React from 'react';
 import { cnLoading } from './Loading.classnames';
 
-import './Loading.scss'
+import './Loading.scss';
 
 export function Loading() {
     return (
