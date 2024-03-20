@@ -3,6 +3,7 @@ import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { singularOrPlural } from '../Utils/singularOrPlural';
+import { getImageResolution } from '../Utils/getImageResolution';
 import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
 import { LoadSection } from '../Components/LoadSection';
@@ -21,7 +22,7 @@ export function App() {
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
 
-    const addImages = useCallback(async (newImages: ImageFiles) => {
+    const addImages = useCallback(async (newImages: File[]) => {
         const duplicatesNames: string[] = [];
         const tooLargeNames: string[] = [];
         const wrongExtensionNames: string[] = [];
@@ -30,26 +31,26 @@ export function App() {
             if (!newImage) {
                 break;
             }
-            if (!ALLOWED_FILE_EXTENSIONS.includes(newImage.file.name.split('.').reverse()[0])) {
-                wrongExtensionNames.push(newImage.file.name);
+            if (!ALLOWED_FILE_EXTENSIONS.includes(newImage.name.split('.').reverse()[0])) {
+                wrongExtensionNames.push(newImage.name);
                 newImages.splice(i, 1);
                 i--;
             }
-            if (newImage.file.size > MAXIMUM_FILE_SIZE_BYTES) {
-                tooLargeNames.push(newImage.file.name);
+            if (newImage.size > MAXIMUM_FILE_SIZE_BYTES) {
+                tooLargeNames.push(newImage.name);
                 newImages.splice(i, 1);
                 i--;
             }
             for (let j = i + 1; j < newImages.length; j++) {
-                if (await isEqualFiles(newImage.file, newImages[j].file)) {
-                    duplicatesNames.push(newImages[j].file.name);
+                if (await isEqualFiles(newImage, newImages[j])) {
+                    duplicatesNames.push(newImages[j].name);
                     newImages.splice(j, 1);
                     j--;
                 }
             }
             for (const oldImage of images) {
-                if (await isEqualFiles(newImage.file, oldImage.file)) {
-                    duplicatesNames.push(newImage.file.name);
+                if (await isEqualFiles(newImage, oldImage.file)) {
+                    duplicatesNames.push(newImage.name);
                     newImages.splice(i, 1);
                     i--;
                 }
@@ -64,8 +65,18 @@ export function App() {
         if (wrongExtensionNames.length !== 0) {
             addError(`${singularOrPlural(wrongExtensionNames.length > 1, ['Файл', 'Файлы'])} ${wrongExtensionNames.join(', ')} в неподдерживаемом формате`);
         }
-        setImages([...images, ...newImages]);
-        uploadImages(newImages)
+        const filteredImages: ImageFiles = await Promise.all(newImages.map(async (file: File) => {
+            const url = URL.createObjectURL(file);
+            return {
+                file: file,
+                localId: v4(),
+                url: url,
+                resolution: await getImageResolution(url),
+                selectedIndexes: []
+            };
+        }));
+        setImages([...images, ...filteredImages]);
+        uploadImages(filteredImages)
             .then((response) => {
                 setImages(images => {
                     for (const facesData of response) {

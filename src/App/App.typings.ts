@@ -15,7 +15,7 @@ export type Resolution = {
     width: number;
 };
 
-export type AddImages = (newImages: ImageFile[]) => Promise<void>;
+export type AddImages = (newImages: File[]) => Promise<void>;
 
 export type RemoveImage = (id: string) => void;
 

@@ -1,8 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { v4 } from 'uuid';
-import { getImageResolution } from '../../Utils/getImageResolution';
-import type { ImageFiles } from '../../App';
 import { DragAndDropZoneIdle } from '../DragAndDropZoneIdle';
 import { DragAndDropZoneActive } from '../DragAndDropZoneActive';
 import { FilesTable } from '../FilesTable';
@@ -26,21 +23,10 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
         setDrag(false);
     }, [setDrag]);
 
-    const dragDropHandler = useCallback(async (e: React.DragEvent<HTMLDivElement>) => {
+    const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
         setDrag(false);
-        const files: ImageFiles = [];
-        for (const file of e.dataTransfer.files) {
-            const url = URL.createObjectURL(file);
-            files.push({
-                file: file,
-                localId: v4(),
-                url: url,
-                resolution: await getImageResolution(url),
-                selectedIndexes: []
-            });
-        }
-        addImages(files);
+        addImages(Array.from(e.dataTransfer.files));
     }, [setDrag, addImages]);
 
     return (

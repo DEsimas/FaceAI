@@ -46,7 +46,6 @@ export function Table(props: TableProps) {
                     ctx.fillStyle = 'black';
                     ctx.fillText(`${Math.round(table[i - 1][j - 1] * 100) / 100}%`, x + cellSize / 2, y + cellSize / 2);
                 } else if (j !== i) {
-                    console.log({ subImages, i: i === 0 ? j - 1 : i - 1, subImage: i === 0 ? subImages[j - 1] : subImages[i - 1] });
                     const subImage = i === 0 ? subImages[j - 1] : subImages[i - 1];
                     const image = new Image();
                     image.onload = () => {
