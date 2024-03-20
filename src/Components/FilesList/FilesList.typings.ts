@@ -4,4 +4,5 @@ export type FilesListProps = {
     className?: string;
     images: ImageFiles;
     selectFace: SelectFace;
+    disabled?: boolean;
 };

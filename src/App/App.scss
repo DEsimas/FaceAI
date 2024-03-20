@@ -25,4 +25,11 @@ body {
     &-Table {
         margin-top: 40px;
     }
+
+    &-Counter {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 3;
+    }
 }

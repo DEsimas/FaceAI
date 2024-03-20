@@ -68,7 +68,7 @@ export function FilesListItem(props: FilesListItemProps) {
         const ctx = canvas.current.getContext('2d');
         for (let i = 0; i < scaledCoordinates.length; i++) {
             const face = scaledCoordinates[i];
-            const color = disabled ? 'yellow' : selectedIndexes.includes(i) ? 'green' : hoverIndex === i ? 'orange' : 'red';
+            const color = selectedIndexes.includes(i) ? 'green' : hoverIndex === i ? 'orange' : 'red';
             const text = ` #${i + 1}`;
             ctx.beginPath();
             ctx.rect(face[0][0], face[0][1], face[1][0] - face[0][0], face[1][1] - face[0][1]);
@@ -104,17 +104,21 @@ export function FilesListItem(props: FilesListItemProps) {
             if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
                 setSelectedIndexes(selectedIndexes => {
                     const indexOf = selectedIndexes.indexOf(i);
-                    if (indexOf === -1)
+                    console.log(disabled)
+                    if (indexOf === -1 && !disabled) {
                         selectedIndexes.push(i);
-                    else
+                        selectFace(i);
+                    }
+                    if (indexOf !== - 1) {
                         selectedIndexes.splice(indexOf, 1);
+                        selectFace(i)
+                    }
                     return [...selectedIndexes];
                 });
-                selectFace(i);
                 break;
             }
         }
-    }, [scaledCoordinates, offset]);
+    }, [scaledCoordinates, offset, disabled]);
 
     const onMouseMoveHandler = useCallback((e: MouseEvent<HTMLElement>) => {
         if (!scaledCoordinates)
@@ -129,13 +133,13 @@ export function FilesListItem(props: FilesListItemProps) {
             const p1 = face[0];
             const p2 = face[1];
             setHoverIndex(undefined);
-            if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
+            if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1] && (!disabled || selectedIndexes.includes(i))) {
                 document.documentElement.style.cursor = 'pointer';
                 setHoverIndex(i);
                 break;
             }
         }
-    }, [scaledCoordinates, offset]);
+    }, [scaledCoordinates, offset, selectedIndexes]);
 
     const onMouseLeaveHandler = useCallback(() => {
         setHoverIndex(undefined);
@@ -148,9 +152,9 @@ export function FilesListItem(props: FilesListItemProps) {
         >
             <img className={cnFilesListItemImage} src={image.url} />
             <canvas
-                onMouseMove={disabled ? null : onMouseMoveHandler}
-                onMouseLeave={disabled ? null : onMouseLeaveHandler}
-                onClick={disabled ? null : onClickHandler}
+                onMouseMove={onMouseMoveHandler}
+                onMouseLeave={onMouseLeaveHandler}
+                onClick={onClickHandler}
                 className={cnFilesListItemCanvas}
                 ref={canvas}
             />
