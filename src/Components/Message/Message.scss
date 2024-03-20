@@ -1,6 +1,6 @@
 .Message {
     width: 300px;
-    height: 50px;
+    min-height: 50px;
     padding: 30px;
     background-color: rgba(255, 200, 200);
     border: solid thick rgba(255, 100, 100);
@@ -18,6 +18,7 @@
         border-radius: 50%;
         padding: 2px;
         margin: 5px;
+        position: absolute;
     }
 }
 

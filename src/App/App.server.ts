@@ -17,8 +17,8 @@ export async function uploadImages(images: ImageFiles): Promise<FacesCoordinates
         body: JSON.stringify(body)
     });
     if (!response.ok) {
-        // todo обработка падения
-        throw new Error('Запрос не прошел');
+        throw new Error('Server error');
+
     }
     const payload: UploadImagesResponse = JSON.parse(await response.text());
     const result: FacesCoordinatesWithId[] = [];
@@ -48,8 +48,7 @@ export async function selectFaces(images: ImageFiles): Promise<Table> {
         body: JSON.stringify(body)
     });
     if (!response.ok) {
-        // todo обработка падения
-        throw new Error('Запрос не прошел');
+        throw new Error('Server error');
     }
     const payload: { table: number[][] } = JSON.parse(await response.text());
     const names: string[] = [];

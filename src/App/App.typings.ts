@@ -50,3 +50,8 @@ export type Table = {
     names: string[];
     values: number[][];
 };
+
+export type Error = {
+    text: string;
+    id: string;
+};

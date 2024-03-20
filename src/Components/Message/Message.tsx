@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { classnames } from '@bem-react/classnames';
+import { Button } from '../Button';
 import { cnMessage, cnMessageCloseBtn } from './Message.classnames';
 import type { MessageProps } from './Message.typings';
 
 import './Message.scss';
-import { Button } from '../Button';
 
 export function Message(props: MessageProps) {
     const { text, className, onClose } = props;

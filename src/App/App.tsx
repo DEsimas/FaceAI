@@ -1,20 +1,25 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
 import { Counter } from '../Components/Counter';
+import { Message } from '../Components/Message';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { LoadSection } from '../Components/LoadSection';
 import { SelectSection } from '../Components/SelectSection';
+import { MessageWrapper } from '../Components/MessageWrapper';
 import { TableSection } from '../Components/TableSection/TableSection';
 import { selectFaces, uploadImages } from './App.server';
 import { cnApp, cnAppCounter, cnAppHeader, cnAppLoad, cnAppSelect, cnAppTable } from './App.classnames';
-import type { Table, ImageFiles } from './App.typings';
+import type { Table, ImageFiles, Error } from './App.typings';
 
 import './App.scss';
+import { singularOrPlural } from '../Utils/singularOrPlural';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
     const [table, setTable] = useState<Table | undefined>(undefined);
     const [selectedCounter, setSelectedCounter] = useState(0);
+    const [errors, setErrors] = useState<Error[]>([]);
 
     const addImages = useCallback(async (newImages: ImageFiles) => {
         const duplicatesNames: string[] = [];
@@ -51,13 +56,13 @@ export function App() {
             }
         }
         if (duplicatesNames.length !== 0) {
-            alert(duplicatesNames.join(', ') + ' уже загружены');
+            addError(`${singularOrPlural(duplicatesNames.length > 1, ['Файл', 'Файлы'])} ${duplicatesNames.join(', ')} уже ${singularOrPlural(duplicatesNames.length > 1, ['загружен', 'загружены'])}`)
         }
         if (tooLargeNames.length !== 0) {
-            alert(tooLargeNames.join(', ') + ' слишком большие');
+            addError(`${singularOrPlural(tooLargeNames.length > 1, ['Файл', 'Файлы'])} ${tooLargeNames.join(', ')} слишком ${singularOrPlural(tooLargeNames.length > 1, ['большой', 'большие'])}`)
         }
         if (wrongExtensionNames.length !== 0) {
-            alert(wrongExtensionNames.join(', ') + ' неверный формат');
+            addError(`${singularOrPlural(wrongExtensionNames.length > 1, ['Файл', 'Файлы'])} ${wrongExtensionNames.join(', ')} в неподдерживаемом формате`)
         }
         setImages([...images, ...newImages]);
         uploadImages(newImages)
@@ -70,7 +75,8 @@ export function App() {
                     }
                     return [...images];
                 })
-            });
+            })
+            .catch(() => addError('Ошибка сервера. Попробуйте позже'));
     }, [images]);
 
     const removeImage = useCallback((id: string) => {
@@ -99,11 +105,25 @@ export function App() {
             }
             const selectedImages = images.filter(image => image.selectedIndexes.length !== 0);
             selectFaces(selectedImages)
-                .then(table => setTable(table));
+                .then(table => setTable(table))
+                .catch(() => addError('Ошибка сервера. Попробуйте позже'));
             return [...images];
         });
     }, []);
 
+    const addError = useCallback((text: string) => {
+        setErrors(errors => {
+            errors.push({
+                id: v4(),
+                text
+            });
+            return [...errors]
+        })
+    }, []);
+
+    const removeError = useCallback((id: string) => {
+        setErrors(errors => errors.filter(error => error.id !== id));
+    }, []);
 
     return (
         <div className={cnApp}>
@@ -113,6 +133,13 @@ export function App() {
                     value={selectedCounter}
                     max={MAXIMUM_AMOUNT_OF_SELECTED_FACES}
                 /> : null}
+            <MessageWrapper>
+                {errors.map(error => <Message
+                    key={error.id}
+                    text={error.text}
+                    onClose={() => removeError(error.id)} />
+                )}
+            </MessageWrapper>
             <h1 className={cnAppHeader}>
                 FaceAI
             </h1>
