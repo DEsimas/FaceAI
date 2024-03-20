@@ -69,7 +69,6 @@ export function FilesListItem(props: FilesListItemProps) {
         for (let i = 0; i < scaledCoordinates.length; i++) {
             const face = scaledCoordinates[i];
             const color = selectedIndexes.includes(i) ? 'green' : hoverIndex === i ? 'orange' : 'red';
-            const text = ` #${i + 1}`;
             ctx.beginPath();
             ctx.rect(face[0][0], face[0][1], face[1][0] - face[0][0], face[1][1] - face[0][1]);
             ctx.strokeStyle = 'black';
@@ -78,14 +77,6 @@ export function FilesListItem(props: FilesListItemProps) {
             ctx.strokeStyle = color;
             ctx.lineWidth = 2;
             ctx.stroke();
-            ctx.fillStyle = color;
-            ctx.font = 'bold 16px Arial';
-            ctx.textAlign = 'left';
-            ctx.textBaseline = 'bottom';
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = 'black';
-            ctx.strokeText(text, face[0][0], face[0][1]);
-            ctx.fillText(text, face[0][0], face[0][1]);
             ctx.closePath();
         }
     }, [scaledCoordinates, hoverIndex, selectedIndexes]);
@@ -104,7 +95,6 @@ export function FilesListItem(props: FilesListItemProps) {
             if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
                 setSelectedIndexes(selectedIndexes => {
                     const indexOf = selectedIndexes.indexOf(i);
-                    console.log(disabled);
                     if (indexOf === -1 && !disabled) {
                         selectedIndexes.push(i);
                         selectFace(i);

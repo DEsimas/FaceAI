@@ -46,9 +46,9 @@ export type SelectFacesRquestBody = {
     id: Record<string, number[]>;
 };
 
-export type Table = {
-    names: string[];
-    values: number[][];
+export type SelectFacesResponse = {
+    images: ImageFiles;
+    table: number[][];
 };
 
 export type Error = {

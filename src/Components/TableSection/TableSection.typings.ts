@@ -1,6 +1,7 @@
-import type { Table } from '../../App';
+import type { ImageFiles } from '../../App';
 
 export type TableSectionProps = {
-    className?: string
-    table: Table;
+    className?: string;
+    images: ImageFiles;
+    table: number[][];
 };

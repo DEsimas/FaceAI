@@ -1,6 +1,6 @@
-import type { FacesCoordinatesWithId, ImageFiles, SelectFacesRquestBody, ServerRectangle, Table, UploadImagesResponse } from '../App';
 import { URL } from '../Constants';
 import { fileToBase64 } from '../Utils/fileToBase64';
+import type { FacesCoordinatesWithId, ImageFiles, SelectFacesResponse, SelectFacesRquestBody, ServerRectangle, UploadImagesResponse } from '../App';
 
 export async function uploadImages(images: ImageFiles): Promise<FacesCoordinatesWithId[]> {
     const body = {
@@ -32,7 +32,7 @@ export async function uploadImages(images: ImageFiles): Promise<FacesCoordinates
     return result;
 }
 
-export async function selectFaces(images: ImageFiles): Promise<Table> {
+export async function selectFaces(images: ImageFiles): Promise<SelectFacesResponse> {
     const body: SelectFacesRquestBody = {
         id: {}
     };
@@ -51,15 +51,8 @@ export async function selectFaces(images: ImageFiles): Promise<Table> {
         throw new Error('Server error');
     }
     const payload: { table: number[][] } = JSON.parse(await response.text());
-    const names: string[] = [];
-    for (const image of images) {
-        for (const index of image.selectedIndexes) {
-            names.push(`${image.file.name} #${index + 1}`);
-        }
-    }
-    const table: Table = {
-        names: names,
-        values: payload.table
+    return {
+        images,
+        table: payload.table
     };
-    return table;
 }

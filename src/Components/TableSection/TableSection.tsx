@@ -8,7 +8,7 @@ import type { TableSectionProps } from './TableSection.typings';
 import './TableSection.scss';
 
 export function TableSection(props: TableSectionProps) {
-    const { className, table } = props;
+    const { className, table, images } = props;
 
     return (
         <div className={classnames(cnTableSection, className)}>
@@ -16,6 +16,7 @@ export function TableSection(props: TableSectionProps) {
                 text='Таблица соответствия'
             />
             <Table
+                images={images}
                 table={table}
                 className={cnTableSectionTable}
             />

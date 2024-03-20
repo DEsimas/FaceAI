@@ -1,23 +1,23 @@
 import React, { useCallback, useState } from 'react';
 import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
+import { isEqualFiles } from '../Utils/compareFiles';
+import { singularOrPlural } from '../Utils/singularOrPlural';
 import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
-import { isEqualFiles } from '../Utils/compareFiles';
 import { LoadSection } from '../Components/LoadSection';
 import { SelectSection } from '../Components/SelectSection';
 import { MessageWrapper } from '../Components/MessageWrapper';
 import { TableSection } from '../Components/TableSection/TableSection';
 import { selectFaces, uploadImages } from './App.server';
 import { cnApp, cnAppCounter, cnAppHeader, cnAppLoad, cnAppSelect, cnAppTable } from './App.classnames';
-import type { Table, ImageFiles, Error } from './App.typings';
+import type { ImageFiles, Error, SelectFacesResponse } from './App.typings';
 
 import './App.scss';
-import { singularOrPlural } from '../Utils/singularOrPlural';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
-    const [table, setTable] = useState<Table | undefined>(undefined);
+    const [table, setTable] = useState<SelectFacesResponse | undefined>(undefined);
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
 
@@ -86,7 +86,9 @@ export function App() {
                 setSelectedCounter(ctr => ctr - image.selectedIndexes.length);
                 const selectedImages = images.filter(image => image.selectedIndexes.length !== 0 && image.localId !== id);
                 selectFaces(selectedImages)
-                    .then(table => setTable(table));
+                    .then(table => setTable(table))
+                    .catch(() => addError('Ошибка сервера. Попробуйте позже'));
+
             }
             return images.filter(image => image.localId !== id);
         });
@@ -103,6 +105,7 @@ export function App() {
                 image.selectedIndexes.splice(indexOf, 1);
                 setSelectedCounter(ctr => --ctr);
             }
+            image.selectedIndexes.sort();
             const selectedImages = images.filter(image => image.selectedIndexes.length !== 0);
             selectFaces(selectedImages)
                 .then(table => setTable(table))
@@ -156,10 +159,11 @@ export function App() {
                     selectFace={selectFace}
                     disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
                 /> : null}
-            {table?.names.length > 1 ?
+            {table?.table.length > 1 ?
                 <TableSection
                     className={cnAppTable}
-                    table={table}
+                    images={table.images}
+                    table={table.table}
                 /> : null}
         </div>
     );

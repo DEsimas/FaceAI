@@ -1,6 +1,12 @@
-import type { Table } from '../../App';
+import type { ImageFiles, Rectangle } from '../../App';
 
 export type TableProps = {
-    table: Table;
     className?: string;
-}
+    images: ImageFiles;
+    table: number[][];
+};
+
+export type SubImage = {
+    url: string;
+    face: Rectangle;
+};

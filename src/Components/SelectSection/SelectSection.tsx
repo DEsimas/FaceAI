@@ -13,7 +13,7 @@ export function SelectSection(props: SelectFacesProps) {
     return (
         <div className={classnames(cnSelectSection, className)}>
             <Header
-                text='Выберите лица для сравнения'
+                text='Выберите лица'
                 className={cnSelectSectionHeader}
             />
             <FilesList
