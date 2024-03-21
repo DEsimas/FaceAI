@@ -24,4 +24,13 @@
     &+.FilesListItem {
         margin-top: 40px;
     }
+
+    &-CloseButton {
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+    }
 }

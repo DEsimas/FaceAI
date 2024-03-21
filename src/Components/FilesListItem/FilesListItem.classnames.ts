@@ -4,3 +4,4 @@ export const FilesListItemCn = cn('FilesListItem');
 export const cnFilesListItem = FilesListItemCn();
 export const cnFilesListItemImage = FilesListItemCn('Image');
 export const cnFilesListItemCanvas = FilesListItemCn('Canvas');
+export const cnFilesListCloseButton = FilesListItemCn('CloseButton');

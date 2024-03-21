@@ -2,13 +2,14 @@ import React, { useCallback, useEffect, MouseEvent, useRef, useState } from 'rea
 import { classnames } from '@bem-react/classnames';
 import type { FacesCoordinates } from '../../App';
 import { getScaledCoordinates } from '../../Utils/getScaledCoordinates';
-import { cnFilesListItem, cnFilesListItemCanvas, cnFilesListItemImage } from './FilesListItem.classnames';
+import { cnFilesListCloseButton, cnFilesListItem, cnFilesListItemCanvas, cnFilesListItemImage } from './FilesListItem.classnames';
 import type { FilesListItemProps, Offset, Size } from './FilesListItem.typings';
 
 import './FilesListItem.scss';
+import { Button } from '../Button';
 
 export function FilesListItem(props: FilesListItemProps) {
-    const { className, image, selectFace, disabled } = props;
+    const { className, image, selectFace, removeImage, disabled } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -147,6 +148,11 @@ export function FilesListItem(props: FilesListItemProps) {
                 onClick={onClickHandler}
                 className={cnFilesListItemCanvas}
                 ref={canvas}
+            />
+            <Button
+                className={cnFilesListCloseButton}
+                onClick={removeImage}
+                type='close'
             />
         </div >
     );

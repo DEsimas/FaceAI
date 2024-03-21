@@ -44,6 +44,7 @@ export function ImageViewer(props: ImageViewerProps) {
                         image={images[index]}
                         disabled={disabled}
                         selectFace={i => selectFace(images[index].localId, i)}
+                        removeImage={() => {}}
                     /> : null}
             </div>
             <button

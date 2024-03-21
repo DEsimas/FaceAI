@@ -8,7 +8,7 @@ import type { SelectFacesProps } from './SelectSection.typings';
 import './SelectSection.scss';
 
 export function SelectSection(props: SelectFacesProps) {
-    const { className, images, selectFace, disabled } = props;
+    const { className, images, selectFace, removeImage, disabled } = props;
 
     return (
         <div className={classnames(cnSelectSection, className)}>
@@ -17,6 +17,7 @@ export function SelectSection(props: SelectFacesProps) {
                 className={cnSelectSectionHeader}
             />
             <FilesList
+                removeImage={removeImage}
                 className={cnSelectSectionList}
                 images={images}
                 selectFace={selectFace}

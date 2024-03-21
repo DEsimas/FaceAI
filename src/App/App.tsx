@@ -169,6 +169,7 @@ export function App() {
                     images={images}
                     selectFace={selectFace}
                     disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
+                    removeImage={removeImage}
                 /> : null}
             {table?.table.length > 1 ?
                 <TableSection

@@ -4,6 +4,7 @@ export type FilesListItemProps = {
     className?: string;
     image: ImageFile;
     selectFace?: (index: number) => void;
+    removeImage: () => void;
     disabled?: boolean;
 };
 
