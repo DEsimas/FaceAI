@@ -9,23 +9,23 @@ import './DragAndDropZone.scss';
 export function DragAndDropZone(props: DragAndDropZoneProps) {
     const { className, images, addImages, removeImage } = props;
 
-    const [drag, setDrag] = useState(false);
+    const [dragAmount, setDragAmount] = useState(0);
 
     const dragStartHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        setDrag(true);
-    }, [setDrag]);
+        setDragAmount(e.dataTransfer.items.length);
+    }, [setDragAmount]);
 
     const dragLeaveHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        setDrag(false);
-    }, [setDrag]);
+        setDragAmount(0);
+    }, [setDragAmount]);
 
     const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        setDrag(false);
+        setDragAmount(0);
         addImages(Array.from(e.dataTransfer.files));
-    }, [setDrag, addImages]);
+    }, [setDragAmount, addImages]);
 
     return (
         <div
@@ -39,7 +39,7 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
                 className={cnDragAndDropZonePreview}
                 images={images}
                 removeImage={removeImage}
-                isDisabled={drag}
+                dragAmount={dragAmount}
                 addFiles={addImages}
             />
         </div>

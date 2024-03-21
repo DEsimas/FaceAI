@@ -4,6 +4,6 @@ export type FilesTableProps = {
     className?: string;
     images: ImageFiles;
     removeImage: RemoveImage;
-    isDisabled?: boolean;
+    dragAmount: number;
     addFiles: AddImages;
 }
