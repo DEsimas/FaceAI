@@ -3,7 +3,7 @@ import { classnames } from '@bem-react/classnames';
 import { v4 } from 'uuid';
 import type { ImageFile } from '../../App';
 import { FilesTableItem } from '../FilesTableItem';
-import { cnFilesTable, cnFilesTableInput, cnFilesTableItem, cnFilesTablePlaceholder } from './FilesTable.classnames';
+import { cnFilesTable, cnFilesTableAddImage, cnFilesTableInput, cnFilesTableItem, cnFilesTablePlaceholder } from './FilesTable.classnames';
 import type { FilesTableProps } from './FilesTable.typings';
 
 import './FilesTable.scss';
@@ -12,7 +12,7 @@ import ImageUploadPlaceholder from './../../Assets/imageUploadPlaceholder.jpg';
 import ImagePlaceholder from './../../Assets/imagePlaceholder.jpg';
 
 export function FilesTable(props: FilesTableProps) {
-    const {className, images, removeImage, dragAmount, addFiles } = props;
+    const { className, images, removeImage, dragAmount, addFiles } = props;
 
     const inputFile = useRef<HTMLInputElement | null>(null);
 
@@ -49,12 +49,12 @@ export function FilesTable(props: FilesTableProps) {
                     </div>
                 ) : null
             }
-            
+
             <div
                 onClick={onClickHandler}
                 className={cnFilesTableItem}>
                 <img
-                    className={cnFilesTablePlaceholder}
+                    className={classnames(cnFilesTablePlaceholder, cnFilesTableAddImage)}
                     src={ImageUploadPlaceholder}
                     alt='Загрузить изображения'
                 />

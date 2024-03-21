@@ -15,7 +15,7 @@ export function LoadSection(props: LoadSectionProps) {
             <Header
                 text='Загрузите фотографии лиц для сравнения'
             />
-            <p className={cnLoadSectionPara}>Можете просто перетащить из в область снизу</p>
+            <p className={cnLoadSectionPara}>Можете просто перетащить их в область снизу</p>
             <DragAndDropZone
                 className={cnLoadSectionDADZone}
                 images={images}
