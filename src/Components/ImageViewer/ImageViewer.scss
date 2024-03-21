@@ -1,0 +1,16 @@
+.ImageViewer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    &-ImageArea {
+        width: 800px;
+        height: 800px;
+    }
+
+    &-Item {
+        max-width: 800px;
+        max-height: 800px;
+    }
+}
