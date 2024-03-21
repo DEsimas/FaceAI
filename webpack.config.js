@@ -67,6 +67,10 @@ module.exports = (env) => {
                             options: { sourceMap: true }
                         }
                     ]
+                },
+                {
+                    test: /\.jpg/,
+                    type: 'asset/resource'
                 }
             ]
         }
