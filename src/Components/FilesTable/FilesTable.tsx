@@ -26,8 +26,6 @@ export function FilesTable(props: FilesTableProps) {
         }
     }, [addFiles]);
 
-    console.log(dragAmount);
-
     return (
         <div className={classnames(cnFilesTable, className)}>
             {images.map((image: ImageFile) =>

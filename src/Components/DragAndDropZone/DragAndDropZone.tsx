@@ -13,7 +13,9 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
 
     const dragStartHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
-        setDragAmount(e.dataTransfer.items.length);
+        const amount = Array.from(e.dataTransfer.items).reduce((ctr, item) => item.kind === 'file' ? ctr + 1 : ctr, 0);
+        setDragAmount(amount);
+        console.log(e);
     }, [setDragAmount]);
 
     const dragLeaveHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
