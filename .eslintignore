@@ -11,3 +11,5 @@ README.md
 SyncLog.txt
 tsconfig.json
 webpack.config.js
+*.jpg
+*.ico
