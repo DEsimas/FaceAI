@@ -3,7 +3,7 @@ import { classnames } from '@bem-react/classnames';
 import { v4 } from 'uuid';
 import type { ImageFile } from '../../App';
 import { FilesTableItem } from '../FilesTableItem';
-import { cnFilesTable, cnFilesTableAddImage, cnFilesTableInput, cnFilesTableItem, cnFilesTablePlaceholder } from './FilesTable.classnames';
+import { cnFilesTable, cnFilesTableAddImage, cnFilesTableHidden, cnFilesTableItem, cnFilesTablePlaceholder } from './FilesTable.classnames';
 import type { FilesTableProps } from './FilesTable.typings';
 
 import './FilesTable.scss';
@@ -60,13 +60,14 @@ export function FilesTable(props: FilesTableProps) {
                 />
             </div>
             <input
-                className={cnFilesTableInput}
+                className={cnFilesTableHidden}
                 ref={inputFile}
                 accept='image/*'
                 type='file'
                 multiple
                 onChange={handleFileChange}
             />
+            <img className={cnFilesTableHidden} src={ImagePlaceholder} />
         </div>
     );
 }

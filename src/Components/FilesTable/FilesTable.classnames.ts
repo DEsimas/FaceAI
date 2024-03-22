@@ -4,5 +4,5 @@ export const filesTableCn = cn('FilesTable');
 export const cnFilesTable = filesTableCn();
 export const cnFilesTableItem = filesTableCn('Item');
 export const cnFilesTablePlaceholder = filesTableCn('Placeholder');
-export const cnFilesTableInput = filesTableCn('Input');
+export const cnFilesTableHidden = filesTableCn('Hidden');
 export const cnFilesTableAddImage = filesTableCn('AddImage');
