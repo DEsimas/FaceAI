@@ -27,8 +27,4 @@ ALLOWED_FILE_EXTENSIONS=png,jpg,jpeg
 
 ## Preview
 
-<img src="./repository\assets\load.jpg" alt="load">
-
-<img src="./repository\assets\select.jpg" alt="select">
-
-<img src="./repository\assets\result.jpg" alt="result">
+<img src="./repository\assets\preview.png" alt="preview">
