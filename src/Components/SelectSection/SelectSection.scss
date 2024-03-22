@@ -16,6 +16,11 @@
         margin: auto;
         right: calc(50% - 65px)
     }
+
+    &-Para {
+        text-align: center;
+        font-size: 18px;
+    }
 }
 
 @media screen and (max-width: 500px) {
