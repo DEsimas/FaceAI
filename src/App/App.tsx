@@ -8,12 +8,12 @@ import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
 import { SelectSection } from '../Components/SelectSection';
 import { MessageWrapper } from '../Components/MessageWrapper';
+import { DragAndDrop } from '../Components/DragAndDrop';
 import { uploadImages } from './App.server';
 import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSelect } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
-import { DragAndDropZone } from '../Components/DragAndDropZone';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
@@ -150,7 +150,7 @@ export function App() {
                     disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
                     removeImage={removeImage}
                 /> : null}
-            <DragAndDropZone
+            <DragAndDrop
                 className={cnAppDragAndDrop}
                 addImages={addImages}
             />

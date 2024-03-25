@@ -1,12 +1,7 @@
 .DragAndDropZone {
+    background-color: rgba($color: #000000, $alpha: .8);
     position: absolute;
     inset: 0;
-
-    &-Active {
-        width: 100%;
-        height: 100%;
-        background-color: rgba($color: #000000, $alpha: .8);
-    }
 
     &-Border {
         position: absolute;
@@ -31,9 +26,5 @@
 
     &-Text {
         margin-top: 20px;
-    }
-
-    &-Hidden {
-        display: none;
     }
 }

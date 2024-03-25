@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { cnDragAndDropBorder, cnDragAndDropHidden, cnDragAndDropMiddle, cnDragAndDropPlaceholder, cnDragAndDropText, cnDragAndDropZone, cnDragAndDropZoneActive } from './DragAndDropZone.classnames';
-import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
+import { cnDragAndDropBorder, cnDragAndDropMiddle, cnDragAndDropPlaceholder, cnDragAndDropText, cnDragAndDropZone } from './DragAndDrop.classnames';
+import type { DragAndDropProps } from './DragAndDrop.typings';
 
 import PlaceholderImage from './../../Assets/Placeholder.png';
 
-import './DragAndDropZone.scss';
+import './DragAndDrop.scss';
 
-export function DragAndDropZone(props: DragAndDropZoneProps) {
+export function DragAndDrop(props: DragAndDropProps) {
     const { className, addImages } = props;
 
     const [isDrag, setIsDrag] = useState(false);
@@ -44,27 +44,21 @@ export function DragAndDropZone(props: DragAndDropZoneProps) {
     return (
         <div
             className={classnames(cnDragAndDropZone, className)}
-            style={{ zIndex: isDrag ? 1 : -1 }}
+            style={{
+                zIndex: isDrag ? 1 : -1,
+                display: isDrag ? 'block' : 'none',
+            }}
         >
-            {isDrag ?
-                <div className={cnDragAndDropZoneActive}>
-                    <div className={cnDragAndDropBorder}>
-                        <div className={cnDragAndDropMiddle}>
-                            <img
-                                alt='placeholder'
-                                src={PlaceholderImage}
-                                className={cnDragAndDropPlaceholder}
-                            />
-                            <p className={cnDragAndDropText}>Перетащите изображение сюда</p>
-                        </div>
-                    </div>
+            <div className={cnDragAndDropBorder}>
+                <div className={cnDragAndDropMiddle}>
+                    <img
+                        alt='placeholder'
+                        src={PlaceholderImage}
+                        className={cnDragAndDropPlaceholder}
+                    />
+                    <p className={cnDragAndDropText}>Перетащите изображение сюда</p>
                 </div>
-                : null}
-            <img
-                alt='placeholder'
-                src={PlaceholderImage}
-                className={cnDragAndDropHidden}
-            />
-        </div>
+            </div>
+        </div >
     );
 }
