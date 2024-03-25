@@ -7,6 +7,13 @@ body {
 .App {
     font-family: "Ysabeau Infant", sans-serif;
 
+    &-Counter {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        z-index: 3;
+    }
+
     &-Header {
         margin: 0;
         display: block;
@@ -14,22 +21,7 @@ body {
         margin-top: 20px;
     }
 
-    &-Load {
-        margin-top: 40px;
-    }
-
     &-Select {
         margin-top: 40px;
-    }
-
-    &-Table {
-        margin-top: 40px;
-    }
-
-    &-Counter {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 3;
     }
 }

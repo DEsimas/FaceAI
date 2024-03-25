@@ -6,19 +6,17 @@ import { singularOrPlural } from '../Utils/singularOrPlural';
 import { getImageResolution } from '../Utils/getImageResolution';
 import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
-import { LoadSection } from '../Components/LoadSection';
 import { SelectSection } from '../Components/SelectSection';
 import { MessageWrapper } from '../Components/MessageWrapper';
-import { TableSection } from '../Components/TableSection/TableSection';
-import { selectFaces, uploadImages } from './App.server';
-import { cnApp, cnAppCounter, cnAppHeader, cnAppLoad, cnAppSelect, cnAppTable } from './App.classnames';
-import type { ImageFiles, Error, SelectFacesResponse } from './App.typings';
+import { uploadImages } from './App.server';
+import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSelect } from './App.classnames';
+import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
+import { DragAndDropZone } from '../Components/DragAndDropZone';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
-    const [table, setTable] = useState<SelectFacesResponse | undefined>(undefined);
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
 
@@ -92,15 +90,6 @@ export function App() {
 
     const removeImage = useCallback((id: string) => {
         setImages(images => {
-            const image = images.find(image => image.localId === id);
-            if (image) {
-                setSelectedCounter(ctr => ctr - image.selectedIndexes.length);
-                const selectedImages = images.filter(image => image.selectedIndexes.length !== 0 && image.localId !== id);
-                selectFaces(selectedImages)
-                    .then(table => setTable(table))
-                    .catch(() => addError('Ошибка сервера. Попробуйте позже'));
-
-            }
             return images.filter(image => image.localId !== id);
         });
     }, []);
@@ -111,16 +100,12 @@ export function App() {
             const indexOf = image.selectedIndexes.indexOf(index);
             if (indexOf === -1) {
                 image.selectedIndexes.push(index);
+                image.selectedIndexes.sort();
                 setSelectedCounter(ctr => ++ctr);
             } else {
                 image.selectedIndexes.splice(indexOf, 1);
                 setSelectedCounter(ctr => --ctr);
             }
-            image.selectedIndexes.sort();
-            const selectedImages = images.filter(image => image.selectedIndexes.length !== 0);
-            selectFaces(selectedImages)
-                .then(table => setTable(table))
-                .catch(() => addError('Ошибка сервера. Попробуйте позже'));
             return [...images];
         });
     }, []);
@@ -157,12 +142,6 @@ export function App() {
             <h1 className={cnAppHeader}>
                 FaceAI
             </h1>
-            <LoadSection
-                className={cnAppLoad}
-                images={images}
-                addImages={addImages}
-                removeImage={removeImage}
-            />
             {images.length !== 0 ?
                 <SelectSection
                     className={cnAppSelect}
@@ -171,12 +150,10 @@ export function App() {
                     disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
                     removeImage={removeImage}
                 /> : null}
-            {table?.table.length > 1 ?
-                <TableSection
-                    className={cnAppTable}
-                    images={table.images}
-                    table={table.table}
-                /> : null}
+            <DragAndDropZone
+                className={cnAppDragAndDrop}
+                addImages={addImages}
+            />
         </div>
     );
 }

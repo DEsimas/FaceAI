@@ -1,8 +1,6 @@
-import type { AddImages, ImageFiles, RemoveImage } from '../../App';
+import type { AddImages } from '../../App';
 
 export type DragAndDropZoneProps = {
     className?: string;
-    images: ImageFiles;
-    addImages?: AddImages;
-    removeImage?: RemoveImage;
+    addImages: AddImages;
 }

@@ -1,48 +1,69 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { FilesTable } from '../FilesTable';
-import { cnDragAndDropZone,  cnDragAndDropZonePreview } from './DragAndDropZone.classnames';
+import { cnDragAndDropBorder, cnDragAndDropHidden, cnDragAndDropMiddle, cnDragAndDropPlaceholder, cnDragAndDropText, cnDragAndDropZone, cnDragAndDropZoneActive } from './DragAndDropZone.classnames';
 import type { DragAndDropZoneProps } from './DragAndDropZone.typings';
+
+import PlaceholderImage from './../../Assets/Placeholder.png';
 
 import './DragAndDropZone.scss';
 
 export function DragAndDropZone(props: DragAndDropZoneProps) {
-    const { className, images, addImages, removeImage } = props;
+    const { className, addImages } = props;
 
-    const [dragAmount, setDragAmount] = useState(0);
+    const [isDrag, setIsDrag] = useState(false);
 
-    const dragStartHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    const dragStartHandler = useCallback((e: DragEvent) => {
         e.preventDefault();
-        const amount = Array.from(e.dataTransfer.items).reduce((ctr, item) => item.kind === 'file' ? ctr + 1 : ctr, 0);
-        setDragAmount(amount);
-        console.log(e);
-    }, [setDragAmount]);
+        setIsDrag(true);
+    }, []);
 
-    const dragLeaveHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    const dragLeaveHandler = useCallback((e: DragEvent) => {
         e.preventDefault();
-        setDragAmount(0);
-    }, [setDragAmount]);
+        setIsDrag(false);
+    }, []);
 
-    const dragDropHandler = useCallback((e: React.DragEvent<HTMLDivElement>) => {
+    const dragDropHandler = useCallback((e: DragEvent) => {
         e.preventDefault();
-        setDragAmount(0);
+        setIsDrag(false);
         addImages(Array.from(e.dataTransfer.files));
-    }, [setDragAmount, addImages]);
+    }, [addImages]);
+
+    useEffect(() => {
+        window.ondragover = dragStartHandler;
+        window.ondragstart = dragStartHandler;
+        window.ondragleave = dragLeaveHandler;
+        window.ondrop = dragDropHandler;
+        return () => {
+            window.ondragover = undefined;
+            window.ondragstart = undefined;
+            window.ondragleave = undefined;
+            window.ondrop = undefined;
+        };
+    }, []);
 
     return (
         <div
             className={classnames(cnDragAndDropZone, className)}
-            onDragLeave={dragLeaveHandler}
-            onDragOver={dragStartHandler}
-            onDragStart={dragStartHandler}
-            onDrop={dragDropHandler}
+            style={{ zIndex: isDrag ? 1 : -1 }}
         >
-            <FilesTable
-                className={cnDragAndDropZonePreview}
-                images={images}
-                removeImage={removeImage}
-                dragAmount={dragAmount}
-                addFiles={addImages}
+            {isDrag ?
+                <div className={cnDragAndDropZoneActive}>
+                    <div className={cnDragAndDropBorder}>
+                        <div className={cnDragAndDropMiddle}>
+                            <img
+                                alt='placeholder'
+                                src={PlaceholderImage}
+                                className={cnDragAndDropPlaceholder}
+                            />
+                            <p className={cnDragAndDropText}>Перетащите изображение сюда</p>
+                        </div>
+                    </div>
+                </div>
+                : null}
+            <img
+                alt='placeholder'
+                src={PlaceholderImage}
+                className={cnDragAndDropHidden}
             />
         </div>
     );

@@ -1,28 +1,39 @@
 .DragAndDropZone {
-    border-radius: 30px;
-    border: 2px dotted black;
-    position: relative;
+    position: absolute;
+    inset: 0;
 
-    &-Active,
-    &-Idle {
+    &-Active {
         width: 100%;
         height: 100%;
-        z-index: 1;
+        background-color: rgba($color: #000000, $alpha: .8);
     }
 
-    &-Preview {
-        box-sizing: border-box;
-        padding: 20px;
+    &-Border {
         position: absolute;
-        inset: 0;
-        overflow: auto;
+        inset: 40px;
+        border: lightgray 3px dashed;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
-    &-Input {
-        position: absolute;
-        left: 0;
-        right: 0;
+    &-Middle {
         text-align: center;
-        bottom: 10px;
+        font-size: 40px;
+        color: lightgray;
+    }
+
+    &-Placeholder {
+        width: 200px;
+    }
+
+    &-Text {
+        margin-top: 20px;
+    }
+
+    &-Hidden {
+        display: none;
     }
 }
