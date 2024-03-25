@@ -1,5 +1,4 @@
 import React from 'react';
-import { Loading } from '../Loading';
 import { classnames } from '@bem-react/classnames';
 import { buttonCn, cnButton } from './Button.classnames';
 import type { ButtonProps } from './Button.typings';
@@ -18,7 +17,6 @@ export function Button(props: ButtonProps) {
             style={{ zIndex: z_index }}
         >
             {text}
-            {isLoading ? <Loading /> : null}
         </button>
     );
 }

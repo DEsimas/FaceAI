@@ -6,11 +6,11 @@ import { singularOrPlural } from '../Utils/singularOrPlural';
 import { getImageResolution } from '../Utils/getImageResolution';
 import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
-import { SelectSection } from '../Components/SelectSection';
 import { MessageWrapper } from '../Components/MessageWrapper';
 import { DragAndDrop } from '../Components/DragAndDrop';
+import { Gallery } from '../Components/Gallery';
 import { uploadImages } from './App.server';
-import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSelect } from './App.classnames';
+import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
@@ -142,14 +142,34 @@ export function App() {
             <h1 className={cnAppHeader}>
                 FaceAI
             </h1>
-            {images.length !== 0 ?
-                <SelectSection
-                    className={cnAppSelect}
-                    images={images}
-                    selectFace={selectFace}
-                    disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
-                    removeImage={removeImage}
-                /> : null}
+            <Gallery
+                items={[
+                    {
+                        id: '1',
+                        width: 100,
+                        height: 100,
+                        element: <div style={{ width: '100%', height: '100%', backgroundColor: 'red' }} />
+                    },
+                    {
+                        id: '2',
+                        width: 100,
+                        height: 100,
+                        element: <div style={{ width: '100%', height: '100%', backgroundColor: 'green' }} />
+                    },
+                    {
+                        id: '3',
+                        width: 100,
+                        height: 100,
+                        element: <div style={{ width: '100%', height: '100%', backgroundColor: 'blue' }} />
+                    },
+                    {
+                        id: '4',
+                        width: 100,
+                        height: 100,
+                        element: <div style={{ width: '100%', height: '100%', backgroundColor: 'black' }} />
+                    },
+                ]}
+            />
             <DragAndDrop
                 className={cnAppDragAndDrop}
                 addImages={addImages}
