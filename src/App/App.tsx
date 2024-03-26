@@ -10,7 +10,7 @@ import { MessageWrapper } from '../Components/MessageWrapper';
 import { DragAndDrop } from '../Components/DragAndDrop';
 import { Gallery } from '../Components/Gallery';
 import { uploadImages } from './App.server';
-import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader } from './App.classnames';
+import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSpan } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
@@ -142,6 +142,7 @@ export function App() {
             <h1 className={cnAppHeader}>
                 FaceAI
             </h1>
+            <p className={cnAppSpan}>Перетащите фотографии для загрузки</p>
             <Gallery
                 items={[
                     {
@@ -206,6 +207,7 @@ export function App() {
                     },
                 ]}
             />
+
             <DragAndDrop
                 className={cnAppDragAndDrop}
                 addImages={addImages}

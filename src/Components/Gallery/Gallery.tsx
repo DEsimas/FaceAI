@@ -6,8 +6,8 @@ import { classnames } from '@bem-react/classnames';
 import type { GalleryProps, Item } from './Gallery.typings';
 
 import './Gallery.scss';
-
-const MIN_WIDTH = 310;
+import { getRowHeight } from '../../Utils/getRowHeight';
+import { MIN_IMAGE_HEIGHT } from '../../Constants';
 
 export function Gallery(props: GalleryProps) {
     const { className, items } = props;
@@ -30,7 +30,19 @@ export function Gallery(props: GalleryProps) {
         return () => resizeObserver.disconnect();
     }, []);
 
-    const rows: Item[][] = [items];
+    const rows: Item[][] = [];
+    let row: Item[] = [];
+
+    for(let i = 0; i < items.length; i++) {
+        row.push(items[i]);
+        const h = getRowHeight(width, row, 10);
+        if(h < MIN_IMAGE_HEIGHT) {
+            row.pop();
+            rows.push(row);
+            row = [items[i]];
+        }
+    }
+    row.length && rows.push(row);
 
     return (
         <div
