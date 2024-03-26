@@ -1,5 +1,5 @@
 import type { Rectangle, Resolution } from '../App';
-import type { Size } from '../Components/FilesListItem';
+import type { Size } from '../Components/Image';
 
 export function getScaledCoordinates(resolution: Resolution, coordinates: Rectangle, size: Size): Rectangle {
     const x = size.width / resolution.width;
