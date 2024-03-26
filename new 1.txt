@@ -1,0 +1,14 @@
+row:
+W = 1200
+h = const
+w = h * pw / ph
+h - ?
+w1 + w2 + w3 ... + wn = W
+
+h = W / (pw1 / ph1 + pw2 / ph2 ... pwn / phn)
+
+MIN_W = 320
+
+w > 320
+
+W / (pw1 / ph1 + pw2 / ph2 ... pwn / phn) * pw / ph > 320
