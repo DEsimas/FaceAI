@@ -10,10 +10,11 @@ import { MessageWrapper } from '../Components/MessageWrapper';
 import { DragAndDrop } from '../Components/DragAndDrop';
 import { Gallery } from '../Components/Gallery';
 import { uploadImages } from './App.server';
-import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSpan } from './App.classnames';
+import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSpan, cnAppUpload } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
+import { UploadButton } from '../Components/UploadButton';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
@@ -143,7 +144,7 @@ export function App() {
                 FaceAI
             </h1>
             <p className={cnAppSpan}>Перетащите фотографии для загрузки</p>
-            <Gallery
+            {images.length ? <Gallery
                 items={[
                     {
                         id: '1',
@@ -205,8 +206,18 @@ export function App() {
                         height: 700,
                         element: <div style={{ width: '100%', height: '100%', backgroundSize: 'cover', backgroundImage: 'url(https://static2.gamerantimages.com/wordpress/wp-content/uploads/2021/01/genshin-impact-mountain.jpg)' }} />
                     },
+                    {
+                        id: '11',
+                        width: 980,
+                        height: 980,
+                        element: <UploadButton addImages={addImages}/>,
+                    }
                 ]}
-            />
+            /> : <div className={cnAppUpload}>
+                <UploadButton
+                    addImages={addImages}
+                />
+            </div>}
 
             <DragAndDrop
                 className={cnAppDragAndDrop}

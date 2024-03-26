@@ -1,0 +1,15 @@
+.UploadButton {
+    width: 100%;
+    height: 100%;
+    
+    &-Image {
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        border-radius: 20px;
+    }
+
+    &-Disabled{
+        display: none;
+    }
+}
