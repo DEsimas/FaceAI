@@ -1,8 +1,12 @@
 import { URL } from '../Constants';
 import { fileToBase64 } from '../Utils/fileToBase64';
 import type { FacesCoordinatesWithId, ImageFiles, SelectFacesResponse, SelectFacesRquestBody, ServerRectangle, UploadImagesResponse } from '../App';
+import { mockUploadImage } from '../Utils/mockUploadImage';
 
-export async function uploadImages(images: ImageFiles): Promise<FacesCoordinatesWithId[]> {
+export async function uploadImages(images: ImageFiles, useMock = false): Promise<FacesCoordinatesWithId[]> {
+    if(useMock)
+        return mockUploadImage(images);
+
     const body = {
         data: await Promise.all(images.map(image => fileToBase64(image.file)))
     };

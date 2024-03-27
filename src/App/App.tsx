@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { v4 } from 'uuid';
-import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES } from '../Constants';
+import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES, USE_MOCK } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { singularOrPlural } from '../Utils/singularOrPlural';
 import { getImageResolution } from '../Utils/getImageResolution';
@@ -76,7 +76,7 @@ export function App() {
             };
         }));
         setImages((images) => [...images, ...filteredImages]);
-        uploadImages(filteredImages)
+        uploadImages(filteredImages, USE_MOCK)
             .then((response) => {
                 setImages(images => {
                     for (const facesData of response) {
@@ -157,6 +157,7 @@ export function App() {
                                 removeImage={() => removeImage(image.localId)}
                                 selectFace={(index) => selectFace(image.localId, index)}
                                 key={image.localId}
+                                disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
                             />
                         })),
                         {
