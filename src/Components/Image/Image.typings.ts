@@ -6,6 +6,7 @@ export type ImageProps = {
     selectFace?: (index: number) => void;
     removeImage: () => void;
     disabled?: boolean;
+    selectedIndexes: number[];
 };
 
 export type Size = {

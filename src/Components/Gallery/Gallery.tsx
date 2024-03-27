@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { v4 } from 'uuid';
 import { GalleryRow } from '../GalleryRow';
 import { cnGallery } from './Gallery.classnames';
 import { classnames } from '@bem-react/classnames';
@@ -49,7 +48,7 @@ export function Gallery(props: GalleryProps) {
             className={classnames(cnGallery, className)}
             ref={gallery}
         >
-            {rows.map((row) => <GalleryRow items={row} width={width} key={v4()} />)}
+            {rows.map((row, index) => <GalleryRow items={row} width={width} key={index} />)}
         </div>
     );
 }

@@ -92,6 +92,8 @@ export function App() {
 
     const removeImage = useCallback((id: string) => {
         setImages(images => {
+            const image = images.find(image => image.localId === id);
+            setSelectedCounter(ctr => ctr - image.selectedIndexes.length);
             return images.filter(image => image.localId !== id);
         });
     }, []);
@@ -153,6 +155,7 @@ export function App() {
                             width: image.resolution.width,
                             height: image.resolution.height,
                             element: <Image
+                                selectedIndexes={[...image.selectedIndexes]}
                                 image={image}
                                 removeImage={() => removeImage(image.localId)}
                                 selectFace={(index) => selectFace(image.localId, index)}

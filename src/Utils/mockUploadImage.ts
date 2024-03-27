@@ -36,6 +36,11 @@ export function mockUploadImage(images: ImageFiles): FacesCoordinatesWithId[] {
         case '720x1280':
             faces = [[[153,183], [520,764]]];
             break;
+        case '1000x1000':
+            faces = [];
+            break;
+        default:
+            throw 'No mock for this image';
         }
         res.push({
             localId: images[i].localId,

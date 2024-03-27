@@ -9,7 +9,7 @@ import './Image.scss';
 import { Button } from '../Button';
 
 export function Image(props: ImageProps) {
-    const { className, image, selectFace, removeImage, disabled } = props;
+    const { className, image, selectFace, removeImage, disabled, selectedIndexes } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -17,7 +17,6 @@ export function Image(props: ImageProps) {
     const [offset, setOffset] = useState<Offset | undefined>(undefined);
     const [size, setSize] = useState<Size | undefined>({ width: 0, height: 0 });
     const [scaledCoordinates, setScaledCoordinates] = useState<FacesCoordinates | undefined>(undefined);
-    const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
     const [hoverIndex, setHoverIndex] = useState<number | undefined>(undefined);
 
     useEffect(() => {
@@ -92,23 +91,12 @@ export function Image(props: ImageProps) {
             const rect = scaledCoordinates[i];
             const p1 = rect[0];
             const p2 = rect[1];
-            if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1]) {
-                setSelectedIndexes(selectedIndexes => {
-                    const indexOf = selectedIndexes.indexOf(i);
-                    if (indexOf === -1 && !disabled) {
-                        selectedIndexes.push(i);
-                        selectFace(i);
-                    }
-                    if (indexOf !== - 1) {
-                        selectedIndexes.splice(indexOf, 1);
-                        selectFace(i);
-                    }
-                    return [...selectedIndexes];
-                });
+            if (x >= p1[0] && x <= p2[0] && y >= p1[1] && y <= p2[1] && (selectedIndexes.includes(i) || !disabled)) {
+                selectFace(i);
                 break;
             }
         }
-    }, [scaledCoordinates, offset, disabled]);
+    }, [scaledCoordinates, offset, disabled, selectedIndexes]);
 
     const onMouseMoveHandler = useCallback((e: MouseEvent<HTMLElement>) => {
         if (!scaledCoordinates)
