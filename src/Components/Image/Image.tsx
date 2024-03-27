@@ -20,14 +20,13 @@ export function Image(props: ImageProps) {
     const [selectedIndexes, setSelectedIndexes] = useState<number[]>([]);
     const [hoverIndex, setHoverIndex] = useState<number | undefined>(undefined);
 
-    if (!scaledCoordinates && image.faces) {
-        const scaledCoordinates: FacesCoordinates = [];
-        for (const face of image.faces)
-            scaledCoordinates.push(getScaledCoordinates(image.resolution, face, size));
-        setScaledCoordinates(scaledCoordinates);
-    }
-
     useEffect(() => {
+        if (!scaledCoordinates && image.faces) {
+            const scaledCoordinates: FacesCoordinates = [];
+            for (const face of image.faces)
+                scaledCoordinates.push(getScaledCoordinates(image.resolution, face, size));
+            setScaledCoordinates(scaledCoordinates);
+        }
         setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
         setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
 

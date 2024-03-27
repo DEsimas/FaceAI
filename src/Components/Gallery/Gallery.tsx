@@ -33,10 +33,10 @@ export function Gallery(props: GalleryProps) {
     const rows: Item[][] = [];
     let row: Item[] = [];
 
-    for(let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length; i++) {
         row.push(items[i]);
         const h = getRowHeight(width, row, 10);
-        if(h < MIN_IMAGE_HEIGHT) {
+        if (h < MIN_IMAGE_HEIGHT) {
             row.pop();
             rows.push(row);
             row = [items[i]];
