@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES, USE_MOCK } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
@@ -9,18 +9,26 @@ import { Message } from '../Components/Message';
 import { MessageWrapper } from '../Components/MessageWrapper';
 import { DragAndDrop } from '../Components/DragAndDrop';
 import { Gallery } from '../Components/Gallery';
-import { uploadImages } from './App.server';
+import { selectFaces, uploadImages } from './App.server';
 import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSpan, cnAppUpload } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
 import { UploadButton } from '../Components/UploadButton';
 import { Image } from '../Components/Image';
+import { Table } from '../Components/Table';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
+    const [table, setTable] = useState<number[][]>([]);
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
+
+    useEffect(() => {
+        selectFaces(images, USE_MOCK)
+            .then(res => setTable(res.table))
+            .catch(() => addError('Ошибка сервера. Попробуйте позже'));
+    }, [images]);
 
     const addImages = useCallback(async (newImages: File[]) => {
         const duplicatesNames: string[] = [];
@@ -175,7 +183,7 @@ export function App() {
                     addImages={addImages}
                 />
             </div>}
-
+            {selectedCounter >= 2 ? <Table images={images.filter(image => image.selectedIndexes.length !== 0)} table={table} /> : null}
             <DragAndDrop
                 className={cnAppDragAndDrop}
                 addImages={addImages}

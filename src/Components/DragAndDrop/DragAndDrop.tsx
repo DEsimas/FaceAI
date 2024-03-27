@@ -32,7 +32,6 @@ export function DragAndDrop(props: DragAndDropProps) {
         window.ondragover = dragStartHandler;
         window.ondragstart = dragStartHandler;
         window.ondragleave = dragLeaveHandler;
-        window.ondrop = dragDropHandler;
         return () => {
             window.ondragover = undefined;
             window.ondragstart = undefined;
@@ -40,6 +39,11 @@ export function DragAndDrop(props: DragAndDropProps) {
             window.ondrop = undefined;
         };
     }, []);
+
+    useEffect(() => {
+        window.ondrop = dragDropHandler;
+        return () => window.ondrop = undefined;
+    }, [addImages]);
 
     return (
         <div

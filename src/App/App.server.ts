@@ -2,6 +2,7 @@ import { URL } from '../Constants';
 import { fileToBase64 } from '../Utils/fileToBase64';
 import type { FacesCoordinatesWithId, ImageFiles, SelectFacesResponse, SelectFacesRquestBody, ServerRectangle, UploadImagesResponse } from '../App';
 import { mockUploadImage } from '../Utils/mockUploadImage';
+import { mockSelectFaces } from '../Utils/mockSelectFaces';
 
 export async function uploadImages(images: ImageFiles, useMock = false): Promise<FacesCoordinatesWithId[]> {
     if(useMock)
@@ -36,7 +37,9 @@ export async function uploadImages(images: ImageFiles, useMock = false): Promise
     return result;
 }
 
-export async function selectFaces(images: ImageFiles): Promise<SelectFacesResponse> {
+export async function selectFaces(images: ImageFiles, useMock = false): Promise<SelectFacesResponse> {
+    if(useMock)
+        return mockSelectFaces(images);
     const body: SelectFacesRquestBody = {
         id: {}
     };
