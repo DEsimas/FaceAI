@@ -75,7 +75,7 @@ export function App() {
                 selectedIndexes: []
             };
         }));
-        setImages([...images, ...filteredImages]);
+        setImages((images) => [...images, ...filteredImages]);
         uploadImages(filteredImages)
             .then((response) => {
                 setImages(images => {
@@ -163,7 +163,7 @@ export function App() {
                             id: 'upload',
                             width: 980,
                             height: 980,
-                            element: <UploadButton addImages={addImages}/>,
+                            element: <UploadButton addImages={addImages} />,
                         }
                     ]}
             /> : <div className={cnAppUpload}>
