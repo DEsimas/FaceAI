@@ -14,7 +14,8 @@ export function DragAndDrop(props: DragAndDropProps) {
 
     const dragStartHandler = useCallback((e: DragEvent) => {
         e.preventDefault();
-        setIsDrag(true);
+        if (Array.from(e.dataTransfer.items).reduce((flag, item) => item.kind === 'file' ? flag : false, true))
+            setIsDrag(true);
     }, []);
 
     const dragLeaveHandler = useCallback((e: DragEvent) => {
