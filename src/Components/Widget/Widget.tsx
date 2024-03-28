@@ -13,7 +13,7 @@ export function Widget(props: WidgetProps) {
     return (
         <div
             className={classnames(cnWidget, className)}
-            style={{ height: isHidden ? '50px' : '700px' }}
+            style={{ height: isHidden ? '50px' : '705px' }}
         >
             <div
                 className={cnWidgetHeader}
