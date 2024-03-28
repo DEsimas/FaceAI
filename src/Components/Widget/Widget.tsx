@@ -3,6 +3,8 @@ import { classnames } from '@bem-react/classnames';
 import { cnWidget, cnWidgetArrow, cnWidgetContent, cnWidgetHeader } from './Widget.classnames';
 import type { WidgetProps } from './Widget.typings';
 
+import Cut from './../../Assets/Cut.png';
+
 import './Widget.scss';
 
 export function Widget(props: WidgetProps) {
@@ -27,7 +29,8 @@ export function Widget(props: WidgetProps) {
                         transition: 'transform 150ms ease',
 
                     }}
-                    width={35} src='https://cdn-icons-png.flaticon.com/512/271/271228.png'
+                    width={35}
+                    src={Cut}
                     className={cnWidgetArrow}
                 />
             </div>
