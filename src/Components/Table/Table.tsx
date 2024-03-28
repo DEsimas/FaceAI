@@ -40,8 +40,15 @@ export function Table(props: TableProps) {
                 const y = i * cellSize + gapSize * (i - 1);
                 const x = j * cellSize + gapSize * (j - 1);
                 if (i !== 0 && j !== 0) {
-                    const matchPercentage = (table[i - 1][j - 1] - 50) * 0.02;
-                    ctx.fillStyle = `rgba(${255 * (1 - matchPercentage)}, ${255 * matchPercentage}, 1)`;
+                    if (table[i - 1][j - 1] > 80)
+                        ctx.fillStyle = 'green';
+                    else if (table[i - 1][j - 1] > 50)
+                        ctx.fillStyle = 'orange';
+                    else
+                        ctx.fillStyle = 'red';
+                    // dynamic color pallete
+                    // const matchPercentage = (table[i - 1][j - 1] - 50) * 0.02;
+                    // ctx.fillStyle = `rgba(${255 * (1 - matchPercentage)}, ${255 * matchPercentage}, 1)`;
                     ctx.fillRect(x, y, cellSize, cellSize);
                     ctx.fillStyle = 'black';
                     ctx.fillText(`${Math.round(table[i - 1][j - 1] * 100) / 100}%`, x + cellSize / 2, y + cellSize / 2);
