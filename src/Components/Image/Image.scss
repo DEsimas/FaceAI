@@ -22,16 +22,9 @@
         inset: 0;
     }
 
-    &+.FilesListItem {
-        margin-top: 40px;
-    }
-
-    &-CloseButton {
+    &-Buttons {
         position: absolute;
-        right: -5px;
-        top: -5px;
-        width: 48px;
-        height: 48px;
-        font-size: 24px;
+        right: 0;
+        top: 0;
     }
 }

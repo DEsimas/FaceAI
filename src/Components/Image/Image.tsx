@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, MouseEvent, useRef, useState } from 'react';
+import { useListener } from 'react-bus';
 import { classnames } from '@bem-react/classnames';
 import type { FacesCoordinates } from '../../App';
 import { getScaledCoordinates } from '../../Utils/getScaledCoordinates';
-import { cnFilesListCloseButton, cnImage, cnImageCanvas, cnImageImage } from './Image.classnames';
+import { cnImage, cnImageButtons, cnImageCanvas, cnImageImage } from './Image.classnames';
 import type { ImageProps, Offset, Size } from './Image.typings';
 
 import './Image.scss';
-import { Button } from '../Button';
-import { useListener } from 'react-bus';
+import { ImageButtons } from '../ImageButtons';
 
 export function Image(props: ImageProps) {
     const { className, image, selectFace, removeImage, disabled, selectedIndexes } = props;
@@ -146,10 +146,9 @@ export function Image(props: ImageProps) {
                 className={cnImageCanvas}
                 ref={canvas}
             />
-            <Button
-                className={cnFilesListCloseButton}
-                onClick={removeImage}
-                type='close'
+            <ImageButtons
+                className={cnImageButtons}
+                removeImage={removeImage}
             />
         </div >
     );

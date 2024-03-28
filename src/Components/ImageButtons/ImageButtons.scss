@@ -1,0 +1,23 @@
+.ImageButtons {
+    margin: 10px;
+
+    &-Item {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        margin-left: 10px;
+        cursor: pointer;
+    }
+
+    &-Image {
+        width: 100%;
+        height: 100%;
+        opacity: .8;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
