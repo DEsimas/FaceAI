@@ -1,26 +1,29 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { classnames } from '@bem-react/classnames';
 import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES, USE_MOCK } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { singularOrPlural } from '../Utils/singularOrPlural';
 import { getImageResolution } from '../Utils/getImageResolution';
+import { mockSelectFaces } from '../Utils/mockSelectFaces';
 import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
 import { MessageWrapper } from '../Components/MessageWrapper';
 import { DragAndDrop } from '../Components/DragAndDrop';
 import { Gallery } from '../Components/Gallery';
-import { selectFaces, uploadImages } from './App.server';
-import { cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSpan, cnAppUpload } from './App.classnames';
-import type { ImageFiles, Error } from './App.typings';
-
-import './App.scss';
 import { UploadButton } from '../Components/UploadButton';
 import { Image } from '../Components/Image';
 import { Table } from '../Components/Table';
+import { Widget } from '../Components/Widget';
+import { selectFaces, uploadImages } from './App.server';
+import { appCounterCn, appWidgetCn, cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSpan, cnAppUpload, cnAppWidget } from './App.classnames';
+import type { ImageFiles, Error } from './App.typings';
+
+import './App.scss';
 
 export function App() {
     const [images, setImages] = useState<ImageFiles>([]);
-    const [table, setTable] = useState<number[][]>([]);
+    const [table, setTable] = useState<number[][]>(mockSelectFaces().table);
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
 
@@ -138,12 +141,11 @@ export function App() {
 
     return (
         <div className={cnApp}>
-            {selectedCounter ?
-                <Counter
-                    className={cnAppCounter}
-                    value={selectedCounter}
-                    max={MAXIMUM_AMOUNT_OF_SELECTED_FACES}
-                /> : null}
+            <Counter
+                className={classnames(cnAppCounter, appCounterCn({ isShown: Boolean(selectedCounter) }))}
+                value={selectedCounter}
+                max={MAXIMUM_AMOUNT_OF_SELECTED_FACES}
+            />
             <MessageWrapper>
                 {errors.map(error => <Message
                     key={error.id}
@@ -183,7 +185,9 @@ export function App() {
                     addImages={addImages}
                 />
             </div>}
-            {selectedCounter >= 2 ? <Table images={images.filter(image => image.selectedIndexes.length !== 0)} table={table} /> : null}
+            <Widget className={classnames(cnAppWidget, appWidgetCn({ isShown: selectedCounter >= 2 }))}>
+                <Table images={images.filter(image => image.selectedIndexes.length !== 0)} table={table} />
+            </Widget>
             <DragAndDrop
                 className={cnAppDragAndDrop}
                 addImages={addImages}

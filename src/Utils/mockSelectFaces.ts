@@ -1,7 +1,8 @@
+import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../Constants';
 import type { ImageFiles, SelectFacesResponse } from '../App';
 
-export function mockSelectFaces(images: ImageFiles): SelectFacesResponse {
-    const size = images.reduce((ctr, image)=> ctr+=image.selectedIndexes.length, 0);
+export function mockSelectFaces(images?: ImageFiles): SelectFacesResponse {
+    const size = images ? images.reduce((ctr, image)=> ctr+=image.selectedIndexes.length, 0) : MAXIMUM_AMOUNT_OF_SELECTED_FACES;
     const dummyTable: number[][] =
         [
             [92.26, 46.47, 94.62, 66.78, 65.63, 68.78, 64.21, 54.79, 41.03, 93],

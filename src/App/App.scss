@@ -7,13 +7,6 @@ body {
 .App {
     font-family: "Ysabeau Infant", sans-serif;
 
-    &-Counter {
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        z-index: 3;
-    }
-
     &-Header {
         margin: 0;
         display: block;
@@ -32,6 +25,61 @@ body {
 
     &-Upload {
         width: 200px;
-        margin: 0 auto;
+        margin: auto;
+    }
+}
+
+.AppCounter {
+    position: fixed;
+    z-index: 3;
+    top: 10px;
+    left: -350px;
+    
+    &_isShown {
+        animation-duration: .5s;
+        left: 10px;
+        animation-name: CounterApperance;
+        transform: translateX(0);
+    }
+}
+
+.AppWidget {
+    animation-name: WidgetDisapperance;
+    transform: translateX(660px);
+    
+    &_isShown {
+        animation-duration: .5s;
+        animation-name: WidgetApperance;
+        transform: translateX(0);
+    }
+}
+
+@keyframes WidgetDisapperance {
+    from {
+        transform: translateX(0);
+    }
+    
+    to {
+        transform: translateX(650px);
+    }
+}
+
+@keyframes WidgetApperance {
+    from {
+        transform: translateX(650px);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes CounterApperance {
+    from {
+        transform: translateX(-350px);
+    }
+    
+    to {
+        transform: translateX(0);
     }
 }

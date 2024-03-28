@@ -1,0 +1,28 @@
+.Widget {
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+    width: 650px;
+    z-index: 1;
+    background-color: white;
+    border-radius: 20px;
+    border: 2px black solid;
+    border-radius: 20px;
+    transition: 300ms;
+    overflow: hidden;
+
+    &-Header {
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        margin: 0 10px;
+        font-size: 20px;
+    }
+
+    &-Content {
+        width: 650px;
+        height: 650px;
+    }
+}
