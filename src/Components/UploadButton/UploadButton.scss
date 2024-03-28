@@ -7,6 +7,8 @@
         height: 100%;
         cursor: pointer;
         border-radius: 20px;
+        border: black 2px solid;
+        box-sizing: border-box;
     }
 
     &-Disabled{

@@ -181,8 +181,8 @@ export function App() {
                         })),
                         {
                             id: 'upload',
-                            width: 980,
-                            height: 980,
+                            width: 800,
+                            height: 800,
                             element: <UploadButton addImages={addImages} />,
                         }
                     ]}
