@@ -23,6 +23,8 @@ import type { ImageFiles, Error } from './App.typings';
 import './App.scss';
 
 export function App() {
+    let imagesCounter = 0;
+
     const [images, setImages] = useState<ImageFiles>([]);
     const [table, setTable] = useState<number[][]>(mockSelectFaces().table);
     const [selectedCounter, setSelectedCounter] = useState(0);
@@ -31,6 +33,10 @@ export function App() {
     const bus = useBus();
 
     useEffect(() => {
+        if (imagesCounter !== images.length) {
+            imagesCounter = images.length;
+            bus.emit('amountOfImagesChanged');
+        }
         selectFaces(images, USE_MOCK)
             .then(res => setTable(res.table))
             .catch(() => addError('Ошибка сервера. Попробуйте позже'));
@@ -90,8 +96,6 @@ export function App() {
             };
         }));
         setImages((images) => [...images, ...filteredImages]);
-        if (filteredImages.length)
-            bus.emit('amountOfImagesChanged');
         uploadImages(filteredImages, USE_MOCK)
             .then((response) => {
                 setImages(images => {
@@ -110,7 +114,6 @@ export function App() {
         setImages(images => {
             const image = images.find(image => image.localId === id);
             setSelectedCounter(ctr => ctr - image.selectedIndexes.length);
-            bus.emit('amountOfImagesChanged');
             return images.filter(image => image.localId !== id);
         });
     }, []);

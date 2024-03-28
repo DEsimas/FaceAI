@@ -20,7 +20,7 @@ export function Image(props: ImageProps) {
     const [scaledCoordinates, setScaledCoordinates] = useState<FacesCoordinates | undefined>(undefined);
     const [hoverIndex, setHoverIndex] = useState<number | undefined>(undefined);
 
-    useListener('amountOfImagesChanged', () => rescale);
+    useListener('amountOfImagesChanged', () => setTimeout(rescale, 10));
 
     useEffect(() => {
         console.log({ offset });
