@@ -7,6 +7,7 @@ import type { ImageProps, Offset, Size } from './Image.typings';
 
 import './Image.scss';
 import { Button } from '../Button';
+import { useListener } from 'react-bus';
 
 export function Image(props: ImageProps) {
     const { className, image, selectFace, removeImage, disabled, selectedIndexes } = props;
@@ -19,6 +20,12 @@ export function Image(props: ImageProps) {
     const [scaledCoordinates, setScaledCoordinates] = useState<FacesCoordinates | undefined>(undefined);
     const [hoverIndex, setHoverIndex] = useState<number | undefined>(undefined);
 
+    useListener('amountOfImagesChanged', () => rescale);
+
+    useEffect(() => {
+        console.log({ offset });
+    }, [offset]);
+
     useEffect(() => {
         if (!scaledCoordinates && image.faces) {
             const scaledCoordinates: FacesCoordinates = [];
@@ -29,11 +36,7 @@ export function Image(props: ImageProps) {
         setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
         setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
 
-        const resizeObserver = new ResizeObserver(() => {
-            if (!wrapper.current)
-                return;
-            setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
-        });
+        const resizeObserver = new ResizeObserver(rescale);
         resizeObserver.observe(wrapper.current);
 
         const intersectionObserver = new IntersectionObserver(() => {
@@ -79,6 +82,13 @@ export function Image(props: ImageProps) {
             ctx.closePath();
         }
     }, [scaledCoordinates, hoverIndex, selectedIndexes]);
+
+    const rescale = useCallback(() => {
+        if (!wrapper.current)
+            return;
+        setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
+        setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
+    }, [wrapper]);
 
     const onClickHandler = useCallback((e: MouseEvent<HTMLElement>) => {
         if (!scaledCoordinates || !selectFace)

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useBus } from 'react-bus';
 import { classnames } from '@bem-react/classnames';
 import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES, USE_MOCK } from '../Constants';
@@ -26,6 +27,8 @@ export function App() {
     const [table, setTable] = useState<number[][]>(mockSelectFaces().table);
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
+
+    const bus = useBus();
 
     useEffect(() => {
         selectFaces(images, USE_MOCK)
@@ -87,6 +90,8 @@ export function App() {
             };
         }));
         setImages((images) => [...images, ...filteredImages]);
+        if (filteredImages.length)
+            bus.emit('amountOfImagesChanged');
         uploadImages(filteredImages, USE_MOCK)
             .then((response) => {
                 setImages(images => {
@@ -105,6 +110,7 @@ export function App() {
         setImages(images => {
             const image = images.find(image => image.localId === id);
             setSelectedCounter(ctr => ctr - image.selectedIndexes.length);
+            bus.emit('amountOfImagesChanged');
             return images.filter(image => image.localId !== id);
         });
     }, []);
