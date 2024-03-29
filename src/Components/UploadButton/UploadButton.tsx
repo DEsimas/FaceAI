@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
+import type { ChangeEvent } from 'react';
 import { classnames } from '@bem-react/classnames';
 import { cnUploadButton, cnUploadButtonDisabled, cnUploadButtonImage } from './UploadButton.classnames';
 import type { UploadButtonProps } from './UploadButton.typings';
@@ -8,7 +9,7 @@ import Upload from './../../Assets/Upload.png';
 import './UploadButton.scss';
 
 export function UploadButton(props: UploadButtonProps) {
-    const {addImages, className} = props;
+    const { addImages, className } = props;
 
     const inputRef = useRef<HTMLInputElement>();
 

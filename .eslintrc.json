@@ -37,6 +37,7 @@
         "eol-last": [
             "error",
             "always"
-        ]
+        ],
+        "@typescript-eslint/consistent-type-imports": "error"
     }
 }

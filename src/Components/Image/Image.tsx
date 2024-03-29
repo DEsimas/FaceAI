@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, MouseEvent, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
 import { useListener } from 'react-bus';
 import { classnames } from '@bem-react/classnames';
 import type { FacesCoordinates } from '../../App';
