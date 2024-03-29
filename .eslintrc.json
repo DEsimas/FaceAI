@@ -9,7 +9,7 @@
         "plugin:react/recommended"
     ],
     "parser": "@typescript-eslint/parser",
-    "ignorePatterns" : ["**/*.js", "**/*.scss", "**/*.html", "**/*.jpg", "**/*.jpeg", "**/*.png", "**/*.ico", "**/*.json", "**/*.txt", "**/*.md"],
+    "ignorePatterns" : ["**/*.js", "**/*.scss", "**/*.html", "**/*.jpg", "**/*.jpeg", "**/*.png", "**/*.ico", "**/*.json", "**/*.yaml", "**/*.txt", "**/*.md"],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"

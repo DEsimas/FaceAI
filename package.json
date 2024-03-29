@@ -4,10 +4,12 @@
     "description": "Frontend for an application comparing fases using an AI",
     "main": "index.js",
     "scripts": {
-        "build:dev": "npx webpack --env mode=development",
-        "build:prod": "npx webpack --env mode=production",
-        "serve:dev": "npm run build:dev && npx webpack serve --env mode=development --env api=http://26.113.24.68:8000 --open",
-        "serve:prod": "npm run build:prod && npx webpack serve --env mode=production"
+        "preinstall": "npx only-allow pnpm",
+        "build:dev": "pnpm exec webpack --env mode=development",
+        "build:prod": "pnpm exec webpack --env mode=production",
+        "serve:dev": "pnpm build:dev && pnpm exec webpack serve --env mode=development --env api=http://26.113.24.68:8000 --open",
+        "serve:prod": "pnpm build:prod && pnpm exec webpack serve --env mode=production",
+        "lint": "pnpm exec eslint **"
     },
     "repository": {
         "type": "git",
@@ -28,6 +30,7 @@
         "uuid": "^9.0.1"
     },
     "devDependencies": {
+        "@types/node": "^20.11.30",
         "@types/react": "^18.2.58",
         "@types/react-dom": "^18.2.19",
         "@types/uuid": "^9.0.8",

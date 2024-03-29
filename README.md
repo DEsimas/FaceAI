@@ -10,9 +10,9 @@
 
 `cd FaceAI`
 
-`npm i`
+`pnpm i`
 
-`npm run serve:dev`
+`pnpm serve:dev`
 
 ## Настройка
 
