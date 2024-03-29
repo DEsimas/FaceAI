@@ -1,15 +1,2 @@
 dist
-example_photos
 node_modules
-repository
-.eslintignore
-.eslintrc.json
-.gitignore
-package-lock.json
-package.json
-README.md
-SyncLog.txt
-tsconfig.json
-webpack.config.js
-*.jpg
-*.ico
