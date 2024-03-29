@@ -12,6 +12,8 @@
 
 `pnpm i`
 
+`pnpm hooks`
+
 `pnpm serve:dev`
 
 ## Настройка

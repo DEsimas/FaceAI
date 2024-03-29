@@ -9,7 +9,8 @@
         "build:prod": "pnpm exec webpack --env mode=production",
         "serve:dev": "pnpm build:dev && pnpm exec webpack serve --env mode=development --env api=http://26.113.24.68:8000 --open",
         "serve:prod": "pnpm build:prod && pnpm exec webpack serve --env mode=production",
-        "lint": "pnpm exec eslint **"
+        "lint": "pnpm exec eslint **",
+        "hooks": "git config --local core.hooksPath .githooks/"
     },
     "repository": {
         "type": "git",
