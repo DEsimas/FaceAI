@@ -45,7 +45,7 @@ export function mockUploadImage(images: ImageFiles): FacesCoordinatesWithId[] {
         res.push({
             localId: images[i].localId,
             serverId: v4(),
-            faces,
+            faces
         });
     }
     return res;

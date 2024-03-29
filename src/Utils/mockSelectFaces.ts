@@ -14,13 +14,13 @@ export function mockSelectFaces(images?: ImageFiles): SelectFacesResponse {
             [43.54, 68.06, 77.66, 52.88, 66.34, 81.8, 74.5, 78.13, 85.44, 85.93],
             [51.44, 62.53, 75.07, 67.25, 47.17, 44.13, 58.8, 78.53, 66.91, 60.77],
             [96.07, 71.98, 85.2, 65.43, 65.04, 61.4, 77.14, 89.83, 84.03, 84.62],
-            [75.86, 99.81, 72.24, 47.04, 52.52, 72.43, 59.42, 85.99, 78.42, 71.57],
+            [75.86, 99.81, 72.24, 47.04, 52.52, 72.43, 59.42, 85.99, 78.42, 71.57]
         ];
     dummyTable.splice(size);
     for(const row of dummyTable)
         row.splice(size);
     return {
         images,
-        table: dummyTable,
+        table: dummyTable
     };
 }

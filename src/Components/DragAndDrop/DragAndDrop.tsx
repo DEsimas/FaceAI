@@ -51,7 +51,7 @@ export function DragAndDrop(props: DragAndDropProps) {
             className={classnames(cnDragAndDropZone, className)}
             style={{
                 zIndex: isDrag ? 2 : -1,
-                display: isDrag ? 'block' : 'none',
+                display: isDrag ? 'block' : 'none'
             }}
         >
             <div className={cnDragAndDropBorder}>

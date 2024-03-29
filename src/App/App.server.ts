@@ -50,7 +50,7 @@ export async function selectFaces(images: ImageFiles, useMock = false): Promise<
         credentials: 'include',
         headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
     });

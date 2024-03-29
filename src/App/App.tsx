@@ -186,7 +186,7 @@ export function App() {
                             id: 'upload',
                             width: 800,
                             height: 800,
-                            element: <UploadButton addImages={addImages} />,
+                            element: <UploadButton addImages={addImages} />
                         }
                     ]}
             /> : <div className={cnAppUpload}>

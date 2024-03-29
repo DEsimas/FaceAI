@@ -26,7 +26,7 @@ export function Widget(props: WidgetProps) {
                     alt={isHidden ? 'show' : 'hide'}
                     style={{
                         transform: isHidden ? 'rotate(180deg)' : 'rotate(90deg)',
-                        transition: 'transform 150ms ease',
+                        transition: 'transform 150ms ease'
 
                     }}
                     width={35}

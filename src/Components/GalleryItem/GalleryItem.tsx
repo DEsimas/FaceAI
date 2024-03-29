@@ -12,7 +12,7 @@ export function GalleryItem(props: GalleryItemProps) {
         <div
             style={{
                 width: `${width}px`,
-                height: `${height}px`,
+                height: `${height}px`
             }}
             className={classnames(cnGalleryItem, className)}
         >
