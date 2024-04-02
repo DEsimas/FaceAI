@@ -9,6 +9,7 @@ import { getImageResolution } from '../Utils/getImageResolution';
 import { mockSelectFaces } from '../Utils/mockSelectFaces';
 import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
+import { Header } from '../Components/Header';
 import { MessageWrapper } from '../Components/MessageWrapper';
 import { DragAndDrop } from '../Components/DragAndDrop';
 import { Gallery } from '../Components/Gallery';
@@ -17,7 +18,7 @@ import { Image } from '../Components/Image';
 import { Table } from '../Components/Table';
 import { Widget } from '../Components/Widget';
 import { selectFaces, uploadImages } from './App.server';
-import { appCounterCn, appWidgetCn, cnApp, cnAppCounter, cnAppDragAndDrop, cnAppHeader, cnAppSpan, cnAppUpload, cnAppWidget } from './App.classnames';
+import { appCounterCn, appWidgetCn, cnApp, cnAppCounter, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppUpload, cnAppWidget } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
@@ -162,11 +163,12 @@ export function App() {
                     onClose={() => removeError(error.id)} />
                 )}
             </MessageWrapper>
-            <h1 className={cnAppHeader}>
-                FaceAI
-            </h1>
-            <p className={cnAppSpan}>Перетащите фотографии для загрузки</p>
+            <Header
+                isLoaded={Boolean(images.length)}
+                className={cnAppHeader}
+            />
             {images.length ? <Gallery
+                className={cnAppGallery}
                 items={
                     [
                         ...images.map(image => ({
