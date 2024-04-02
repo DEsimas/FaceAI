@@ -1,6 +1,11 @@
 .UploadButton {
     width: 100%;
     height: 100%;
+
+    :hover {
+        transition: background-color .3s ease;
+        background-color: lightgray;
+    }
     
     &-Image {
         width: 100%;
