@@ -42,7 +42,7 @@ export function Table(props: TableProps) {
                 if (i !== 0 && j !== 0) {
                     if (table[i - 1][j - 1] > 80)
                         ctx.fillStyle = 'green';
-                    else if (table[i - 1][j - 1] > 50)
+                    else if (table[i - 1][j - 1] > 70)
                         ctx.fillStyle = 'orange';
                     else
                         ctx.fillStyle = 'red';

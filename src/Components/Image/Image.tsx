@@ -4,11 +4,11 @@ import { useListener } from 'react-bus';
 import { classnames } from '@bem-react/classnames';
 import type { FacesCoordinates } from '../../App';
 import { getScaledCoordinates } from '../../Utils/getScaledCoordinates';
+import { ImageButtons } from '../ImageButtons';
 import { cnImage, cnImageButtons, cnImageCanvas, cnImageImage } from './Image.classnames';
 import type { ImageProps, Offset, Size } from './Image.typings';
 
 import './Image.scss';
-import { ImageButtons } from '../ImageButtons';
 
 export function Image(props: ImageProps) {
     const { className, image, selectFace, removeImage, disabled, selectedIndexes } = props;
@@ -22,10 +22,6 @@ export function Image(props: ImageProps) {
     const [hoverIndex, setHoverIndex] = useState<number | undefined>(undefined);
 
     useListener('amountOfImagesChanged', () => setTimeout(rescale, 10));
-
-    useEffect(() => {
-        console.log({ offset });
-    }, [offset]);
 
     useEffect(() => {
         if (!scaledCoordinates && image.faces) {
