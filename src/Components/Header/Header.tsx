@@ -16,7 +16,7 @@ export function Header(props: HeaderProps) {
             <p className={cnHeaderSpan}>
                 {isLoaded ? 'Выберите лица для сравнения или загрузите больше фотографий' : 'Перетащите фотографии для загрузки'}
             </p>
-            <div className={cnHeaderLine} />
+            <div className={isLoaded ? cnHeaderLine : ''} />
         </ div>
     );
 }

@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { cnWidget, cnWidgetArrow, cnWidgetContent, cnWidgetHeader } from './Widget.classnames';
+import { cnWidget, cnWidgetArrow, cnWidgetContent, cnWidgetCounter, cnWidgetHeader } from './Widget.classnames';
 import type { WidgetProps } from './Widget.typings';
 
 import Cut from './../../Assets/Cut.png';
 
 import './Widget.scss';
+import { Counter } from '../Counter';
+import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 
 export function Widget(props: WidgetProps) {
-    const { className, children } = props;
+    const { className, children, selectedCounter } = props;
 
     const [isHidden, setIsHidden] = useState(false);
 
@@ -22,6 +24,12 @@ export function Widget(props: WidgetProps) {
                 onClick={() => setIsHidden(flag => !flag)}
             >
                 <h3>Таблица соответствия</h3>
+                {selectedCounter ?
+                    <Counter
+                        className={cnWidgetCounter}
+                        value={selectedCounter}
+                        max={MAXIMUM_AMOUNT_OF_SELECTED_FACES}
+                    /> : null}
                 <img
                     alt={isHidden ? 'show' : 'hide'}
                     style={{

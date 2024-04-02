@@ -7,7 +7,6 @@ import { isEqualFiles } from '../Utils/compareFiles';
 import { singularOrPlural } from '../Utils/singularOrPlural';
 import { getImageResolution } from '../Utils/getImageResolution';
 import { mockSelectFaces } from '../Utils/mockSelectFaces';
-import { Counter } from '../Components/Counter';
 import { Message } from '../Components/Message';
 import { Header } from '../Components/Header';
 import { MessageWrapper } from '../Components/MessageWrapper';
@@ -18,7 +17,7 @@ import { Image } from '../Components/Image';
 import { Table } from '../Components/Table';
 import { Widget } from '../Components/Widget';
 import { selectFaces, uploadImages } from './App.server';
-import { appCounterCn, appWidgetCn, cnApp, cnAppCounter, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppUpload, cnAppWidget } from './App.classnames';
+import { appWidgetCn, cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppUpload, cnAppWidget } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
@@ -151,11 +150,6 @@ export function App() {
 
     return (
         <div className={cnApp}>
-            <Counter
-                className={classnames(cnAppCounter, appCounterCn({ isShown: Boolean(selectedCounter) }))}
-                value={selectedCounter}
-                max={MAXIMUM_AMOUNT_OF_SELECTED_FACES}
-            />
             <MessageWrapper>
                 {errors.map(error => <Message
                     key={error.id}
@@ -196,7 +190,7 @@ export function App() {
                     addImages={addImages}
                 />
             </div>}
-            <Widget className={classnames(cnAppWidget, appWidgetCn({ isShown: selectedCounter >= 2 }))}>
+            <Widget selectedCounter={selectedCounter} className={classnames(cnAppWidget, appWidgetCn({ isShown: selectedCounter >= 2 }))}>
                 <Table images={images.filter(image => image.selectedIndexes.length !== 0)} table={table} />
             </Widget>
             <DragAndDrop

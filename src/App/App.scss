@@ -29,20 +29,6 @@ body {
     }
 }
 
-.AppCounter {
-    position: fixed;
-    z-index: 3;
-    top: 10px;
-    left: -350px;
-    
-    &_isShown {
-        animation-duration: .5s;
-        left: 10px;
-        animation-name: CounterApperance;
-        transform: translateX(0);
-    }
-}
-
 .AppWidget {
     animation-name: WidgetDisapperance;
     transform: translateX(660px);
