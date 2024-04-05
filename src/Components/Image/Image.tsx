@@ -11,7 +11,7 @@ import type { ImageProps, Offset, Size } from './Image.typings';
 import './Image.scss';
 
 export function Image(props: ImageProps) {
-    const { className, image, selectFace, removeImage, disabled, selectedIndexes } = props;
+    const { className, image, selectFace, removeImage, disabled, selectedIndexes, fullscreenImage, hideButtons } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -143,10 +143,12 @@ export function Image(props: ImageProps) {
                 className={cnImageCanvas}
                 ref={canvas}
             />
-            <ImageButtons
-                className={cnImageButtons}
-                removeImage={removeImage}
-            />
+            {hideButtons ? null :
+                <ImageButtons
+                    className={cnImageButtons}
+                    removeImage={removeImage ? removeImage : null}
+                    fullscreenImage={fullscreenImage ? fullscreenImage : null}
+                />}
         </div >
     );
 }

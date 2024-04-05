@@ -4,9 +4,11 @@ export type ImageProps = {
     className?: string;
     image: ImageFile;
     selectFace?: (index: number) => void;
-    removeImage: () => void;
+    fullscreenImage?: () => void;
+    removeImage?: () => void;
     disabled?: boolean;
     selectedIndexes: number[];
+    hideButtons?: boolean;
 };
 
 export type Size = {

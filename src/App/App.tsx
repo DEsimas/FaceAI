@@ -21,6 +21,7 @@ import { appWidgetCn, cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppU
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
+import { ImageModal } from '../Components/ImageModal';
 
 export function App() {
     let imagesCounter = 0;
@@ -29,6 +30,7 @@ export function App() {
     const [table, setTable] = useState<number[][]>(mockSelectFaces().table);
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
+    const [modalImageId, setModalImageId] = useState<string | null>(null);
 
     const bus = useBus();
 
@@ -148,8 +150,19 @@ export function App() {
         setErrors(errors => errors.filter(error => error.id !== id));
     }, []);
 
+    const fullscreenImage = useCallback((id: string) => {
+        setModalImageId(id);
+    }, []);
+
     return (
         <div className={cnApp}>
+            {modalImageId ?
+                <ImageModal
+                    selectedCounter={selectedCounter}
+                    selectFace={(index: number) => selectFace(images.find(img => img.localId === modalImageId).localId, index)}
+                    image={images.find(img => img.localId === modalImageId)}
+                    onClose={() => setModalImageId(null)}
+                /> : null}
             <MessageWrapper>
                 {errors.map(error => <Message
                     key={error.id}
@@ -176,6 +189,7 @@ export function App() {
                                 selectFace={(index) => selectFace(image.localId, index)}
                                 key={image.localId}
                                 disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
+                                fullscreenImage={() => fullscreenImage(image.localId)}
                             />
                         })),
                         {
