@@ -4,6 +4,10 @@ body {
     margin: 0;
 }
 
+.disable-pointer-events {
+    pointer-events: none;
+}
+
 .App {
     font-family: "Ysabeau Infant", sans-serif;
 

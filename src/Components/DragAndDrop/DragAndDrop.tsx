@@ -13,17 +13,19 @@ export function DragAndDrop(props: DragAndDropProps) {
     const [isDrag, setIsDrag] = useState(false);
 
     const dragStartHandler = useCallback((e: DragEvent) => {
+        document.body.classList.add('disable-pointer-events');
         e.preventDefault();
-        if (Array.from(e.dataTransfer.items).reduce((flag, item) => item.kind === 'file' ? flag : false, true))
-            setIsDrag(true);
+        setIsDrag(true);
     }, []);
 
     const dragLeaveHandler = useCallback((e: DragEvent) => {
+        document.body.classList.remove('disable-pointer-events');
         e.preventDefault();
         setIsDrag(false);
     }, []);
 
     const dragDropHandler = useCallback((e: DragEvent) => {
+        document.body.classList.remove('disable-pointer-events');
         e.preventDefault();
         setIsDrag(false);
         addImages(Array.from(e.dataTransfer.files));
@@ -31,20 +33,14 @@ export function DragAndDrop(props: DragAndDropProps) {
 
     useEffect(() => {
         window.ondragover = dragStartHandler;
-        window.ondragstart = dragStartHandler;
         window.ondragleave = dragLeaveHandler;
+        window.ondrop = dragDropHandler;
         return () => {
             window.ondragover = undefined;
-            window.ondragstart = undefined;
             window.ondragleave = undefined;
             window.ondrop = undefined;
         };
     }, []);
-
-    useEffect(() => {
-        window.ondrop = dragDropHandler;
-        return () => window.ondrop = undefined;
-    }, [addImages]);
 
     return (
         <div

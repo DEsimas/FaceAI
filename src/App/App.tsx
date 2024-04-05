@@ -15,13 +15,13 @@ import { Gallery } from '../Components/Gallery';
 import { UploadButton } from '../Components/UploadButton';
 import { Image } from '../Components/Image';
 import { Table } from '../Components/Table';
+import { ImageModal } from '../Components/ImageModal';
 import { Widget } from '../Components/Widget';
 import { selectFaces, uploadImages } from './App.server';
 import { appWidgetCn, cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppUpload, cnAppWidget } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
-import { ImageModal } from '../Components/ImageModal';
 
 export function App() {
     let imagesCounter = 0;
@@ -98,7 +98,6 @@ export function App() {
             };
         }));
         setImages((images) => [...images, ...filteredImages]);
-        document.documentElement.style.cursor = 'progress';
         uploadImages(filteredImages, USE_MOCK)
             .then((response) => {
                 setImages(images => {
@@ -110,8 +109,7 @@ export function App() {
                     return [...images];
                 });
             })
-            .catch(() => addError('Ошибка сервера. Попробуйте позже'))
-            .finally(() => document.documentElement.style.cursor = 'progress');
+            .catch(() => addError('Ошибка сервера. Попробуйте позже'));
     }, [images]);
 
     const removeImage = useCallback((id: string) => {
