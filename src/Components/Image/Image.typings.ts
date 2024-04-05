@@ -9,6 +9,7 @@ export type ImageProps = {
     disabled?: boolean;
     selectedIndexes: number[];
     hideButtons?: boolean;
+    isLoading?: boolean;
 };
 
 export type Size = {

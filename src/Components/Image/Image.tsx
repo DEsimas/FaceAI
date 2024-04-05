@@ -5,13 +5,13 @@ import { classnames } from '@bem-react/classnames';
 import type { FacesCoordinates } from '../../App';
 import { getScaledCoordinates } from '../../Utils/getScaledCoordinates';
 import { ImageButtons } from '../ImageButtons';
-import { cnImage, cnImageButtons, cnImageCanvas, cnImageImage } from './Image.classnames';
+import { cnImage, cnImageButtons, cnImageCanvas, cnImageImage, cnImageLoader, cnImageLoading } from './Image.classnames';
 import type { ImageProps, Offset, Size } from './Image.typings';
 
 import './Image.scss';
 
 export function Image(props: ImageProps) {
-    const { className, image, selectFace, removeImage, disabled, selectedIndexes, fullscreenImage, hideButtons } = props;
+    const { className, image, selectFace, removeImage, disabled, selectedIndexes, fullscreenImage, hideButtons, isLoading } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -135,6 +135,9 @@ export function Image(props: ImageProps) {
             className={classnames(cnImage, className)}
             ref={wrapper}
         >
+            {isLoading ? <div className={cnImageLoading}>
+                <div className={cnImageLoader} />
+            </div> : null}
             <img className={cnImageImage} src={image.url} />
             <canvas
                 onMouseMove={onMouseMoveHandler}

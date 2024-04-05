@@ -98,18 +98,20 @@ export function App() {
             };
         }));
         setImages((images) => [...images, ...filteredImages]);
-        uploadImages(filteredImages, USE_MOCK)
-            .then((response) => {
-                setImages(images => {
-                    for (const facesData of response) {
-                        const image = images.find(image => image.localId === facesData.localId);
-                        image.serverId = facesData.serverId;
-                        image.faces = facesData.faces;
-                    }
-                    return [...images];
-                });
-            })
-            .catch(() => addError('Ошибка сервера. Попробуйте позже'));
+        filteredImages.forEach(image => {
+            uploadImages([image], USE_MOCK)
+                .then((response) => {
+                    setImages(images => {
+                        for (const facesData of response) {
+                            const image = images.find(image => image.localId === facesData.localId);
+                            image.serverId = facesData.serverId;
+                            image.faces = facesData.faces;
+                        }
+                        return [...images];
+                    });
+                })
+                .catch(() => addError('Ошибка сервера. Попробуйте позже'));
+        });
     }, [images]);
 
     const removeImage = useCallback((id: string) => {
@@ -174,11 +176,11 @@ export function App() {
                 isLoaded={Boolean(images.length)}
                 className={cnAppHeader}
             />
-            {images.filter(image => image.serverId).length ? <Gallery
+            {images.length ? <Gallery
                 className={cnAppGallery}
                 items={
                     [
-                        ...images.filter(image => image.serverId).map(image => ({
+                        ...images.map(image => ({
                             id: image.localId,
                             width: image.resolution.width,
                             height: image.resolution.height,
@@ -190,6 +192,7 @@ export function App() {
                                 key={image.localId}
                                 disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
                                 fullscreenImage={() => fullscreenImage(image.localId)}
+                                isLoading={image.serverId === undefined}
                             />
                         })),
                         {
