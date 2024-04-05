@@ -33,5 +33,6 @@ MIN_IMAGE_HEIGHT=300 # Минимальнай высота строки галл
 ## Preview
 
 <img src="./repository\assets\load.png" alt="load">
+<img src="./repository\assets\loading.png" alt="load">
 <img src="./repository\assets\select.png" alt="select">
 <img src="./repository\assets\result.png" alt="result">
