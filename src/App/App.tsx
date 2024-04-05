@@ -98,6 +98,7 @@ export function App() {
             };
         }));
         setImages((images) => [...images, ...filteredImages]);
+        document.documentElement.style.cursor = 'progress';
         uploadImages(filteredImages, USE_MOCK)
             .then((response) => {
                 setImages(images => {
@@ -109,7 +110,8 @@ export function App() {
                     return [...images];
                 });
             })
-            .catch(() => addError('Ошибка сервера. Попробуйте позже'));
+            .catch(() => addError('Ошибка сервера. Попробуйте позже'))
+            .finally(() => document.documentElement.style.cursor = 'progress');
     }, [images]);
 
     const removeImage = useCallback((id: string) => {
@@ -174,11 +176,11 @@ export function App() {
                 isLoaded={Boolean(images.length)}
                 className={cnAppHeader}
             />
-            {images.length ? <Gallery
+            {images.filter(image => image.serverId).length ? <Gallery
                 className={cnAppGallery}
                 items={
                     [
-                        ...images.map(image => ({
+                        ...images.filter(image => image.serverId).map(image => ({
                             id: image.localId,
                             width: image.resolution.width,
                             height: image.resolution.height,
