@@ -110,7 +110,13 @@ export function App() {
                         return [...images];
                     });
                 })
-                .catch(() => addError('Ошибка сервера. Попробуйте позже'));
+                .catch(() => {
+                    const failedId = image.localId;
+                    setImages(images => {
+                        return images.filter(image => image.localId !== failedId);
+                    });
+                    addError('Ошибка сервера. Попробуйте позже');
+                });
         });
     }, [images]);
 
