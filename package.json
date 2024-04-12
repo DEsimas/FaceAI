@@ -7,6 +7,7 @@
         "preinstall": "npx only-allow pnpm",
         "build:dev": "pnpm exec webpack --env mode=development",
         "build:prod": "pnpm exec webpack --env mode=production",
+        "serve:dev": "pnpm build:dev && pnpm exec webpack serve --env mode=development --open",
         "serve:prod": "pnpm build:prod && pnpm exec webpack serve --env mode=production",
         "lint": "pnpm exec eslint **",
         "hooks": "git config --local core.hooksPath .githooks/"
@@ -37,6 +38,7 @@
         "@typescript-eslint/eslint-plugin": "^7.3.1",
         "@typescript-eslint/parser": "^7.3.1",
         "css-loader": "^6.10.0",
+        "dotenv": "^16.4.5",
         "dotenv-webpack": "^8.0.1",
         "eslint": "^8.57.0",
         "eslint-plugin-react": "^7.34.1",

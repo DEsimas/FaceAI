@@ -1,6 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 module.exports = (env) => {
     return {
@@ -25,7 +28,7 @@ module.exports = (env) => {
             proxy: env.mode === 'development' ? [
                 {
                     context: ['/upload_images', '/select_faces'],
-                    target: env.api,
+                    target: process.env.api,
                     changeOrigin: true
                 }
             ] : undefined
