@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useBus } from 'react-bus';
-import { classnames } from '@bem-react/classnames';
 import { v4 } from 'uuid';
 import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES, USE_MOCK } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
@@ -14,14 +13,13 @@ import { DragAndDrop } from '../Components/DragAndDrop';
 import { Gallery } from '../Components/Gallery';
 import { UploadButton } from '../Components/UploadButton';
 import { Image } from '../Components/Image';
-import { Table } from '../Components/Table';
 import { ImageModal } from '../Components/ImageModal';
-import { Widget } from '../Components/Widget';
 import { selectFaces, uploadImages } from './App.server';
-import { appWidgetCn, cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppUpload, cnAppWidget } from './App.classnames';
+import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppUpload } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
+import { TableWidget } from '../Components/TableWidget/TableWidget';
 
 export function App() {
     let imagesCounter = 0;
@@ -213,9 +211,11 @@ export function App() {
                     addImages={addImages}
                 />
             </div>}
-            <Widget selectedCounter={selectedCounter} className={classnames(cnAppWidget, appWidgetCn({ isShown: selectedCounter >= 2 }))}>
-                <Table images={images.filter(image => image.selectedIndexes.length !== 0)} table={table} />
-            </Widget>
+            <TableWidget
+                images={images}
+                table={table}
+                selectedCounter={selectedCounter}
+            />
             <DragAndDrop
                 className={cnAppDragAndDrop}
                 addImages={addImages}
