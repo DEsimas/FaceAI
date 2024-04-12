@@ -29,6 +29,7 @@ export function App() {
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
     const [modalImageId, setModalImageId] = useState<string | null>(null);
+    const [loadedCounter, setLoadedCounter] = useState(0);
 
     const bus = useBus();
 
@@ -38,7 +39,10 @@ export function App() {
             bus.emit('amountOfImagesChanged');
         }
         selectFaces(images, USE_MOCK)
-            .then(res => setTable(res.table))
+            .then(res => {
+                setTable(res.table);
+                setLoadedCounter(res.table.length);
+            })
             .catch(() => addError('Ошибка сервера. Попробуйте позже'));
     }, [images]);
 
@@ -164,7 +168,7 @@ export function App() {
         <div className={cnApp}>
             {modalImageId ?
                 <ImageModal
-                    selectedCounter={selectedCounter}
+                    selectedCounter={loadedCounter}
                     selectFace={(index: number) => selectFace(images.find(img => img.localId === modalImageId).localId, index)}
                     image={images.find(img => img.localId === modalImageId)}
                     onClose={() => setModalImageId(null)}

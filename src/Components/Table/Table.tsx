@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
 import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 import { cnTable, cnTableCanvas } from './Table.classnames';
@@ -11,6 +11,16 @@ export function Table(props: TableProps) {
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
+
+    const [rerender, setRerender] = useState(0);
+
+    useEffect(() => {
+        const observer = new ResizeObserver(() => {
+            setRerender(r => r+1);
+        });
+        observer.observe(wrapper.current);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         const subImages: SubImage[] = [];
@@ -77,7 +87,7 @@ export function Table(props: TableProps) {
                 }
             }
         }
-    }, [table, images]);
+    }, [table, images, rerender]);
 
     return (
         <div
