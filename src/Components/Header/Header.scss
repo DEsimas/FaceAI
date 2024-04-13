@@ -1,13 +1,15 @@
+@import './../../Constants.scss';
+
 .Header {
     text-align: center;
     font-weight: normal;
     margin: 0;
-    background-color: rgba(21, 21, 21, 0.9);
+    background-color: $black-transparent;
     height: 180px;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    box-shadow: 0 0 10px 10px rgb(21, 21, 21, .9);
+    box-shadow: 0 0 10px 10px $black-transparent;
     
     &-Image {
         height: 180px;

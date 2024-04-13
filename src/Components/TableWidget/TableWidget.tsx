@@ -1,7 +1,8 @@
 import React from 'react';
 import Draggable from 'react-draggable';
+import { DISABLE_WIDGET } from '../../Constants';
 import { Widget } from '../Widget';
-import { Table } from '../Table/Table';
+import { Table } from '../Table';
 import { cnWidgetHeader } from '../Widget/Widget.classnames';
 import { tableWidgetCn } from './TableWidget.classnames';
 import type { TableWIdgetProps } from './TableWidget.typings';
@@ -14,6 +15,7 @@ export function TableWidget(props: TableWIdgetProps) {
     return (
         <Draggable
             handle={`.${cnWidgetHeader}`}
+            disabled={DISABLE_WIDGET}
         >
             <div className={tableWidgetCn({isShown: selectedCounter >= 2})}>
                 <Widget selectedCounter={selectedCounter}>

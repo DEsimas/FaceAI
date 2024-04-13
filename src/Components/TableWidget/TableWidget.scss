@@ -1,24 +1,25 @@
-.react-draggable {
-    position: fixed;
-    z-index: 2;
-    right: 0;
-    bottom: 0;
-}
+// .react-draggable {
+//     position: fixed;
+//     z-index: 2;
+//     right: 0;
+//     bottom: 0;
+// }
 
-.TableWidget {
-    animation: fadeOut .5s;
-    display: none;
+// .TableWidget {
+//     width: 500px;
+//     animation: fadeOut .5s;
+//     display: none;
 
-    &_isShown {
-        animation: fadeIn .5s;
-        display: block;
-    }
-}
+//     &_isShown {
+//         animation: fadeIn .5s;
+//         display: block;
+//     }
+// }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    } to {
-        opacity: 1;
-    }
-}
+// @keyframes fadeIn {
+//     from {
+//         opacity: 0;
+//     } to {
+//         opacity: 1;
+//     }
+// }

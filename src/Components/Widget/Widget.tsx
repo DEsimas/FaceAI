@@ -18,12 +18,6 @@ export function Widget(props: WidgetProps) {
         <div
             className={classnames(cnWidget, className)}
         >
-            <div 
-                className={cnWidgetContent}
-                style={{ display: isHidden ? 'none' : 'block' }}
-            >
-                {children}
-            </div>
             <div
                 className={cnWidgetHeader}
             >
@@ -45,6 +39,12 @@ export function Widget(props: WidgetProps) {
                     src={Cut}
                     className={cnWidgetArrow}
                 />
+            </div>
+            <div 
+                className={cnWidgetContent}
+                style={{ display: isHidden ? 'none' : 'block' }}
+            >
+                {children}
             </div>
         </div>
     );

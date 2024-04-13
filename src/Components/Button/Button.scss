@@ -1,3 +1,5 @@
+@import './../../Constants.scss';
+
 .Button {
     cursor: pointer;
     transition: background-color .5s;
@@ -6,7 +8,7 @@
     &_type_default {
         font-size: 24px;
         border: solid black 2px;
-        border-radius: 10px;
+        border-radius: $border-radius;
         padding: 5px 10px;
         background-color: white;
     }
@@ -14,7 +16,7 @@
     &_type_accent {
         font-size: 24px;
         border: solid black 2px;
-        border-radius: 10px;
+        border-radius: $border-radius;
         padding: 5px 10px;
         background-color: rgb(255, 108, 0);
         color: white;

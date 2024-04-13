@@ -4,6 +4,8 @@ import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 import { cnTable, cnTableCanvas } from './Table.classnames';
 import type { SubImage, TableProps } from './Table.typings';
 
+import MTUCI from './../../Assets/MTUCI.png';
+
 import './Table.scss';
 
 export function Table(props: TableProps) {
@@ -37,7 +39,7 @@ export function Table(props: TableProps) {
         }
         const amount = subImages.length + 1;
         const size = wrapper.current.clientWidth;
-        const gapSize = 5;
+        const gapSize = size / 100;
         const cellSize = (size - gapSize * (amount - 2)) / amount;
         const ctx = canvas.current.getContext('2d');
         ctx.canvas.width = size;
@@ -56,9 +58,6 @@ export function Table(props: TableProps) {
                         ctx.fillStyle = 'orange';
                     else
                         ctx.fillStyle = 'red';
-                    // dynamic color pallete
-                    // const matchPercentage = (table[i - 1][j - 1] - 50) * 0.02;
-                    // ctx.fillStyle = `rgba(${255 * (1 - matchPercentage)}, ${255 * matchPercentage}, 1)`;
                     ctx.fillRect(x, y, cellSize, cellSize);
                     ctx.fillStyle = 'black';
                     ctx.fillText(`${Math.round(table[i - 1][j - 1] * 100) / 100}%`, x + cellSize / 2, y + cellSize / 2);
@@ -68,22 +67,28 @@ export function Table(props: TableProps) {
                     image.onload = () => {
                         const width = subImage.face[1][0] - subImage.face[0][0];
                         const height = subImage.face[1][1] - subImage.face[0][1];
+                        const size = Math.max(width, height);
                         const ratio = cellSize / Math.max(width, height);
-                        const dx = width * ratio;
-                        const dy = height * ratio;
+                        const d = size * ratio;
                         ctx.drawImage(
                             image,
-                            subImage.face[0][0],
+                            subImage.face[0][0] - (size - width) / 2,
                             subImage.face[0][1],
-                            width,
-                            height,
-                            x + (cellSize - dx) / 2,
-                            y + (cellSize - dy) / 2,
-                            dx,
-                            dy
+                            size, size,
+                            x, y, d, d
                         );
                     };
                     image.src = subImage.url;
+                } else {
+                    const image = new Image();
+                    image.onload = () => {
+                        ctx.drawImage(
+                            image,
+                            0,0,512,512,
+                            x,y,cellSize,cellSize
+                        );
+                    };
+                    image.src = MTUCI;
                 }
             }
         }

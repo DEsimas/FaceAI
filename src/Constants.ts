@@ -13,3 +13,5 @@ export const MIN_IMAGE_HEIGHT =
     Number(process.env.MIN_IMAGE_HEIGHT) || 300;
 export const USE_MOCK =
     Boolean(process.env.USE_MOCK) || false;
+export const DISABLE_WIDGET =
+    Boolean(process.env.DISABLE_WIDGET) || true;
