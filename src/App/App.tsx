@@ -151,6 +151,9 @@ export function App() {
 
     const addError = useCallback((text: string) => {
         setErrors(errors => {
+            if (errors.find(err => err.text === text)) {
+                return errors;
+            }
             errors.push({
                 id: v4(),
                 text
