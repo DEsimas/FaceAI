@@ -1,5 +1,5 @@
 {
-    "name": "faceai",
+    "name": "face-compare-frontend",
     "version": "1.0.0",
     "description": "Frontend for an application comparing fases using an AI",
     "main": "index.js",

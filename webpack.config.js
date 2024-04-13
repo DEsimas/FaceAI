@@ -23,7 +23,7 @@ module.exports = (env) => {
                 directory: path.join(__dirname, 'dist')
             },
             compress: true,
-            port: 9000,
+            port: process.env.PORT,
             hot: true,
             proxy: env.mode === 'development' ? [
                 {
