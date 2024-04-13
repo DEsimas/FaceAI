@@ -5,16 +5,6 @@
     display: flex;
     background-color: rgba(0, 0, 0, 0.894);
 
-    &-Button {
-        border: none;
-        background-color: transparent;
-        position: absolute;
-        z-index: 1;
-        cursor: pointer;
-        top: 50px;
-        right: 50px;
-    }
-
     &-Image {
         opacity: .8;
 
