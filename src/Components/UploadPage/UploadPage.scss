@@ -16,6 +16,11 @@
         font-size: 28px;
         font-weight: 300;
         margin-bottom: 30px;
+        @media screen and (max-width: 420px) {
+            font-size: 22px;
+            margin-right: 30px;
+            margin-left: 30px;
+        }
     }
 
     &-Button {
@@ -28,6 +33,7 @@
         display: flex;
         align-items: center;
         border: white 1px solid;
+        padding: 0;
         
         &:hover {
             background-color: #000000;
@@ -40,10 +46,18 @@
         font-size: 30px;
         border-right: white solid 1px;
         padding: 18px;
+        @media screen and (max-width: 420px) {
+            font-size: 22px;
+            padding: 16px;
+        }
     }
 
     &-Icon {
         width: 64px;
+        padding: 5px;
+        @media screen and (max-width: 420px) {
+            width: 50px;
+        }
     }
 
     &-Input {
