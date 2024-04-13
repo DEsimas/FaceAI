@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Draggable from 'react-draggable';
 import { DISABLE_WIDGET } from '../../Constants';
 import { Widget } from '../Widget';
@@ -11,6 +11,14 @@ import './TableWidget.scss';
 
 export function TableWidget(props: TableWIdgetProps) {
     const {selectedCounter, images, table} = props;
+    
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const resize = () => setWidth(window.innerWidth);
+        window.addEventListener('resize', resize);
+        return () => window.removeEventListener('resize', resize);
+    }, []);
 
     return (
         <Draggable
@@ -20,7 +28,7 @@ export function TableWidget(props: TableWIdgetProps) {
             <div
                 className={tableWidgetCn({isShown: selectedCounter >= 2})}
                 style={{
-                    width: window.innerWidth <= 420 ?
+                    width: width <= 600 ?
                         'calc(100% - 20px)' :
                         `${Math.max(50*(selectedCounter/10), 25)}%`
                 }}
