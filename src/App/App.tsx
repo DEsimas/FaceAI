@@ -15,11 +15,12 @@ import { UploadButton } from '../Components/UploadButton';
 import { Image } from '../Components/Image';
 import { ImageModal } from '../Components/ImageModal';
 import { selectFaces, uploadImages } from './App.server';
-import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppUpload } from './App.classnames';
+import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
 import { TableWidget } from '../Components/TableWidget/TableWidget';
+import { UploadPage } from '../Components/UploadPage';
 
 export function App() {
     let imagesCounter = 0;
@@ -181,7 +182,6 @@ export function App() {
                 )}
             </MessageWrapper>
             <Header
-                isLoaded={Boolean(images.length)}
                 className={cnAppHeader}
             />
             {images.length ? <Gallery
@@ -210,11 +210,7 @@ export function App() {
                             element: <UploadButton addImages={addImages} />
                         }
                     ]}
-            /> : <div className={cnAppUpload}>
-                <UploadButton
-                    addImages={addImages}
-                />
-            </div>}
+            /> : <UploadPage addImages={addImages}/>}
             <TableWidget
                 images={images}
                 table={table}

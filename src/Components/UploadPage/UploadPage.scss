@@ -1,0 +1,52 @@
+.UploadPage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
+    &-Content {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 500px;
+    }
+
+    &-Text {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 300;
+        margin-bottom: 30px;
+    }
+
+    &-Button {
+        background-color: #151515;
+        transition: background-color .5s;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        border: white 1px solid;
+        
+        &:hover {
+            background-color: #000000;
+            transition: background-color .5s;
+        }
+    }
+
+    &-Span {
+        color: white;
+        font-size: 30px;
+        border-right: white solid 1px;
+        padding: 18px;
+    }
+
+    &-Icon {
+        width: 64px;
+    }
+
+    &-Input {
+        display: none;
+    }
+}

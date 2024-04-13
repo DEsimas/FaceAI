@@ -1,22 +1,26 @@
 import React from 'react';
 import { classnames } from '@bem-react/classnames';
-import { cnHeader, cnHeaderLine, cnHeaderSpan } from './Header.classnames';
+import { cnHeader, cnHeaderImage, cnHeaderSpan } from './Header.classnames';
 import type { HeaderProps } from './Header.typings';
+
+import Logo from './../../Assets/Logo.svg';
 
 import './Header.scss';
 
 export function Header(props: HeaderProps) {
-    const { className, isLoaded } = props;
+    const { className } = props;
 
     return (
         <div className={classnames(cnHeader, className)} >
-            <h1 >
-                FaceAI
-            </ h1>
-            <p className={cnHeaderSpan}>
-                {isLoaded ? 'Выберите лица для сравнения или загрузите больше фотографий' : 'Перетащите фотографии для загрузки'}
-            </p>
-            <div className={isLoaded ? cnHeaderLine : ''} />
+            <img
+                src={Logo}
+                className={cnHeaderImage}
+            />
+            <span
+                className={cnHeaderSpan}
+            >
+                Сравнение лиц на фотографиях онлайн
+            </span>
         </ div>
     );
 }
