@@ -164,6 +164,7 @@ export function App() {
     }, []);
 
     const fullscreenImage = useCallback((id: string) => {
+        window.scroll(0, 0);
         setModalImageId(id);
     }, []);
 

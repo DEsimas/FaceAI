@@ -1,14 +1,16 @@
+@import './../../Constants.scss';
+
 .Message {
-    width: 300px;
+    width: 100%;
     min-height: 50px;
     padding: 30px;
-    background-color: rgba(255, 200, 200);
-    border: solid thick rgba(255, 100, 100);
-    border-radius: 20px;
+    box-sizing: border-box;
+    border-radius: $border-radius;
     font-size: 20px;
     position: relative;
     animation-name: Apperance;
     animation-duration: 1s;
+    background-color: $black-transparent;
 
     &-CloseBtn {
         position: absolute;
@@ -24,10 +26,10 @@
 
 @keyframes Apperance {
     from {
-        transform: translateX(-400px);
+        opacity: 0;
     }
 
     to {
-        transform: translateX(0);
+        opacity: 1;
     }
 }

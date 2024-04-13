@@ -1,11 +1,18 @@
 .MessageWrapper {
     position: fixed;
     bottom: 10px;
-    left: 10px;
+    width: 500px;
+    left: calc(50% - 250px);
     overflow: hidden;
     display: flex;
     flex-direction: column-reverse;
-    gap: 10px;
+    gap: 20px;
     overflow: hidden;
     z-index: 3;
+
+    @media screen and (max-width: 420px) {
+        width: calc(100% - 20px);
+        margin: 0 10px;
+        left: 0;
+    }
 }
