@@ -1,5 +1,4 @@
-export const MAXIMUM_AMOUNT_OF_SELECTED_FACES =
-    Number(process.env.MAXIMUM_AMOUNT_OF_SELECTED_FACES) || 10;
+export const MAXIMUM_AMOUNT_OF_SELECTED_FACES = window.innerWidth <= 420 ? 5 : 10;
 export const MAXIMUM_FILE_SIZE_BYTES =
     Number(process.env.MAXIMUM_FILE_SIZE_BYTES) || 20000000; // 20 мбайт
 export const ALLOWED_FILE_EXTENSIONS: string[] =

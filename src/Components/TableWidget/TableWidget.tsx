@@ -20,7 +20,9 @@ export function TableWidget(props: TableWIdgetProps) {
             <div
                 className={tableWidgetCn({isShown: selectedCounter >= 2})}
                 style={{
-                    width: `${Math.max(50*(selectedCounter/10), 25)}%`
+                    width: window.innerWidth <= 420 ?
+                        'calc(100% - 20px)' :
+                        `${Math.max(50*(selectedCounter/10), 25)}%`
                 }}
             >
                 <Widget selectedCounter={selectedCounter}>

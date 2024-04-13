@@ -44,7 +44,7 @@ export function Table(props: TableProps) {
         ctx.canvas.height = size;
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
-        ctx.font = `bold ${Math.max(50 * (1 - amount / MAXIMUM_AMOUNT_OF_SELECTED_FACES), 16)}px Arial`;
+        ctx.font = `bold ${Math.max(window.innerWidth <= 420 ? 10 : 40 * (1 - amount / MAXIMUM_AMOUNT_OF_SELECTED_FACES), 16)}px Arial`;
         for (let i = 0; i < amount; i++) {
             for (let j = 0; j < amount; j++) {
                 const y = i * cellSize + gapSize * (i - 1);

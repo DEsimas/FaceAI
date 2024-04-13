@@ -11,7 +11,12 @@ export function Counter(props: CounterProps) {
 
     return (
         <div className={classnames(cnCounter, className)}>
-            <div className={cnCounterText}>{`выбрано ${value} ${declOfNum(value, ['лицо', 'лица', 'лиц'])} из ${max} возможных`}</div>
+            <div className={cnCounterText}>
+                {window.innerWidth <= 420 ?
+                    `${value} из ${max}` :
+                    `выбрано ${value} ${declOfNum(value, ['лицо', 'лица', 'лиц'])} из ${max} возможных`
+                }
+            </div>
         </div>
     );
 }
