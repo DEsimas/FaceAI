@@ -107,6 +107,8 @@ export function App() {
                     setImages(images => {
                         for (const facesData of response) {
                             const image = images.find(image => image.localId === facesData.localId);
+                            if(!image)
+                                continue;
                             image.serverId = facesData.serverId;
                             image.faces = facesData.faces;
                         }

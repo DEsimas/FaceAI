@@ -33,6 +33,10 @@ body {
     }
 
     &-Gallery {
-        margin-top: 155px;
+        margin: 220px 50px 20px 50px;
+        @media screen and (max-width: 420px) {
+            margin-left: 20px;
+            margin-right: 10px;
+        }
     }
 }

@@ -5,6 +5,8 @@ import { GalleryItem } from '../GalleryItem';
 import { cnGalleryRow } from './GalleryRow.classnames';
 import type { GalleryRowProps } from './GalleryRow.typings';
 
+import './GalleryRow.scss';
+
 export function GalleryRow(props: GalleryRowProps) {
     const { items, width, className } = props;
 
