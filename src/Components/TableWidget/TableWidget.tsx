@@ -17,7 +17,12 @@ export function TableWidget(props: TableWIdgetProps) {
             handle={`.${cnWidgetHeader}`}
             disabled={DISABLE_WIDGET}
         >
-            <div className={tableWidgetCn({isShown: selectedCounter >= 2})}>
+            <div
+                className={tableWidgetCn({isShown: selectedCounter >= 2})}
+                style={{
+                    width: `${Math.max(50*(selectedCounter/10), 25)}%`
+                }}
+            >
                 <Widget selectedCounter={selectedCounter}>
                     <Table images={images.filter(image => image.selectedIndexes.length !== 0)} table={table} />
                 </Widget>

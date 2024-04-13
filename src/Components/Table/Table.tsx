@@ -4,9 +4,7 @@ import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 import { cnTable, cnTableCanvas } from './Table.classnames';
 import type { SubImage, TableProps } from './Table.typings';
 
-import MTUCI from './../../Assets/MTUCI.png';
-
-import './Table.scss';
+import MTUCI from './../../Assets/MTUCI.svg';
 
 export function Table(props: TableProps) {
     const { images, table, className } = props;
@@ -85,7 +83,7 @@ export function Table(props: TableProps) {
                         ctx.drawImage(
                             image,
                             0,0,512,512,
-                            x,y,cellSize,cellSize
+                            x+4,y+4,cellSize,cellSize
                         );
                     };
                     image.src = MTUCI;

@@ -20,6 +20,7 @@ export function Widget(props: WidgetProps) {
         >
             <div
                 className={cnWidgetHeader}
+                onDoubleClick={() => setIsHidden(hidden => !hidden)}
             >
                 <h3>Таблица соответствия</h3>
                 {selectedCounter ?
@@ -32,7 +33,7 @@ export function Widget(props: WidgetProps) {
                     onClick={() => setIsHidden(hidden => !hidden)}
                     alt={isHidden ? 'show' : 'hide'}
                     style={{
-                        transform: isHidden ? 'rotate(180deg)' : 'rotate(270deg)',
+                        transform: isHidden ? 'rotate(180deg)' : 'rotate(90deg)',
                         transition: 'transform 150ms ease'
                     }}
                     width={35}
