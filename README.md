@@ -35,7 +35,7 @@ PORT=8000 # это порт
 
 ## Preview
 
-<img src="./repository\assets\load.png" alt="load">
-<img src="./repository\assets\loading.png" alt="load">
-<img src="./repository\assets\select.png" alt="select">
-<img src="./repository\assets\result.png" alt="result">
+<img src="./repository/assets/load.png" alt="load">
+<img src="./repository/assets/select.png" alt="select">
+<img src="./repository/assets/result.png" alt="result">
+<img src="./repository/assets/fullscreen.png" alt="fullscreen">
