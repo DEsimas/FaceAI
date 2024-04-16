@@ -16,4 +16,19 @@
     &-Content {
         margin: auto;
     }
+
+    &-Button {
+        position: absolute;
+        right: 3%;
+        top: 3%;
+        cursor: pointer;
+        z-index: 4;
+        opacity: .8;
+        transition: opacity .2s ease;
+
+        &:hover {
+            opacity: 1;
+            transition: opacity .2s ease;
+        }
+    }
 }

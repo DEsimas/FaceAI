@@ -3,8 +3,10 @@ import { RemoveScroll } from 'react-remove-scroll';
 import { classnames } from '@bem-react/classnames';
 import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 import { Image } from '../Image/Image';
-import { cnImageModal, cnImageModalContent } from './ImageModal.classnames';
+import { cnImageModal, cnImageModalButton, cnImageModalContent } from './ImageModal.classnames';
 import type { ImageModalProps } from './ImageModal.typings';
+
+import CloseWhite from './../../Assets/CloseWhite.png';
 
 import './ImageModal.scss';
 
@@ -39,6 +41,12 @@ export function ImageModal(props: ImageModalProps) {
                 }}
                 onClick={(e) => e.stopPropagation()}
             >
+                <img
+                    className={cnImageModalButton}
+                    alt='close'
+                    onClick={onClose}
+                    src={CloseWhite}
+                />
                 <Image
                     selectedIndexes={[...image.selectedIndexes]}
                     image={image}
