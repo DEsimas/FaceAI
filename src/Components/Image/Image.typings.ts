@@ -10,6 +10,7 @@ export type ImageProps = {
     selectedIndexes: number[];
     hideButtons?: boolean;
     isLoading?: boolean;
+    modalOffset?: boolean;
 };
 
 export type Size = {

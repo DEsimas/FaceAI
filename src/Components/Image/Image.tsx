@@ -11,7 +11,7 @@ import type { ImageProps, Offset, Size } from './Image.typings';
 import './Image.scss';
 
 export function Image(props: ImageProps) {
-    const { className, image, selectFace, removeImage, disabled, selectedIndexes, fullscreenImage, hideButtons, isLoading } = props;
+    const { modalOffset, className, image, selectFace, removeImage, disabled, selectedIndexes, fullscreenImage, hideButtons, isLoading } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -92,7 +92,7 @@ export function Image(props: ImageProps) {
             return;
 
         const x = e.pageX - offset.left;
-        const y = e.pageY - offset.top;
+        const y = e.pageY - offset.top - (modalOffset ? window.scrollY : 0);
 
         for (let i = 0; i < scaledCoordinates.length; i++) {
             const rect = scaledCoordinates[i];
@@ -110,7 +110,7 @@ export function Image(props: ImageProps) {
             return;
 
         const x = e.pageX - offset.left;
-        const y = e.pageY - offset.top;
+        const y = e.pageY - offset.top - (modalOffset ? window.scrollY : 0);
 
         document.documentElement.style.cursor = 'default';
         for (let i = 0; i < scaledCoordinates.length; i++) {

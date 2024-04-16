@@ -21,7 +21,7 @@ export function ImageModal(props: ImageModalProps) {
 
         window.addEventListener('keyup', handleKeyUp);
         return () => window.removeEventListener('keyup', handleKeyUp);
-    });
+    }, []);
 
     return (
         <div
@@ -42,6 +42,7 @@ export function ImageModal(props: ImageModalProps) {
                     key={image.localId}
                     disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
                     hideButtons
+                    modalOffset
                 />
             </div>
         </div>
