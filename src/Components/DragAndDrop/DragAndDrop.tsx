@@ -40,7 +40,7 @@ export function DragAndDrop(props: DragAndDropProps) {
             window.ondragleave = undefined;
             window.ondrop = undefined;
         };
-    }, []);
+    }, [addImages]);
 
     return (
         <div
