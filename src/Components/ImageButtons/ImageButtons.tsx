@@ -20,6 +20,7 @@ export function ImageButtons(props: ImageButtonsProps) {
                 <img
                     className={cnImageButtonsImage}
                     src={Fullscreen}
+                    draggable={false}
                 />
             </button>
             <button
@@ -29,6 +30,7 @@ export function ImageButtons(props: ImageButtonsProps) {
                     onClick={removeImage}
                     className={cnImageButtonsImage}
                     src={Close}
+                    draggable={false}
                 />
             </button>
         </div>

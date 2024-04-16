@@ -39,6 +39,7 @@ export function Widget(props: WidgetProps) {
                     width={35}
                     src={Cut}
                     className={cnWidgetArrow}
+                    draggable={false}
                 />
             </div>
             <div 

@@ -42,6 +42,7 @@ export function UploadPage(props: UploadPageProps) {
                     <img 
                         className={cnUploadPageIcon}
                         src={UploadButton}
+                        draggable={false}
                     />
                 </button>
             </div>

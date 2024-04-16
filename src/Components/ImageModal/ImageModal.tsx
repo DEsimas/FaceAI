@@ -46,6 +46,7 @@ export function ImageModal(props: ImageModalProps) {
                     alt='close'
                     onClick={onClose}
                     src={CloseWhite}
+                    draggable={false}
                 />
                 <Image
                     selectedIndexes={[...image.selectedIndexes]}

@@ -56,6 +56,7 @@ export function DragAndDrop(props: DragAndDropProps) {
                         alt='placeholder'
                         src={PlaceholderImage}
                         className={cnDragAndDropPlaceholder}
+                        draggable={false}
                     />
                     <p className={cnDragAndDropText}>Перетащите изображение сюда</p>
                 </div>

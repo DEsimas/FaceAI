@@ -15,6 +15,7 @@ export function Header(props: HeaderProps) {
             <img
                 src={Logo}
                 className={cnHeaderImage}
+                draggable={false}
             />
             <span
                 className={cnHeaderSpan}

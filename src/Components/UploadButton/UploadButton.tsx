@@ -48,6 +48,7 @@ export function UploadButton(props: UploadButtonProps) {
                 alt='Загрузгить изображение'
                 src={Upload}
                 style={{ padding: `${padding}px` }}
+                draggable={false}
             />
             <input
                 className={cnUploadButtonDisabled}
