@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { RemoveScroll } from 'react-remove-scroll';
 import { classnames } from '@bem-react/classnames';
 import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 import { Image } from '../Image/Image';
@@ -28,6 +29,9 @@ export function ImageModal(props: ImageModalProps) {
             className={classnames(cnImageModal, className)}
             onClick={onClose}
         >
+            <RemoveScroll>
+                <div/>
+            </RemoveScroll>
             <div
                 className={cnImageModalContent}
                 style={{
