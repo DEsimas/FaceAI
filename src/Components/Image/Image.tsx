@@ -67,7 +67,11 @@ export function Image(props: ImageProps) {
         const ctx = canvas.current.getContext('2d');
         for (let i = 0; i < scaledCoordinates.length; i++) {
             const face = scaledCoordinates[i];
-            const color = selectedIndexes.includes(i) ? 'green' : hoverIndex === i ? 'orange' : 'red';
+            let color: string = 'red';
+            if (hoverIndex === i && window.innerWidth >= 420)
+                color = 'orange';
+            if (selectedIndexes.includes(i))
+                color = 'green';
             ctx.beginPath();
             ctx.rect(face[0][0], face[0][1], face[1][0] - face[0][0], face[1][1] - face[0][1]);
             ctx.strokeStyle = 'black';
