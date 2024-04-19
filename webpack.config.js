@@ -1,3 +1,4 @@
+// const DefinePlugin = require('webpack').DefinePlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
@@ -44,8 +45,12 @@ module.exports = (env) => {
             maxAssetSize: 512000
         },
         plugins: [
+            // new DefinePlugin({
+            //     'YANDEX_METRIKA_ID': process.env.YANDEX_METRIKA_ID
+            // }),
             new HtmlWebpackPlugin({
-                template: './src/index.html',
+                inject: true,
+                template: './src/index.ejs',
                 favicon: './src/Assets/favicon.ico'
             }),
             new Dotenv()
