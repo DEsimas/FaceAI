@@ -1,4 +1,3 @@
-// const DefinePlugin = require('webpack').DefinePlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
@@ -26,13 +25,13 @@ module.exports = (env) => {
             compress: true,
             port: process.env.PORT || 9000,
             hot: true,
-            proxy: env.mode === 'development' ? [
+            proxy: [
                 {
                     context: ['/upload_images', '/select_faces'],
-                    target: process.env.api,
+                    target: process.env.API,
                     changeOrigin: true
                 }
-            ] : undefined
+            ]
         },
         resolve: {
             extensions: ['.ts', '.tsx', '.js'],
@@ -45,9 +44,6 @@ module.exports = (env) => {
             maxAssetSize: 512000
         },
         plugins: [
-            // new DefinePlugin({
-            //     'YANDEX_METRIKA_ID': process.env.YANDEX_METRIKA_ID
-            // }),
             new HtmlWebpackPlugin({
                 inject: true,
                 template: './src/index.ejs',

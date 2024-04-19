@@ -4,13 +4,21 @@
 
 ## Запуск
 
-Нужно склонировать репозиторий, поставить зависимости, в .env файле задать переменную API (см. паздел "настройка") и запустить дев сервер
+Нужно склонировать репозиторий, поставить зависимости, в .env файл занести нужные настройки (см. раздел "настройка") и запустить веб сервер
+
+### Установка
 
 `git clone https://github.com/DEsimas/FaceAI`
 
 `cd FaceAI`
 
 `pnpm i`
+
+### Для продакшена
+
+`pnpm serve:prod`
+
+### Для разработки
 
 `pnpm hooks`
 
@@ -22,6 +30,7 @@
 
 ```
 # Порт, на котором будет работать веб-сервер
+# Если не указан, то будет 9000
 PORT=9000
 
 # Сюда приложение будет отправлять запросы
@@ -38,18 +47,12 @@ USE_MOCK=false
 
 # id для подключения яндекс метрики
 YANDEX_METRIKA_ID=12345678
-
-MAXIMUM_AMOUNT_OF_SELECTED_FACES=10 # Максимальное количесво одновременно выбранных лиц
-MAXIMUM_FILE_SIZE_BYTES=20000000 # Максимальный размер файла в байтах
-ALLOWED_FILE_EXTENSIONS=png,jpg,jpeg,webp,bmp,jpe,jif,jfif,pjpeg,pjp # Расширения файлов, которые можно загружать
-MAX_IMAGE_HEIGHT=500 # Максимальная высота строки галлереи изображений
-MIN_IMAGE_HEIGHT=300 # Минимальнай высота строки галлереи изображений
-DISABLE_WIDGET=true # true - отключает перетаскивание и изменение размера виджета
 ```
 
 ## Preview
 
 <img src="./repository/assets/load.png" alt="load">
+<img src="./repository/assets/dnd.png" alt="load">
 <img src="./repository/assets/select.png" alt="select">
 <img src="./repository/assets/result.png" alt="result">
 <img src="./repository/assets/fullscreen.png" alt="fullscreen">
