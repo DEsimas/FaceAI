@@ -20,7 +20,7 @@ export function Header(props: HeaderProps) {
             <span
                 className={cnHeaderSpan}
             >
-                Сравнение лиц на фотографиях онлайн
+                Сравнение лиц на фотографиях
             </span>
         </ div>
     );
