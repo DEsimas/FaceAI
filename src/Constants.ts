@@ -3,7 +3,7 @@ export const MAXIMUM_FILE_SIZE_BYTES =
     Number(process.env.MAXIMUM_FILE_SIZE_BYTES) || 20000000; // 20 мбайт
 export const ALLOWED_FILE_EXTENSIONS: string[] =
     process.env.ALLOWED_FILE_EXTENSIONS ? process.env.ALLOWED_FILE_EXTENSIONS.split(',') :
-        ['png', 'jpg', 'jpeg', 'webp', 'bmp', 'jpe', 'jif', 'jfif', 'pjpeg', 'pjp'];
+        ['png', 'jpg', 'jpeg', 'webp', 'bmp', 'jpe', 'jif', 'jfif', 'pjpeg', 'pjp', 'heic'];
 export const URL =
     process.env.URL || 'http://localhost:9000';
 export const MAX_IMAGE_HEIGHT =

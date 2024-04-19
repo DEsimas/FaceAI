@@ -56,7 +56,7 @@ export function App() {
             if (!newImage) {
                 break;
             }
-            if (!ALLOWED_FILE_EXTENSIONS.includes(newImage.name.split('.').reverse()[0])) {
+            if (!ALLOWED_FILE_EXTENSIONS.includes(newImage.name.split('.').reverse()[0].toLowerCase())) {
                 wrongExtensionNames.push(newImage.name);
                 newImages.splice(i, 1);
                 i--;
