@@ -4,7 +4,19 @@
     width: 100%;
     height: 100%;
 
-    :hover {
+    @media (hover: hover) {
+        &:hover {
+            transition: background-color .3s ease;
+            background-color: $black-transparent;
+        }
+    }
+
+    &:hover {
+        transition: background-color .3s ease;
+        background-color: $black-transparent;
+    }
+
+    &:active {
         transition: background-color .3s ease;
         background-color: $black-transparent;
     }

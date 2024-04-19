@@ -36,8 +36,15 @@
         align-items: center;
         border: white 1px solid;
         padding: 0;
-        
-        &:hover {
+
+        @media (hover: hover) {
+            &:hover {
+                background-color: #000000;
+                transition: background-color .5s;
+            }
+        }
+
+        &:active {
             background-color: #000000;
             transition: background-color .5s;
         }

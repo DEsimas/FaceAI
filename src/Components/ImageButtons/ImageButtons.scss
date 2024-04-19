@@ -16,7 +16,13 @@
         height: 100%;
         opacity: .8;
 
-        &:hover {
+        @media (hover: hover) {    
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        &:active {
             opacity: 1;
         }
     }

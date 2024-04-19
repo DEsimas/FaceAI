@@ -8,9 +8,15 @@
     &-Image {
         opacity: .8;
 
-        &:hover {
+        @media (hover: hover) {
+            &:hover {
+                opacity: 1;
+            } 
+        }
+
+        &:active {
             opacity: 1;
-        } 
+        }
     }
 
     &-Content {
@@ -26,7 +32,14 @@
         opacity: .8;
         transition: opacity .2s ease;
 
-        &:hover {
+        @media (hover: hover) {
+            &:hover {
+                opacity: 1;
+                transition: opacity .2s ease;
+            }
+        }
+
+        &:active {
             opacity: 1;
             transition: opacity .2s ease;
         }
