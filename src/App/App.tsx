@@ -14,13 +14,13 @@ import { Gallery } from '../Components/Gallery';
 import { UploadButton } from '../Components/UploadButton';
 import { Image } from '../Components/Image';
 import { ImageModal } from '../Components/ImageModal';
+import { TableWidget } from '../Components/TableWidget/TableWidget';
+import { UploadPage } from '../Components/UploadPage';
 import { selectFaces, uploadImages } from './App.server';
 import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
-import { TableWidget } from '../Components/TableWidget/TableWidget';
-import { UploadPage } from '../Components/UploadPage';
 
 export function App() {
     let imagesCounter = 0;
@@ -172,6 +172,10 @@ export function App() {
 
     return (
         <div className={cnApp}>
+            <DragAndDrop
+                className={cnAppDragAndDrop}
+                addImages={addImages}
+            />
             {modalImageId ?
                 <ImageModal
                     selectedCounter={loadedCounter}
@@ -220,10 +224,6 @@ export function App() {
                 images={images}
                 table={table}
                 selectedCounter={selectedCounter}
-            />
-            <DragAndDrop
-                className={cnAppDragAndDrop}
-                addImages={addImages}
             />
         </div>
     );

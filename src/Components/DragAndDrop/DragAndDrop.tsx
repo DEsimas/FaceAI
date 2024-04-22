@@ -12,33 +12,31 @@ export function DragAndDrop(props: DragAndDropProps) {
 
     const [isDrag, setIsDrag] = useState(false);
 
-    const dragStartHandler = useCallback((e: DragEvent) => {
-        document.body.classList.add('disable-pointer-events');
+    let timeout: NodeJS.Timeout | undefined;
+    
+    const dragOverHandler = useCallback((e: DragEvent) => {
         e.preventDefault();
         setIsDrag(true);
-    }, []);
-
-    const dragLeaveHandler = useCallback((e: DragEvent) => {
-        document.body.classList.remove('disable-pointer-events');
-        e.preventDefault();
-        setIsDrag(false);
+        // Костыль: ивент dragover стреляет чаще, чем раз в 100 мс, чтобы в хроме все
+        // работало ставим таймаут на 100 мс, который выключит режим перетаскивания,
+        // но каждый раз, когда засекаем dragover, сбрасываем эотот 100 мс таймер
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            setIsDrag(false);
+        }, 100);
     }, []);
 
     const dragDropHandler = useCallback((e: DragEvent) => {
-        document.body.classList.remove('disable-pointer-events');
         e.preventDefault();
-        setIsDrag(false);
         addImages(Array.from(e.dataTransfer.files));
     }, [addImages]);
 
     useEffect(() => {
-        window.ondragover = dragStartHandler;
-        window.ondragleave = dragLeaveHandler;
-        window.ondrop = dragDropHandler;
+        window.addEventListener('dragover', dragOverHandler);
+        window.addEventListener('drop', dragDropHandler);
         return () => {
-            window.ondragover = undefined;
-            window.ondragleave = undefined;
-            window.ondrop = undefined;
+            window.removeEventListener('dragover', dragOverHandler);
+            window.removeEventListener('drop', dragDropHandler);
         };
     }, [addImages]);
 

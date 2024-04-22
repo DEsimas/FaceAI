@@ -19,10 +19,6 @@ textarea, input, button, select, div, img, html, body, a {
     -webkit-tap-highlight-color: transparent;
 }
 
-.disable-pointer-events {
-    pointer-events: none;
-}
-
 .App {
     &-Select {
         margin-top: 40px;
