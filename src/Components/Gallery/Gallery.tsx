@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { getRowHeight } from '../../Utils/getRowHeight';
 import { GalleryRow } from '../GalleryRow';
 import { cnGallery } from './Gallery.classnames';
 import { classnames } from '@bem-react/classnames';
 import type { GalleryProps, Item } from './Gallery.typings';
 
 import './Gallery.scss';
-import { getRowHeight } from '../../Utils/getRowHeight';
-import { MIN_IMAGE_HEIGHT } from '../../Constants';
+
+const MIN_IMAGE_HEIGHT = 300;
 
 export function Gallery(props: GalleryProps) {
     const { className, items } = props;

@@ -1,6 +1,4 @@
 .GalleryRow {
-    @media screen and (max-width: 420px) {
-        display: flex;
-        justify-content: center;
-    }
+    display: flex;
+    justify-content: center;
 }
