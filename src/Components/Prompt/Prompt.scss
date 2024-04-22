@@ -1,0 +1,33 @@
+@import './../../Constants.scss';
+
+.Prompt {
+    &-Text {
+        color: $black;
+        font-size: 18px;
+        font-weight: 300;
+        position: absolute;
+        border: 1px $black solid;
+        border-radius: $border-radius;
+        padding: 5px;
+        background-color: white;
+        right: 56px;
+        top: -15px;
+        width: 400px;
+        opacity: 0;
+        transition: opacity 200ms, display 200ms;
+
+        &_isHovering {
+            opacity: 1;
+        }
+    }
+
+    &-Icon {
+        position: absolute;
+        top: 3px;
+        right: 3px;
+    }
+
+    &-Image {
+        width: 50px;
+    }
+}

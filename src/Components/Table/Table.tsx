@@ -1,10 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
 import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
+import { Prompt } from '../Prompt';
 import { cnTable, cnTableCanvas } from './Table.classnames';
 import type { SubImage, TableProps } from './Table.typings';
 
 import MTUCI from './../../Assets/MTUCI.svg';
+
+import './Table.scss';
 
 export function Table(props: TableProps) {
     const { images, table, className } = props;
@@ -105,6 +108,7 @@ export function Table(props: TableProps) {
             className={classnames(cnTable, className)}
             ref={wrapper}
         >
+            {window.innerWidth <= 420 ? null : <Prompt />}
             <canvas
                 className={cnTableCanvas}
                 ref={canvas}
