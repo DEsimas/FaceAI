@@ -91,7 +91,7 @@ export function Table(props: TableProps) {
                         ctx.drawImage(
                             image,
                             0,0,512,512,
-                            x+4,y+4,cellSize,cellSize
+                            x,y,cellSize,cellSize
                         );
                     };
                     image.src = MTUCI;
