@@ -20,14 +20,8 @@ button, div, img, html, body {
 
 .App {
     &-Select {
-        margin: 220px 50px 20px 50px;
-        text-align: center;
-        font-size: 28px;
-        font-weight: 300;
-        @media screen and (max-width: 420px) {
-            margin-left: 20px;
-            margin-right: 10px;
-        }
+        margin: calc(18vh) 20px 100px 20px;
+        @include paragraph-font;
     }
 
     &-Header {
