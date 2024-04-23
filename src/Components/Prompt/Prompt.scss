@@ -2,9 +2,9 @@
 
 .Prompt {
     &-Text {
+        @include paragraph-font;
+        text-align: left;
         color: $black;
-        font-size: 18px;
-        font-weight: 300;
         position: absolute;
         border: 1px $black solid;
         border-radius: $border-radius;
@@ -12,7 +12,7 @@
         background-color: white;
         right: 56px;
         top: -15px;
-        width: 400px;
+        width: 600px;
         opacity: 0;
         transition: opacity 200ms, display 200ms;
 

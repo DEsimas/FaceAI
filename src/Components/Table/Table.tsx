@@ -9,17 +9,21 @@ import MTUCI from './../../Assets/MTUCI.svg';
 import './Table.scss';
 
 export function Table(props: TableProps) {
-    const { images, table, className, maximumFaces } = props;
+    const { images, table, className } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
 
+    // Костыль: нужен для переписовки таблицы при изменении размеров виджета
     const [rerender, setRerender] = useState(0);
 
     const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
-        const resize = () => setWidth(window.innerWidth);
+        const resize = () => {
+            setWidth(window.innerWidth);
+            setRerender(rerender => rerender + 1);
+        };
         window.addEventListener('resize', resize);
         return () => window.removeEventListener('resize', resize);
     }, []);
@@ -47,14 +51,14 @@ export function Table(props: TableProps) {
         }
         const amount = subImages.length + 1;
         const size = wrapper.current.clientWidth;
-        const gapSize = size / 100;
+        const gapSize = size / 300;
         const cellSize = (size - gapSize * (amount - 2)) / amount;
         const ctx = canvas.current.getContext('2d');
         ctx.canvas.width = size;
         ctx.canvas.height = size;
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
-        ctx.font = `bold ${Math.max(width <= 1400 ? 10 : 40 * (1 - amount / maximumFaces), 16)}px Arial`;
+        ctx.font = `bold ${cellSize / 3}px Arial`;
         for (let i = 0; i < amount; i++) {
             for (let j = 0; j < amount; j++) {
                 const y = i * cellSize + gapSize * (i - 1);
@@ -68,7 +72,7 @@ export function Table(props: TableProps) {
                         ctx.fillStyle = 'red';
                     ctx.fillRect(x, y, cellSize, cellSize);
                     ctx.fillStyle = 'black';
-                    ctx.fillText(`${Math.round(table[i - 1][j - 1] * 100) / 100}%`, x + cellSize / 2, y + cellSize / 2);
+                    ctx.fillText(`${Math.round(table[i - 1][j - 1])}%`, x + cellSize / 2, y + cellSize / 2);
                 } else if (j !== i) {
                     const subImage = i === 0 ? subImages[j - 1] : subImages[i - 1];
                     const image = new Image();
@@ -107,7 +111,7 @@ export function Table(props: TableProps) {
             className={classnames(cnTable, className)}
             ref={wrapper}
         >
-            {window.innerWidth <= 420 ? null : <Prompt />}
+            {width <= 600 ? null : <Prompt />}
             <canvas
                 className={cnTableCanvas}
                 ref={canvas}

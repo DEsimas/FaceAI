@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
 import { Counter } from '../Counter';
 import { cnWidget, cnWidgetArrow, cnWidgetContent, cnWidgetCounter, cnWidgetHeader } from './Widget.classnames';
@@ -13,26 +13,48 @@ export function Widget(props: WidgetProps) {
 
     const [isHidden, setIsHidden] = useState(false);
 
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const resize = () => {
+            setWidth(window.innerWidth);
+        };
+        window.addEventListener('resize', resize);
+        return () => window.removeEventListener('resize', resize);
+    }, []);
+
     return (
         <div
             className={classnames(cnWidget, className)}
         >
             <div
                 className={cnWidgetHeader}
-                onDoubleClick={() => setIsHidden(hidden => !hidden)}
+                onClick={
+                    width <= 600 ?
+                        () => setIsHidden(hidden => !hidden) : undefined
+                }
+                onDoubleClick={
+                    width <= 600 ?
+                        undefined : () => setIsHidden(hidden => !hidden)
+                }
             >
-                <h3>Таблица соответствия</h3>
-                {selectedCounter ?
-                    <Counter
-                        className={cnWidgetCounter}
-                        value={selectedCounter}
-                        max={maximumFaces}
-                    /> : null}
+                <div>
+                    <h3>Таблица соответствия</h3>
+                    {selectedCounter ?
+                        <Counter
+                            className={cnWidgetCounter}
+                            value={selectedCounter}
+                            max={maximumFaces}
+                        /> : null}
+                </div>
                 <img
-                    onClick={() => setIsHidden(hidden => !hidden)}
+                    onClick={
+                        width <= 600 ?
+                            undefined : () => setIsHidden(hidden => !hidden)
+                    }
                     alt={isHidden ? 'show' : 'hide'}
                     style={{
-                        transform: isHidden ? 'rotate(180deg)' : 'rotate(90deg)',
+                        transform: isHidden ? width <= 600 ? 'rotate(270deg)' : 'rotate(180deg)' : 'rotate(90deg)',
                         transition: 'transform 150ms ease'
                     }}
                     width={35}

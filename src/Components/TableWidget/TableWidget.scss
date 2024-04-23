@@ -8,16 +8,23 @@
 }
 
 .TableWidget {
+    min-width: 600px;
+    width: 50%;
+    max-width: 800px;
     display: none;
     padding: 10px;
     margin: 10px;
     background-color: white;
     border-radius: $border-radius;
     border: black solid 1px;
+    box-sizing: border-box;
 
-    @media screen and (max-width: 420px) {
+    @media screen and (max-width: 600px) {
         margin: 0;
         border-radius: 0;
+        // Я не сдержался, так как ширина ставится динамически из tsx
+        width: 100% !important;
+        min-width: unset !important;
     }
 
     &_isShown {

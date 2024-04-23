@@ -23,9 +23,9 @@ export function Prompt() {
         <>
             <div
                 ref={content}
-                className={classnames(promptTextCn({isHovering}))}
+                className={classnames(promptTextCn({ isHovering }))}
             >
-                В таблице описано сходство лиц друг с другом в процентах.<br/>Зелёный цвет — скорее всего это один и тот же человек.<br/>Оранжевый — лица похожи.<br/>Красный — лица не похожи
+                В таблице описано сходство лиц друг с другом в процентах.<br />Зелёный цвет — скорее всего это один и тот же человек.<br />Оранжевый — лица похожи<br />Красный — лица не похожи
             </div>
             <div
                 onMouseOver={handleMouseOver}

@@ -1,4 +1,5 @@
 .Counter {
-    font-size: 20px;
-    min-width: 67px;
+    @media screen and (max-width: 600px) {
+        text-align: center;
+    }
 }

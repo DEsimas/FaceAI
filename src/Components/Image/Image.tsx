@@ -39,13 +39,21 @@ export function Image(props: ImageProps) {
         const intersectionObserver = new IntersectionObserver(() => {
             if (!wrapper.current)
                 return;
+            setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
             setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
         });
         intersectionObserver.observe(wrapper.current);
 
+        // Костыль: реренденим обводки каждую секунду, чтобы картинка не была долго в сломанном состоянии
+        const interval = setInterval(() => {
+            setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
+            setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
+        }, 1000);
+
         return () => {
             resizeObserver.disconnect();
             intersectionObserver.disconnect();
+            clearInterval(interval);
         };
     }, []);
 

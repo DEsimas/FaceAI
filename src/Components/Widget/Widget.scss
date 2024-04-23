@@ -13,9 +13,20 @@
         -khtml-user-select: none;
         -webkit-user-select: none;
         -o-user-select: none;
+        @include paragraph-font;
+        text-align: left;
 
         h3 {
-            margin: 10px;
+            margin: 0;
+            font-weight: 400;
+            @media screen and (max-width: 600px) {
+                text-align: center;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            flex-direction: column;
+            text-align: left;
         }
     }
 
