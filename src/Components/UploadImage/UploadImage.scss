@@ -1,0 +1,67 @@
+@import './../../Constants.scss';
+
+.UploadImage {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
+    &-Content {
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        width: 50%;
+    }
+
+    &-Text {
+        @include paragraph-font;        
+    }
+
+    &-Button {
+        background-color: $black;
+        transition: background-color .5s;
+        border: none;
+        border-radius: $border-radius;
+        cursor: pointer;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        border: white 1px solid;
+        padding: 0;
+
+        @media (hover: hover) {
+            &:hover {
+                background-color: #000000;
+                transition: background-color .5s;
+            }
+        }
+
+        &:active {
+            background-color: #000000;
+            transition: background-color .5s;
+        }
+    }
+
+    &-Span {
+        color: white;
+        font-size: 30px;
+        border-right: white solid 1px;
+        padding: 18px;
+        @media screen and (max-width: 420px) {
+            font-size: 22px;
+            padding: 16px;
+        }
+    }
+
+    &-Icon {
+        width: 64px;
+        padding: 5px;
+        @media screen and (max-width: 420px) {
+            width: 50px;
+        }
+    }
+
+    &-Input {
+        display: none;
+    }
+}

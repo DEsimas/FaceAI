@@ -1,6 +1,6 @@
 import type { AddImages } from '../../App';
 
-export type UploadButtonProps = {
-    addImages?: AddImages;
+export type UploadImageProps = {
     className?: string;
-}
+    addImages?: AddImages;
+};

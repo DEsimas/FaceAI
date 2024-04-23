@@ -11,7 +11,7 @@ import { Header } from '../Components/Header';
 import { MessageWrapper } from '../Components/MessageWrapper';
 import { DragAndDrop } from '../Components/DragAndDrop';
 import { Gallery } from '../Components/Gallery';
-import { UploadButton } from '../Components/UploadButton';
+import { UploadImage } from '../Components/UploadImage';
 import { Image } from '../Components/Image';
 import { ImageModal } from '../Components/ImageModal';
 import { TableWidget } from '../Components/TableWidget/TableWidget';
@@ -218,7 +218,7 @@ export function App() {
                                 id: 'upload',
                                 width: 800,
                                 height: 800,
-                                element: <UploadButton addImages={addImages} />
+                                element: <UploadImage addImages={addImages} />
                             }
                         ]}
                 />

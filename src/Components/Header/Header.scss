@@ -14,7 +14,7 @@
         left: 0;
         top: 0;
 
-        @media screen and (max-width: 1000px) {
+        @media screen and (max-width: 1080px) {
             display: none;
         }
 
@@ -22,7 +22,7 @@
     
     &-Span {
         margin: 0 10px;
-        @media screen and (max-width: 1300px) {
+        @media screen and (max-width: 1380px) {
             max-width: 400px;
         }
         @include header-font
