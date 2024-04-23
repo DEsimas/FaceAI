@@ -17,10 +17,11 @@ import { ImageModal } from '../Components/ImageModal';
 import { TableWidget } from '../Components/TableWidget/TableWidget';
 import { UploadPage } from '../Components/UploadPage';
 import { selectFaces, uploadImages } from './App.server';
-import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppSelect } from './App.classnames';
+import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppSelect, cnAppUploadButton } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
+import { UploadButton } from '../Components/UploadButton';
 
 const MAXIMUM_FILE_SIZE_BYTES = 20000000; // 20 мбайт
 const ALLOWED_FILE_EXTENSIONS =
@@ -233,14 +234,21 @@ export function App() {
                                     isLoading={image.serverId === undefined}
                                 />
                             })),
-                            {
-                                id: 'upload',
-                                width: 800,
-                                height: 800,
-                                element: <UploadImage addImages={addImages} />
-                            }
+                            ...maximumFaces === 10 ? [
+                                {
+                                    id: 'upload',
+                                    width: 800,
+                                    height: 800,
+                                    element: <UploadImage addImages={addImages} />
+                                }] : []
                         ]}
                 />
+                {maximumFaces === 5 ?
+                    <UploadButton
+                        className={cnAppUploadButton}
+                        addImages={addImages}
+                    /> : null
+                }
             </div> : <UploadPage addImages={addImages} />}
             <TableWidget
                 maximumFaces={maximumFaces}
