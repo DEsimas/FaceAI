@@ -13,7 +13,7 @@ export function DragAndDrop(props: DragAndDropProps) {
     const [isDrag, setIsDrag] = useState(false);
 
     let timeout: NodeJS.Timeout | undefined;
-    
+
     const dragOverHandler = useCallback((e: DragEvent) => {
         e.preventDefault();
         setIsDrag(true);
@@ -44,7 +44,6 @@ export function DragAndDrop(props: DragAndDropProps) {
         <div
             className={classnames(cnDragAndDropZone, className)}
             style={{
-                zIndex: isDrag ? 2 : -1,
                 display: isDrag ? 'block' : 'none'
             }}
         >
@@ -56,7 +55,7 @@ export function DragAndDrop(props: DragAndDropProps) {
                         className={cnDragAndDropPlaceholder}
                         draggable={false}
                     />
-                    <p className={cnDragAndDropText}>Перетащите изображение сюда</p>
+                    <p className={cnDragAndDropText}>Перетащите изображения сюда</p>
                 </div>
             </div>
         </div >

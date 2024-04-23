@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useBus } from 'react-bus';
 import { v4 } from 'uuid';
-import { ALLOWED_FILE_EXTENSIONS, MAXIMUM_AMOUNT_OF_SELECTED_FACES, MAXIMUM_FILE_SIZE_BYTES, USE_MOCK } from '../Constants';
+import { MAXIMUM_AMOUNT_OF_SELECTED_FACES, USE_MOCK } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { singularOrPlural } from '../Utils/singularOrPlural';
 import { getImageResolution } from '../Utils/getImageResolution';
@@ -21,6 +21,10 @@ import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppSelect } from 
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
+
+export const MAXIMUM_FILE_SIZE_BYTES = 20000000; // 20 мбайт
+export const ALLOWED_FILE_EXTENSIONS =
+    ['png', 'jpg', 'jpeg', 'webp', 'bmp', 'jpe', 'jif', 'jfif', 'pjpeg', 'pjp', 'heic'];
 
 export function App() {
     let imagesCounter = 0;
@@ -60,17 +64,20 @@ export function App() {
                 wrongExtensionNames.push(newImage.name);
                 newImages.splice(i, 1);
                 i--;
+                continue;
             }
             if (newImage.size > MAXIMUM_FILE_SIZE_BYTES) {
                 tooLargeNames.push(newImage.name);
                 newImages.splice(i, 1);
                 i--;
+                continue;
             }
             for (let j = i + 1; j < newImages.length; j++) {
                 if (await isEqualFiles(newImage, newImages[j])) {
                     duplicatesNames.push(newImages[j].name);
                     newImages.splice(j, 1);
                     j--;
+                    continue;
                 }
             }
             for (const oldImage of images) {
@@ -78,6 +85,7 @@ export function App() {
                     duplicatesNames.push(newImage.name);
                     newImages.splice(i, 1);
                     i--;
+                    continue;
                 }
             }
         }
@@ -85,7 +93,7 @@ export function App() {
             addError(`${singularOrPlural(duplicatesNames.length > 1, ['Файл', 'Файлы'])} ${duplicatesNames.join(', ')} уже ${singularOrPlural(duplicatesNames.length > 1, ['загружен', 'загружены'])}`);
         }
         if (tooLargeNames.length !== 0) {
-            addError(`${singularOrPlural(tooLargeNames.length > 1, ['Файл', 'Файлы'])} ${tooLargeNames.join(', ')} слишком ${singularOrPlural(tooLargeNames.length > 1, ['большой', 'большие'])}. Максимальный размер файла ${Math.floor(MAXIMUM_FILE_SIZE_BYTES/100000)/10} мб.`);
+            addError(`${singularOrPlural(tooLargeNames.length > 1, ['Файл', 'Файлы'])} ${tooLargeNames.join(', ')} слишком ${singularOrPlural(tooLargeNames.length > 1, ['большой', 'большие'])}. Максимальный размер файла ${Math.floor(MAXIMUM_FILE_SIZE_BYTES / 100000) / 10} мб.`);
         }
         if (wrongExtensionNames.length !== 0) {
             addError(`${singularOrPlural(wrongExtensionNames.length > 1, ['Файл', 'Файлы'])} ${wrongExtensionNames.join(', ')} в неподдерживаемом формате`);
@@ -107,7 +115,7 @@ export function App() {
                     setImages(images => {
                         for (const facesData of response) {
                             const image = images.find(image => image.localId === facesData.localId);
-                            if(!image)
+                            if (!image)
                                 continue;
                             image.serverId = facesData.serverId;
                             image.faces = facesData.faces;
@@ -222,7 +230,7 @@ export function App() {
                             }
                         ]}
                 />
-            </div>: <UploadPage addImages={addImages}/>}
+            </div> : <UploadPage addImages={addImages} />}
             <TableWidget
                 images={images}
                 table={table}
