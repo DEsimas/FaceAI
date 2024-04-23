@@ -6,11 +6,12 @@
     padding: 30px;
     box-sizing: border-box;
     border-radius: $border-radius;
-    font-size: 20px;
     position: relative;
     animation-name: Apperance;
     animation-duration: 1s;
     background-color: $black-transparent;
+    @include paragraph-font;
+    text-align: left;
 
     &-CloseBtn {
         position: absolute;
