@@ -1,3 +1,16 @@
 $black: rgb(21, 21, 21);
 $black-transparent: rgba(21, 21, 21, .9);
 $border-radius: 10px;
+$adaptive-font-size: calc(15px + 0.390625vw);
+
+@mixin header-font {
+    font-weight: 400;
+    font-size: calc(2 * $adaptive-font-size);
+    text-align: center;
+}
+
+@mixin paragraph-font {
+    font-weight: 300;
+    font-size: calc(1.5 * $adaptive-font-size);
+    text-align: center;
+}

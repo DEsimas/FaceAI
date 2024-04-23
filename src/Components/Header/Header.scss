@@ -1,35 +1,30 @@
 @import './../../Constants.scss';
 
 .Header {
-    text-align: center;
-    font-weight: normal;
-    margin: 0;
     background-color: $black-transparent;
-    height: 180px;
+    height: 15%;
     display: flex;
     align-items: center;
     justify-content: space-around;
     box-shadow: 0 0 10px 10px $black-transparent;
     
     &-Image {
-        height: 180px;
+        height: 100%;
         position: absolute;
         left: 0;
         top: 0;
 
-        @media screen and (max-width: 1300px) {
+        @media screen and (max-width: 1000px) {
             display: none;
         }
-    }
 
+    }
+    
     &-Span {
-        font-size: 36px;
-        width: 100%;
-        text-align: center;
-        @media screen and (max-width: 420px) {
-            font-size: 26px;
-            margin-right: 30px;
-            margin-left: 30px;
+        margin: 0 10px;
+        @media screen and (max-width: 1300px) {
+            max-width: 400px;
         }
+        @include header-font
     }
 }

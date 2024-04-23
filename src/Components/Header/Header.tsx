@@ -17,11 +17,11 @@ export function Header(props: HeaderProps) {
                 className={cnHeaderImage}
                 draggable={false}
             />
-            <span
+            <h1
                 className={cnHeaderSpan}
             >
                 Сравнение лиц на фотографиях
-            </span>
+            </h1>
         </ div>
     );
 }
