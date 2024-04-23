@@ -1,16 +1,31 @@
-import React, { type ChangeEvent, useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useEffect, useState } from 'react';
+import type { ChangeEvent } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { cnUploadImage, cnUploadImageButton, cnUploadImageContent, cnUploadImageIcon, cnUploadImageInput, cnUploadImageSpan, cnUploadImageText } from './UploadImage.classnames';
+import { cnUploadImage, cnUploadImageDisabled, cnUploadImageImage } from './UploadImage.classnames';
 import type { UploadImageProps } from './UploadImage.typings';
 
-import UploadButton from './../../Assets/UploadButton.png';
+import Upload from './../../Assets/Upload.png';
 
 import './UploadImage.scss';
 
 export function UploadImage(props: UploadImageProps) {
-    const {addImages, className} = props;
+    const { addImages, className } = props;
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<HTMLInputElement>();
+    const elementRef = useRef<HTMLDivElement>();
+
+    const [padding, setPadding] = useState<number>(0);
+
+    useEffect(() => {
+        setPadding((elementRef.current.clientWidth - 200) / 2);
+
+        const resizeObserver = new ResizeObserver(() => elementRef.current && setPadding((elementRef.current.clientWidth - 200) / 2));
+        resizeObserver.observe(elementRef.current);
+
+        return () => {
+            resizeObserver.disconnect();
+        };
+    }, []);
 
     const onClickHandler = useCallback(() => {
         inputRef.current.click();
@@ -24,30 +39,19 @@ export function UploadImage(props: UploadImageProps) {
 
     return (
         <div
-            className={classnames(className, cnUploadImage)}
+            className={classnames(cnUploadImage, className)}
+            onClick={onClickHandler}
+            ref={elementRef}
         >
-            <div
-                className={cnUploadImageContent}
-            >
-                <span
-                    className={cnUploadImageText}
-                >Для начала загрузите ваши изображения, можете просто перетащить их на страницу</span>
-                <button
-                    className={cnUploadImageButton}
-                    onClick={onClickHandler}
-                >
-                    <span
-                        className={cnUploadImageSpan}
-                    >ЗАГРУЗИТЬ</span>
-                    <img 
-                        className={cnUploadImageIcon}
-                        src={UploadButton}
-                        draggable={false}
-                    />
-                </button>
-            </div>
+            <img
+                className={cnUploadImageImage}
+                alt='Загрузгить изображение'
+                src={Upload}
+                style={{ padding: `${padding}px` }}
+                draggable={false}
+            />
             <input
-                className={cnUploadImageInput}
+                className={cnUploadImageDisabled}
                 ref={inputRef}
                 accept='image/*'
                 type='file'

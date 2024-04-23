@@ -4,6 +4,7 @@ export type TableProps = {
     className?: string;
     images: ImageFiles;
     table: number[][];
+    maximumFaces: number;
 };
 
 export type SubImage = {

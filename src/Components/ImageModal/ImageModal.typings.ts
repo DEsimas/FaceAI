@@ -6,4 +6,5 @@ export type ImageModalProps = {
     onClose: () => void;
     selectFace: (index: number) => void;
     selectedCounter: number;
+    maximumFaces: number;
 };

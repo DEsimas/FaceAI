@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { RemoveScroll } from 'react-remove-scroll';
 import { classnames } from '@bem-react/classnames';
-import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 import { Image } from '../Image/Image';
 import { cnImageModal, cnImageModalButton, cnImageModalContent } from './ImageModal.classnames';
 import type { ImageModalProps } from './ImageModal.typings';
@@ -11,7 +10,7 @@ import CloseWhite from './../../Assets/CloseWhite.png';
 import './ImageModal.scss';
 
 export function ImageModal(props: ImageModalProps) {
-    const { onClose, selectedCounter, selectFace, image, className} = props;
+    const { onClose, selectedCounter, selectFace, image, className, maximumFaces} = props;
 
     useEffect(() => {
         function handleKeyUp(event: KeyboardEvent) {
@@ -53,7 +52,7 @@ export function ImageModal(props: ImageModalProps) {
                     image={image}
                     selectFace={selectFace}
                     key={image.localId}
-                    disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
+                    disabled={selectedCounter >= maximumFaces}
                     hideButtons
                     modalOffset
                 />

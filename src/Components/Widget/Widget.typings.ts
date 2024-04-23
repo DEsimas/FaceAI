@@ -4,4 +4,5 @@ export type WidgetProps = {
     className?: string;
     selectedCounter?: number;
     children?: ReactNode;
+    maximumFaces: number;
 };

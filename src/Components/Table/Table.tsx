@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { MAXIMUM_AMOUNT_OF_SELECTED_FACES } from '../../Constants';
 import { Prompt } from '../Prompt';
 import { cnTable, cnTableCanvas } from './Table.classnames';
 import type { SubImage, TableProps } from './Table.typings';
@@ -10,7 +9,7 @@ import MTUCI from './../../Assets/MTUCI.svg';
 import './Table.scss';
 
 export function Table(props: TableProps) {
-    const { images, table, className } = props;
+    const { images, table, className, maximumFaces } = props;
 
     const canvas = useRef<HTMLCanvasElement>(null);
     const wrapper = useRef<HTMLDivElement>(null);
@@ -27,7 +26,7 @@ export function Table(props: TableProps) {
 
     useEffect(() => {
         const observer = new ResizeObserver(() => {
-            setRerender(r => r+1);
+            setRerender(r => r + 1);
         });
         observer.observe(wrapper.current);
         return () => observer.disconnect();
@@ -55,7 +54,7 @@ export function Table(props: TableProps) {
         ctx.canvas.height = size;
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
-        ctx.font = `bold ${Math.max(width <= 1400 ? 10 : 40 * (1 - amount / MAXIMUM_AMOUNT_OF_SELECTED_FACES), 16)}px Arial`;
+        ctx.font = `bold ${Math.max(width <= 1400 ? 10 : 40 * (1 - amount / maximumFaces), 16)}px Arial`;
         for (let i = 0; i < amount; i++) {
             for (let j = 0; j < amount; j++) {
                 const y = i * cellSize + gapSize * (i - 1);
@@ -93,8 +92,8 @@ export function Table(props: TableProps) {
                     image.onload = () => {
                         ctx.drawImage(
                             image,
-                            0,0,512,512,
-                            x,y,cellSize,cellSize
+                            0, 0, 512, 512,
+                            x, y, cellSize, cellSize
                         );
                     };
                     image.src = MTUCI;

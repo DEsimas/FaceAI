@@ -10,8 +10,8 @@ import type { TableWIdgetProps } from './TableWidget.typings';
 import './TableWidget.scss';
 
 export function TableWidget(props: TableWIdgetProps) {
-    const {selectedCounter, images, table} = props;
-    
+    const { selectedCounter, images, table, maximumFaces } = props;
+
     const [width, setWidth] = useState(window.innerWidth);
 
     useEffect(() => {
@@ -26,15 +26,22 @@ export function TableWidget(props: TableWIdgetProps) {
             disabled={DISABLE_WIDGET}
         >
             <div
-                className={tableWidgetCn({isShown: selectedCounter >= 2})}
+                className={tableWidgetCn({ isShown: selectedCounter >= 2 })}
                 style={{
                     width: width <= 600 ?
                         'calc(100% - 20px)' :
-                        `${Math.max(50*(selectedCounter/10), 25)}%`
+                        `${Math.max(50 * (selectedCounter / 10), 25)}%`
                 }}
             >
-                <Widget selectedCounter={selectedCounter}>
-                    <Table images={images.filter(image => image.selectedIndexes.length !== 0)} table={table} />
+                <Widget
+                    selectedCounter={selectedCounter}
+                    maximumFaces={maximumFaces}
+                >
+                    <Table
+                        maximumFaces={maximumFaces}
+                        images={images.filter(image => image.selectedIndexes.length !== 0)}
+                        table={table}
+                    />
                 </Widget>
             </div>
         </Draggable>

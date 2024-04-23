@@ -4,4 +4,5 @@ export type TableWIdgetProps = {
     images: ImageFiles;
     table: number[][];
     selectedCounter?: number;
+    maximumFaces: number;
 };

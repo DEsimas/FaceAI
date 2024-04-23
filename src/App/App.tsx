@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useBus } from 'react-bus';
 import { v4 } from 'uuid';
-import { MAXIMUM_AMOUNT_OF_SELECTED_FACES, USE_MOCK } from '../Constants';
+import { USE_MOCK } from '../Constants';
 import { isEqualFiles } from '../Utils/compareFiles';
 import { singularOrPlural } from '../Utils/singularOrPlural';
 import { getImageResolution } from '../Utils/getImageResolution';
@@ -22,21 +22,31 @@ import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
 
-export const MAXIMUM_FILE_SIZE_BYTES = 20000000; // 20 мбайт
-export const ALLOWED_FILE_EXTENSIONS =
+const MAXIMUM_FILE_SIZE_BYTES = 20000000; // 20 мбайт
+const ALLOWED_FILE_EXTENSIONS =
     ['png', 'jpg', 'jpeg', 'webp', 'bmp', 'jpe', 'jif', 'jfif', 'pjpeg', 'pjp', 'heic'];
 
 export function App() {
     let imagesCounter = 0;
 
+    const [maximumFaces, setMaximumFaces] = useState(window.innerWidth <= 600 ? 5 : 10);
     const [images, setImages] = useState<ImageFiles>([]);
-    const [table, setTable] = useState<number[][]>(mockSelectFaces().table);
+    const [table, setTable] = useState<number[][]>(mockSelectFaces([]).table);
     const [selectedCounter, setSelectedCounter] = useState(0);
     const [errors, setErrors] = useState<Error[]>([]);
     const [modalImageId, setModalImageId] = useState<string | null>(null);
     const [loadedCounter, setLoadedCounter] = useState(0);
 
     const bus = useBus();
+
+    const resizeHandler = useCallback(() => {
+        setMaximumFaces(window.innerWidth <= 600 ? 5 : 10);
+    }, []);
+
+    useEffect(() => {
+        window.addEventListener('resize', resizeHandler);
+        return () => window.removeEventListener('resize', resizeHandler);
+    }, []);
 
     useEffect(() => {
         if (imagesCounter !== images.length) {
@@ -190,6 +200,7 @@ export function App() {
                     selectFace={(index: number) => selectFace(images.find(img => img.localId === modalImageId).localId, index)}
                     image={images.find(img => img.localId === modalImageId)}
                     onClose={() => setModalImageId(null)}
+                    maximumFaces={maximumFaces}
                 /> : null}
             <MessageWrapper>
                 {errors.map(error => <Message
@@ -217,7 +228,7 @@ export function App() {
                                     removeImage={() => removeImage(image.localId)}
                                     selectFace={(index) => selectFace(image.localId, index)}
                                     key={image.localId}
-                                    disabled={selectedCounter >= MAXIMUM_AMOUNT_OF_SELECTED_FACES}
+                                    disabled={selectedCounter >= maximumFaces}
                                     fullscreenImage={() => fullscreenImage(image.localId)}
                                     isLoading={image.serverId === undefined}
                                 />
@@ -232,6 +243,7 @@ export function App() {
                 />
             </div> : <UploadPage addImages={addImages} />}
             <TableWidget
+                maximumFaces={maximumFaces}
                 images={images}
                 table={table}
                 selectedCounter={selectedCounter}
