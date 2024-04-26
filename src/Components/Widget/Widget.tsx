@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
+import { DISABLE_WIDGET } from '../../Constants';
 import { Counter } from '../Counter';
 import { cnWidget, cnWidgetArrow, cnWidgetContent, cnWidgetCounter, cnWidgetHeader } from './Widget.classnames';
 import type { WidgetProps } from './Widget.typings';
@@ -37,6 +38,9 @@ export function Widget(props: WidgetProps) {
                     width <= 600 ?
                         undefined : () => setIsHidden(hidden => !hidden)
                 }
+                style={{
+                    cursor: DISABLE_WIDGET ? 'default' : 'move'
+                }}
             >
                 <div>
                     <h3>Таблица соответствия</h3>

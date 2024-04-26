@@ -16,12 +16,13 @@ import { Image } from '../Components/Image';
 import { ImageModal } from '../Components/ImageModal';
 import { TableWidget } from '../Components/TableWidget/TableWidget';
 import { UploadPage } from '../Components/UploadPage';
+import { UploadButton } from '../Components/UploadButton';
+// import { ResetWidgetButton } from '../Components/ResetWidgetButton';
 import { selectFaces, uploadImages } from './App.server';
 import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppSelect, cnAppUploadButton } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
-import { UploadButton } from '../Components/UploadButton';
 
 const MAXIMUM_FILE_SIZE_BYTES = 20000000; // 20 мбайт
 const ALLOWED_FILE_EXTENSIONS =
@@ -256,6 +257,7 @@ export function App() {
                 table={table}
                 selectedCounter={selectedCounter}
             />
+            {/* {selectedCounter >= 2 ? <ResetWidgetButton /> : null} */}
         </div>
     );
 }
