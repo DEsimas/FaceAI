@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import { DISABLE_WIDGET } from '../../Constants';
+import useWidth from '../../Hooks/UseWidth';
 import { Counter } from '../Counter';
 import { cnWidget, cnWidgetArrow, cnWidgetContent, cnWidgetCounter, cnWidgetHeader } from './Widget.classnames';
 import type { WidgetProps } from './Widget.typings';
@@ -14,15 +14,7 @@ export function Widget(props: WidgetProps) {
 
     const [isHidden, setIsHidden] = useState(false);
 
-    const [width, setWidth] = useState(window.innerWidth);
-
-    useEffect(() => {
-        const resize = () => {
-            setWidth(window.innerWidth);
-        };
-        window.addEventListener('resize', resize);
-        return () => window.removeEventListener('resize', resize);
-    }, []);
+    const width = useWidth();
 
     return (
         <div
@@ -39,7 +31,7 @@ export function Widget(props: WidgetProps) {
                         undefined : () => setIsHidden(hidden => !hidden)
                 }
                 style={{
-                    cursor: DISABLE_WIDGET ? 'default' : 'move'
+                    // cursor: width < 600 ? 'default' : 'move'
                 }}
             >
                 <div>

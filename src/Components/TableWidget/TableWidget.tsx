@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import Draggable from 'react-draggable';
 import { Resizable } from 'react-resizable';
-import { DISABLE_WIDGET } from '../../Constants';
+import useWidth from '../../Hooks/UseWidth';
 import { Widget } from '../Widget';
 import { Table } from '../Table';
 import { cnWidgetHeader } from '../Widget/Widget.classnames';
@@ -15,10 +15,13 @@ export function TableWidget(props: TableWIdgetProps) {
 
     const widget = useRef<HTMLDivElement>();
 
+    const width = useWidth();
+
     return (
         <Draggable
             handle={`.${cnWidgetHeader}`}
-            disabled={DISABLE_WIDGET}
+            // disabled={width < 600}
+            disabled
         >
             <Resizable
                 height={300}
@@ -27,7 +30,7 @@ export function TableWidget(props: TableWIdgetProps) {
                 <div
                     className={tableWidgetCn({ isShown: selectedCounter >= 2 })}
                     style={{
-                        maxWidth: `${selectedCounter * 150}px`
+                        maxWidth: width > 600 ? `${selectedCounter * 150}px` : 'unset'
                     }}
                     ref={widget}
                 >

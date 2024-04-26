@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
+import useWidth from '../../Hooks/UseWidth';
 import { Prompt } from '../Prompt';
 import { cnTable, cnTableCanvas } from './Table.classnames';
 import type { SubImage, TableProps } from './Table.typings';
@@ -17,11 +18,10 @@ export function Table(props: TableProps) {
     // Костыль: нужен для переписовки таблицы при изменении размеров виджета
     const [rerender, setRerender] = useState(0);
 
-    const [width, setWidth] = useState(window.innerWidth);
+    const width = useWidth();
 
     useEffect(() => {
         const resize = () => {
-            setWidth(window.innerWidth);
             setRerender(rerender => rerender + 1);
         };
         window.addEventListener('resize', resize);
