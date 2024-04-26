@@ -19,6 +19,9 @@ export function TableWidget(props: TableWIdgetProps) {
         >
             <div
                 className={tableWidgetCn({ isShown: selectedCounter >= 2 })}
+                style={{
+                    maxWidth: `${selectedCounter * 150}px`
+                }}
             >
                 <Widget
                     selectedCounter={selectedCounter}

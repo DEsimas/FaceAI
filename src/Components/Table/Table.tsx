@@ -29,6 +29,8 @@ export function Table(props: TableProps) {
     }, []);
 
     useEffect(() => {
+        if (!wrapper.current)
+            return;
         const observer = new ResizeObserver(() => {
             setRerender(r => r + 1);
         });

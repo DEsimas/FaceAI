@@ -24,6 +24,8 @@ export function Image(props: ImageProps) {
     useListener('amountOfImagesChanged', () => setTimeout(rescale, 10));
 
     useEffect(() => {
+        if (!wrapper.current)
+            return;
         if (!scaledCoordinates && image.faces) {
             const scaledCoordinates: FacesCoordinates = [];
             for (const face of image.faces)
@@ -46,6 +48,8 @@ export function Image(props: ImageProps) {
 
         // Костыль: реренденим обводки каждую секунду, чтобы картинка не была долго в сломанном состоянии
         const interval = setInterval(() => {
+            if (!wrapper.current)
+                return;
             setOffset({ top: wrapper.current.offsetTop, left: wrapper.current.offsetLeft });
             setSize({ height: wrapper.current.offsetHeight, width: wrapper.current.offsetWidth });
         }, 1000);
