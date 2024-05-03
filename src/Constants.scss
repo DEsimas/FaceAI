@@ -5,7 +5,7 @@ $adaptive-font-size: calc(15px + 0.390625vw);
 
 @mixin header-font {
     font-weight: 400;
-    font-size: calc(2 * $adaptive-font-size);
+    font-size: calc(1.8 * $adaptive-font-size);
     text-align: center;
 }
 
