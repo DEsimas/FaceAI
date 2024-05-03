@@ -30,7 +30,8 @@ export function TableWidget(props: TableWIdgetProps) {
                 <div
                     className={tableWidgetCn({ isShown: selectedCounter >= 2 })}
                     style={{
-                        maxWidth: width > 600 ? `${selectedCounter * 150}px` : 'unset'
+                        maxWidth: width > 600 ? `${selectedCounter * 100}px` : 'unset',
+                        minWidth: width > 600 && selectedCounter < 4 ? '400px' : 'unset'
                     }}
                     ref={widget}
                 >

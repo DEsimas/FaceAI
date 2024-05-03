@@ -34,7 +34,11 @@ export function Widget(props: WidgetProps) {
                     // cursor: width < 600 ? 'default' : 'move'
                 }}
             >
-                <div>
+                <div
+                    style={{
+                        fontSize: width > 600 && selectedCounter <= 5 ? '18px' : 'unset'
+                    }}
+                >
                     {width >= 600 ?
                         <h3>Таблица соответствия</h3> : null
                     }

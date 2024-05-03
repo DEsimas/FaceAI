@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { classnames } from '@bem-react/classnames';
-import useWidth from '../../Hooks/UseWidth';
-import { Prompt } from '../Prompt';
+// import useWidth from '../../Hooks/UseWidth';
+// import { Prompt } from '../Prompt';
 import { cnTable, cnTableCanvas } from './Table.classnames';
 import type { SubImage, TableProps } from './Table.typings';
 
@@ -18,7 +18,7 @@ export function Table(props: TableProps) {
     // Костыль: нужен для переписовки таблицы при изменении размеров виджета
     const [rerender, setRerender] = useState(0);
 
-    const width = useWidth();
+    // const width = useWidth();
 
     useEffect(() => {
         const resize = () => {
@@ -113,7 +113,7 @@ export function Table(props: TableProps) {
             className={classnames(cnTable, className)}
             ref={wrapper}
         >
-            {width <= 600 ? null : <Prompt />}
+            {/* {width <= 600 ? null : <Prompt />} */}
             <canvas
                 className={cnTableCanvas}
                 ref={canvas}

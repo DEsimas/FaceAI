@@ -9,7 +9,7 @@
 
 .TableWidget {
     min-width: 600px;
-    width: 50%;
+    width: 45%;
     display: none;
     padding: 10px;
     margin: 10px;
@@ -35,7 +35,9 @@
 @keyframes fadeIn {
     from {
         opacity: 0;
-    } to {
+    }
+
+    to {
         opacity: 1;
     }
 }
