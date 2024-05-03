@@ -19,7 +19,7 @@ import { UploadPage } from '../Components/UploadPage';
 import { UploadButton } from '../Components/UploadButton';
 // import { ResetWidgetButton } from '../Components/ResetWidgetButton';
 import { selectFaces, uploadImages } from './App.server';
-import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppSelect, cnAppUploadButton } from './App.classnames';
+import { cnApp, cnAppDragAndDrop, cnAppGallery, cnAppHeader, cnAppSelect, cnAppSelectHint, cnAppUploadButton } from './App.classnames';
 import type { ImageFiles, Error } from './App.typings';
 
 import './App.scss';
@@ -214,43 +214,49 @@ export function App() {
             <Header
                 className={cnAppHeader}
             />
-            {images.length ? <div className={cnAppSelect}>
-                <p>Нажмите на лица, которые нужно сравнить, чтобы добавить их в таблицу соответствия</p>
-                <Gallery
-                    className={cnAppGallery}
-                    items={
-                        [
-                            ...images.map(image => ({
-                                id: image.localId,
-                                width: image.resolution.width,
-                                height: image.resolution.height,
-                                element: <Image
-                                    selectedIndexes={[...image.selectedIndexes]}
-                                    image={image}
-                                    removeImage={() => removeImage(image.localId)}
-                                    selectFace={(index) => selectFace(image.localId, index)}
-                                    key={image.localId}
-                                    disabled={selectedCounter >= maximumFaces}
-                                    fullscreenImage={() => fullscreenImage(image.localId)}
-                                    isLoading={image.serverId === undefined}
-                                />
-                            })),
-                            ...maximumFaces === 10 ? [
-                                {
-                                    id: 'upload',
-                                    width: 800,
-                                    height: 800,
-                                    element: <UploadImage addImages={addImages} />
-                                }] : []
-                        ]}
-                />
-                {maximumFaces === 5 ?
-                    <UploadButton
-                        className={cnAppUploadButton}
-                        addImages={addImages}
-                    /> : null
-                }
-            </div> : <UploadPage addImages={addImages} />}
+            {images.length ?
+                <div
+                    className={cnAppSelect}
+                    style={{ marginBottom: selectedCounter >= 2 ? undefined : '10px' }}
+                >
+                    <p
+                        className={cnAppSelectHint}
+                    >Нажмите на лица, которые нужно сравнить, чтобы добавить их в таблицу соответствия</p>
+                    <Gallery
+                        className={cnAppGallery}
+                        items={
+                            [
+                                ...images.map(image => ({
+                                    id: image.localId,
+                                    width: image.resolution.width,
+                                    height: image.resolution.height,
+                                    element: <Image
+                                        selectedIndexes={[...image.selectedIndexes]}
+                                        image={image}
+                                        removeImage={() => removeImage(image.localId)}
+                                        selectFace={(index) => selectFace(image.localId, index)}
+                                        key={image.localId}
+                                        disabled={selectedCounter >= maximumFaces}
+                                        fullscreenImage={() => fullscreenImage(image.localId)}
+                                        isLoading={image.serverId === undefined}
+                                    />
+                                })),
+                                ...maximumFaces === 10 ? [
+                                    {
+                                        id: 'upload',
+                                        width: 800,
+                                        height: 800,
+                                        element: <UploadImage addImages={addImages} />
+                                    }] : []
+                            ]}
+                    />
+                    {maximumFaces === 5 ?
+                        <UploadButton
+                            className={cnAppUploadButton}
+                            addImages={addImages}
+                        /> : null
+                    }
+                </div> : <UploadPage addImages={addImages} />}
             <TableWidget
                 maximumFaces={maximumFaces}
                 images={images}

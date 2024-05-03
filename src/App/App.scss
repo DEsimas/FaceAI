@@ -8,20 +8,35 @@ body {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-button, div, img, html, body {
+button,
+div,
+img,
+html,
+body {
     -webkit-tap-highlight-color: transparent;
 }
 
 .App {
     &-Select {
-        margin: calc(18vh) 20px 100px 20px;
+        margin: calc(12vh) 20px 100px 20px;
+
+        @media screen and (max-width: 600px) {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
         @include paragraph-font;
+
+        &Hint {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
     }
 
     &-Header {

@@ -35,7 +35,9 @@ export function Widget(props: WidgetProps) {
                 }}
             >
                 <div>
-                    <h3>Таблица соответствия</h3>
+                    {width >= 600 ?
+                        <h3>Таблица соответствия</h3> : null
+                    }
                     {selectedCounter ?
                         <Counter
                             className={cnWidgetCounter}
@@ -65,6 +67,6 @@ export function Widget(props: WidgetProps) {
             >
                 {children}
             </div>
-        </div>
+        </div >
     );
 }

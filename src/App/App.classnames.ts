@@ -7,3 +7,4 @@ export const cnAppDragAndDrop = appCn('DragAndDrop');
 export const cnAppSelect = appCn('Select');
 export const cnAppGallery = appCn('Gallery');
 export const cnAppUploadButton = appCn('UploadButton');
+export const cnAppSelectHint = appCn('SelectHint');
