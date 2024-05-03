@@ -7,8 +7,9 @@
         "preinstall": "npx only-allow pnpm",
         "build:dev": "pnpm exec webpack --env mode=development",
         "build:prod": "pnpm exec webpack --env mode=production",
-        "serve:dev": "pnpm build:dev && pnpm exec webpack serve --env mode=development --open",
-        "serve:prod": "pnpm build:prod && pnpm exec webpack serve --env mode=production",
+        "serve:dev": "pnpm exec webpack serve --env mode=development --open",
+        "serve:prod": "pnpm exec webpack serve --env mode=production",
+        "start": "pnpm build:dev && pnpm serve:dev",
         "lint": "pnpm exec eslint **",
         "hooks": "git config --local core.hooksPath .githooks/"
     },
