@@ -257,12 +257,14 @@ export function App() {
                         /> : null
                     }
                 </div> : <UploadPage addImages={addImages} />}
-            <TableWidget
-                maximumFaces={maximumFaces}
-                images={images}
-                table={table}
-                selectedCounter={selectedCounter}
-            />
+            {selectedCounter >= 2 ?
+                <TableWidget
+                    maximumFaces={maximumFaces}
+                    images={images}
+                    table={table}
+                    selectedCounter={selectedCounter}
+                /> : null
+            }
             {/* {selectedCounter >= 2 ? <ResetWidgetButton /> : null} */}
         </div>
     );
